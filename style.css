@@ -273,8 +273,21 @@ main {
   .header { flex-direction: row; }
   .hero { flex-direction: column; align-items: flex-start; }
   .hero-marquee { min-width: 100%; }
-  .features-list, .item-cards { flex-direction: column; align-items: center; }
-  .item-card, .feature { width: 90vw; min-width: unset; }
+  .features-list, .item-cards {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 100vw;
+    box-sizing: border-box;
+  }
+  .feature, .item-card {
+    width: 95vw;
+    max-width: 400px;
+    min-width: unset;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+  }
 }
 @media (max-width: 700px) {
   .header { flex-direction: row; gap: 0.5rem; }
@@ -332,5 +345,12 @@ main {
     gap: 0.5rem;
   }
   .marquee-track img { width: 60px; height: 60px; }
-  .feature, .item-card { width: 95vw; min-width: unset; }
+  .feature, .item-card {
+    width: 95vw;
+    max-width: 400px;
+    min-width: unset;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+  }
 }
