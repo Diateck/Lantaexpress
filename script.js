@@ -1,9 +1,11 @@
 // Mobile menu toggle for responsive nav
 const menuBtn = document.querySelector('.menu-btn');
-const nav = document.querySelector('.nav ul');
-if (menuBtn && nav) {
+const navMenu = document.getElementById('main-menu');
+if (menuBtn && navMenu) {
   menuBtn.addEventListener('click', () => {
-    nav.classList.toggle('show');
+    const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
+    menuBtn.setAttribute('aria-expanded', !expanded);
+    navMenu.classList.toggle('show');
   });
 }
 

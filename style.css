@@ -19,6 +19,15 @@ html, body {
   color: var(--dark);
 }
 
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+main {
+  flex: 1 0 auto;
+}
+
 .header {
   display: flex;
   align-items: center;
@@ -233,12 +242,9 @@ html, body {
   background: var(--green);
   color: #fff;
   padding: 1.5rem 2rem;
-  margin-top: auto;
   width: 100%;
-  position: relative;
-  left: 0;
-  bottom: 0;
   box-sizing: border-box;
+  margin-top: auto;
 }
 .footer-content {
   display: flex;
@@ -260,17 +266,53 @@ html, body {
   margin: 0;
 }
 
+@media (max-width: 1200px) {
+  .item-card, .feature { width: 280px; }
+}
 @media (max-width: 900px) {
+  .header { flex-direction: row; }
   .hero { flex-direction: column; align-items: flex-start; }
   .hero-marquee { min-width: 100%; }
   .features-list, .item-cards { flex-direction: column; align-items: center; }
+  .item-card, .feature { width: 90vw; min-width: unset; }
+}
+@media (max-width: 700px) {
+  .header { flex-direction: row; gap: 0.5rem; }
+  .brand-name { font-size: 1.1rem; }
+  .nav ul { gap: 0.5rem; }
 }
 @media (max-width: 600px) {
-  .header { flex-direction: column; gap: 0.5rem; }
-  .nav ul { flex-direction: column; gap: 0.5rem; }
-  .hero h1 { font-size: 1.3rem; }
+  .header { flex-direction: row; justify-content: space-between; align-items: center; gap: 0; padding: 0.5rem 0.5rem; }
+  .logo { height: 36px; }
+  .brand-name { font-size: 1rem; }
+  .nav ul {
+    flex-direction: column;
+    gap: 0.5rem;
+    position: absolute;
+    top: 60px;
+    right: 10px;
+    background: var(--green);
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+    padding: 1rem 1.5rem;
+    display: none;
+    z-index: 100;
+  }
+  .nav ul.show {
+    display: flex;
+  }
+  .menu-btn {
+    display: block;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 2rem;
+    margin-left: auto;
+    z-index: 101;
+  }
+  .hero h1 { font-size: 1.1rem; }
   .hero-content { max-width: 100%; }
-  .hero-marquee { height: 120px; }
-  .marquee-track img { width: 90px; height: 90px; }
+  .hero-marquee { height: 90px; }
+  .marquee-track img { width: 60px; height: 60px; }
   .feature, .item-card { width: 95vw; min-width: unset; }
 }
