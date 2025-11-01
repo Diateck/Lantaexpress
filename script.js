@@ -9,8 +9,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const triggerBottom = window.innerHeight * 0.95;
     cards.forEach((card) => {
       const cardTop = card.getBoundingClientRect().top;
-      if (cardTop < triggerBottom) {
+      const cardBottom = card.getBoundingClientRect().bottom;
+      if (cardTop < triggerBottom && cardBottom > 0) {
         card.classList.add('slide-in');
+      } else {
+        card.classList.remove('slide-in');
       }
     });
   }
