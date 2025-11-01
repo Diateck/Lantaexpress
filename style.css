@@ -588,22 +588,25 @@ main {
   main, .items-section, .recent-listings-section {
     padding-bottom: 80px !important;
   }
+  .item-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    justify-items: center;
+  }
   .item-card {
     opacity: 0;
-    transform: translateX(40px);
     transition: opacity 0.6s cubic-bezier(.4,0,.2,1), transform 0.6s cubic-bezier(.4,0,.2,1);
   }
-  .item-card.slide-in-left {
-    opacity: 1;
-    transform: translateX(0);
-    transition-delay: 0.1s;
-  }
-  .item-card.slide-in-right {
-    opacity: 1;
-    transform: translateX(0);
-    transition-delay: 0.1s;
+  .item-cards .item-card:nth-child(odd) {
+    transform: translateX(-40px);
   }
   .item-cards .item-card:nth-child(even) {
-    transform: translateX(-40px);
+    transform: translateX(40px);
+  }
+  .item-card.slide-in {
+    opacity: 1;
+    transform: translateX(0);
+    transition-delay: 0.1s;
   }
 }

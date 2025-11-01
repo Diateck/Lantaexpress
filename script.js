@@ -7,14 +7,10 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!isMobile()) return;
     const cards = document.querySelectorAll('.item-cards .item-card');
     const triggerBottom = window.innerHeight * 0.95;
-    cards.forEach((card, idx) => {
+    cards.forEach((card) => {
       const cardTop = card.getBoundingClientRect().top;
       if (cardTop < triggerBottom) {
-        if ((idx + 1) % 2 === 0) {
-          card.classList.add('slide-in-left');
-        } else {
-          card.classList.add('slide-in-right');
-        }
+        card.classList.add('slide-in');
       }
     });
   }
