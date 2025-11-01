@@ -585,6 +585,15 @@ main {
   body {
     padding-bottom: 60px !important;
   }
+}
+
+@media (min-width: 601px) {
+  .mobile-bottom-nav {
+    display: none !important;
+  }
+  .footer {
+    display: block !important;
+  }
   main, .items-section, .recent-listings-section {
     padding-bottom: 80px !important;
   }
