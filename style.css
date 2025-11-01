@@ -439,4 +439,102 @@ main {
     margin: 0;
     font-weight: 600;
   }
+  .item-price-rating {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin: 0.2rem 0 0.3rem 0;
+    font-size: 0.85rem;
+  }
+  .item-price {
+    color: #00886a;
+    font-weight: bold;
+  }
+  .item-rating {
+    color: #ff7a3d;
+    font-weight: 600;
+    font-size: 0.85rem;
+  }
+  .add-to-cart-btn {
+    width: 100%;
+    padding: 0.3rem 0;
+    background: #00886a;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 0.1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .add-to-cart-btn:hover {
+    background: #ff7a3d;
+  }
+  .recent-listings-section {
+    background: #fff;
+    padding: 2rem 1rem;
+    margin-top: 1.5rem;
+  }
+  .recent-listings-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    justify-items: center;
+  }
+  .recent-listing-card {
+    width: 90px;
+    height: 110px;
+    min-width: 0;
+    max-width: 100%;
+    padding: 0.5rem 0.3rem 0.3rem 0.3rem;
+    box-sizing: border-box;
+    margin: 0;
+    border-radius: 14px;
+    background: #e6f7f3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .recent-listing-card img {
+    width: 80px;
+    height: 60px;
+    border-radius: 10px;
+    object-fit: cover;
+    margin-bottom: 0.3rem;
+  }
+  .recent-listing-card h4 {
+    font-size: 0.85rem;
+    text-align: center;
+    margin: 0;
+    font-weight: 600;
+    color: #2b0b0b;
+  }
+  .recent-listing-price {
+    color: #00886a;
+    font-weight: bold;
+    font-size: 0.85rem;
+    margin-top: 0.1rem;
+  }
+  .recent-listing-card .add-to-cart-btn {
+    width: 100%;
+    padding: 0.3rem 0;
+    background: #00886a;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 0.1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .recent-listing-card .add-to-cart-btn:hover {
+    background: #ff7a3d;
+  }
 }
