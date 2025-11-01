@@ -7,13 +7,19 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!isMobile()) return;
     const cards = document.querySelectorAll('.item-cards .item-card');
     const triggerBottom = window.innerHeight * 0.95;
-    cards.forEach((card) => {
+    cards.forEach((card, idx) => {
       const cardTop = card.getBoundingClientRect().top;
       const cardBottom = card.getBoundingClientRect().bottom;
       if (cardTop < triggerBottom && cardBottom > 0) {
-        card.classList.add('slide-in');
+        if ((idx + 1) % 2 === 0) {
+          card.classList.remove('slide-in-left');
+          card.classList.add('slide-in-right');
+        } else {
+          card.classList.remove('slide-in-right');
+          card.classList.add('slide-in-left');
+        }
       } else {
-        card.classList.remove('slide-in');
+        card.classList.remove('slide-in-left', 'slide-in-right');
       }
     });
   }
