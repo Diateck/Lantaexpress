@@ -585,4 +585,7 @@ main {
   body {
     padding-bottom: 60px !important;
   }
+  main, .items-section, .recent-listings-section {
+    padding-bottom: 80px !important;
+  }
 }
