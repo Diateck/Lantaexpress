@@ -520,21 +520,4 @@ main {
     font-size: 0.85rem;
     margin-top: 0.1rem;
   }
-  .recent-listing-card .add-to-cart-btn {
-    width: 100%;
-    padding: 0.3rem 0;
-    background: #00886a;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s;
-    margin-top: 0.1rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  }
-  .recent-listing-card .add-to-cart-btn:hover {
-    background: #ff7a3d;
-  }
 }
