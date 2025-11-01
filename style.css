@@ -1,3 +1,8 @@
+@media (min-width: 601px) {
+  .mobile-bottom-nav {
+    display: none !important;
+  }
+}
 @media (max-width: 600px) {
   .hero-marquee {
     width: 100vw;
