@@ -148,29 +148,24 @@ main {
   .header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
   }
   .logo-area {
-    order: 1;
+    flex: 0 0 auto;
   }
   .nav {
-    order: 2;
     display: flex;
     align-items: center;
-  }
-  .header-icons {
-    order: 3;
-    margin-left: 0.5rem;
-    display: flex;
-    align-items: center;
+    margin-left: auto;
   }
   .cart-btn {
-    order: 1;
     margin-right: 0.5rem;
+    order: 0;
   }
   #main-menu {
-    order: 2;
     display: flex;
     align-items: center;
+    order: 1;
   }
 }
 .logo-area {
