@@ -116,8 +116,8 @@
   --dark: #2b0b0b;
   --light: #e6f7f3;
   --gray: #f8f8f8;
-  --radius: 14px;
-  --shadow: 0 2px 8px rgba(0,0,0,0.06);
+  --radius: 16px;
+  --shadow: 0 4px 16px rgba(0,0,0,0.10);
   --font-main: 'Segoe UI', Arial, sans-serif;
 }
 
@@ -272,7 +272,7 @@ main {
   min-width: 320px;
   overflow: hidden;
   border-radius: var(--radius);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  box-shadow: var(--shadow);
   background: var(--light);
   padding: 0.5rem 0;
   position: relative;
@@ -282,6 +282,7 @@ main {
   display: flex;
   gap: 1.5rem;
   align-items: center;
+  will-change: transform;
   animation: marquee-left 18s linear infinite;
 }
 .marquee-track img {
@@ -293,9 +294,6 @@ main {
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   background: #fff;
 }
-
-/* Make images responsive and avoid layout shifts */
-img { display: block; max-width: 100%; height: auto; }
 @keyframes marquee-left {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
@@ -334,45 +332,6 @@ img { display: block; max-width: 100%; height: auto; }
 }
 .feature:hover {
   box-shadow: 0 8px 24px rgba(0,136,106,0.12);
-}
-
-/* === Performant animation helpers === */
-/* Use only opacity + transform for GPU acceleration. Elements get the
-   `anim` class initially; `anim in` triggers the visible state. */
-/* Default: no animations (desktop/tablet) - mobile will enable a safe anim via media query */
-.anim, .anim.in {
-  opacity: 1;
-  transition: none;
-  will-change: auto;
-}
-
-/* Mobile-only: GPU-friendly reveal (opacity + translate3d), small movement */
-@media (max-width: 600px) {
-  .anim {
-    opacity: 0;
-    transform: translate3d(0,8px,0);
-    transition: opacity 360ms cubic-bezier(.4,0,.2,1), transform 360ms cubic-bezier(.4,0,.2,1);
-    will-change: opacity, transform;
-  }
-  .anim.in {
-    opacity: 1;
-    transform: translate3d(0,0,0);
-  }
-
-  /* Reduced motion on mobile: disable animations */
-  @media (prefers-reduced-motion: reduce) {
-    .anim { transition: none !important; transform: none !important; opacity: 1 !important; will-change: auto !important; }
-  }
-}
-
-/* Limit repaint scope and reduce heavy shadows for better performance */
-.features-list, .item-cards { contain: paint; }
-.feature, .item-card { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
-.feature:hover, .item-card:hover { box-shadow: 0 6px 16px rgba(0,0,0,0.10); }
-
-/* Accessibility: respect reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  .anim { transition: none !important; transform: none !important; opacity: 1 !important; will-change: auto !important; }
 }
 
 .items-section {
@@ -636,16 +595,13 @@ img { display: block; max-width: 100%; height: auto; }
     overflow-x: hidden;
     background: #e6f7f3;
     border: 1.5px solid #d0eae2;
-    box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     padding: 0.5rem 0 0.2rem 0;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     margin-bottom: 0.5rem;
   }
-
-  /* Pause marquee animation on mobile to reduce continuous painting */
-  .marquee-track { animation: none !important; }
   .hero-marquee {
     margin-left: auto;
     margin-right: auto;
@@ -808,5 +764,24 @@ img { display: block; max-width: 100%; height: auto; }
     gap: 0.3rem;
     justify-items: center;
   }
-  
+  .item-card {
+    opacity: 0;
+    transition: opacity 0.6s cubic-bezier(.4,0,.2,1), transform 0.6s cubic-bezier(.4,0,.2,1);
+  }
+  .item-card.slide-in-left {
+    opacity: 1;
+    transform: translateX(0);
+    transition-delay: 0.1s;
+  }
+  .item-card.slide-in-right {
+    opacity: 1;
+    transform: translateX(0);
+    transition-delay: 0.1s;
+  }
+  .item-cards .item-card:nth-child(odd):not(.slide-in-left) {
+    transform: translateX(-40px);
+  }
+  .item-cards .item-card:nth-child(even):not(.slide-in-right) {
+    transform: translateX(40px);
+  }
 }
