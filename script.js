@@ -1,31 +1,60 @@
-// Slide-in animation for featured items on mobile
+// Performant, batched fade/translate reveals using IntersectionObserver
 document.addEventListener('DOMContentLoaded', function () {
-  function isMobile() {
-    return window.innerWidth <= 600;
+  const selector = '.features-list .feature, .item-cards .item-card';
+  const items = Array.from(document.querySelectorAll(selector));
+  if (!items.length) return;
+
+  // Add base 'anim' class so CSS sets initial hidden state
+  items.forEach(el => el.classList.add('anim'));
+
+  // Respect reduced-motion preference
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReduced) {
+    items.forEach(el => el.classList.add('in'));
+    return;
   }
-  function animateFeaturedItems() {
-    if (!isMobile()) return;
-    const cards = document.querySelectorAll('.item-cards .item-card');
-    const triggerBottom = window.innerHeight * 0.95;
-    cards.forEach((card, idx) => {
-      const cardTop = card.getBoundingClientRect().top;
-      const cardBottom = card.getBoundingClientRect().bottom;
-      if (cardTop < triggerBottom && cardBottom > 0) {
-        if ((idx + 1) % 2 === 0) {
-          card.classList.remove('slide-in-left');
-          card.classList.add('slide-in-right');
-        } else {
-          card.classList.remove('slide-in-right');
-          card.classList.add('slide-in-left');
-        }
-      } else {
-        card.classList.remove('slide-in-left', 'slide-in-right');
+
+  // rAF-batched reveal queue to limit main-thread work
+  let queue = [];
+  const flushQueue = () => {
+    if (!queue.length) return;
+    requestAnimationFrame(() => {
+      // reveal a small batch per frame to avoid jank
+      const BATCH = 18;
+      const batch = queue.splice(0, BATCH);
+      batch.forEach(el => {
+        // set will-change then toggle class
+        try { el.style.willChange = 'opacity, transform'; } catch(e) {}
+        el.classList.add('in');
+        // cleanup will-change after transition end
+        const onEnd = (ev) => {
+          if (ev.propertyName !== 'opacity' && ev.propertyName !== 'transform') return;
+          el.style.willChange = '';
+          el.removeEventListener('transitionend', onEnd);
+        };
+        el.addEventListener('transitionend', onEnd);
+      });
+      // if more items queued, schedule another frame
+      if (queue.length) flushQueue();
+    });
+  };
+
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        queue.push(entry.target);
+        obs.unobserve(entry.target);
       }
     });
-  }
-  window.addEventListener('scroll', animateFeaturedItems);
-  window.addEventListener('resize', animateFeaturedItems);
-  animateFeaturedItems();
+    if (queue.length) flushQueue();
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+  items.forEach(el => observer.observe(el));
+
+  // Lazy-load images to reduce initial load (if not already set)
+  document.querySelectorAll('img').forEach(img => {
+    if (!img.hasAttribute('loading')) img.setAttribute('loading', 'lazy');
+  });
 });
 // Mobile menu toggle for responsive nav
 const menuBtn = document.querySelector('.menu-btn');

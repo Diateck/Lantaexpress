@@ -334,6 +334,30 @@ main {
   box-shadow: 0 8px 24px rgba(0,136,106,0.12);
 }
 
+/* === Performant animation helpers === */
+/* Use only opacity + transform for GPU acceleration. Elements get the
+   `anim` class initially; `anim in` triggers the visible state. */
+.anim {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 420ms cubic-bezier(.4,0,.2,1), transform 420ms cubic-bezier(.4,0,.2,1);
+  will-change: opacity, transform;
+}
+.anim.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Limit repaint scope and reduce heavy shadows for better performance */
+.features-list, .item-cards { contain: paint; }
+.feature, .item-card { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.feature:hover, .item-card:hover { box-shadow: 0 6px 16px rgba(0,0,0,0.10); }
+
+/* Accessibility: respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .anim { transition: none !important; transform: none !important; opacity: 1 !important; will-change: auto !important; }
+}
+
 .items-section {
   background: #fff;
   padding: 2rem 1rem;
