@@ -339,13 +339,11 @@ main {
    `anim` class initially; `anim in` triggers the visible state. */
 .anim {
   opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 420ms cubic-bezier(.4,0,.2,1), transform 420ms cubic-bezier(.4,0,.2,1);
-  will-change: opacity, transform;
+  transition: opacity 420ms cubic-bezier(.4,0,.2,1);
+  will-change: opacity;
 }
 .anim.in {
   opacity: 1;
-  transform: translateY(0);
 }
 
 /* Limit repaint scope and reduce heavy shadows for better performance */
@@ -788,24 +786,5 @@ main {
     gap: 0.3rem;
     justify-items: center;
   }
-  .item-card {
-    opacity: 0;
-    transition: opacity 0.6s cubic-bezier(.4,0,.2,1), transform 0.6s cubic-bezier(.4,0,.2,1);
-  }
-  .item-card.slide-in-left {
-    opacity: 1;
-    transform: translateX(0);
-    transition-delay: 0.1s;
-  }
-  .item-card.slide-in-right {
-    opacity: 1;
-    transform: translateX(0);
-    transition-delay: 0.1s;
-  }
-  .item-cards .item-card:nth-child(odd):not(.slide-in-left) {
-    transform: translateX(-40px);
-  }
-  .item-cards .item-card:nth-child(even):not(.slide-in-right) {
-    transform: translateX(40px);
-  }
+  
 }

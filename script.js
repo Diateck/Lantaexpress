@@ -20,19 +20,22 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!queue.length) return;
     requestAnimationFrame(() => {
       // reveal a small batch per frame to avoid jank
-      const BATCH = 18;
+      const BATCH = 6; // smaller batch to spread work
+      const STAGGER_MS = 28; // small stagger to further reduce simultaneous painting
       const batch = queue.splice(0, BATCH);
-      batch.forEach(el => {
-        // set will-change then toggle class
-        try { el.style.willChange = 'opacity, transform'; } catch(e) {}
-        el.classList.add('in');
-        // cleanup will-change after transition end
-        const onEnd = (ev) => {
-          if (ev.propertyName !== 'opacity' && ev.propertyName !== 'transform') return;
-          el.style.willChange = '';
-          el.removeEventListener('transitionend', onEnd);
-        };
-        el.addEventListener('transitionend', onEnd);
+      batch.forEach((el, idx) => {
+        // staggered reveal
+        setTimeout(() => {
+          try { el.style.willChange = 'opacity'; } catch(e) {}
+          el.classList.add('in');
+          // cleanup will-change after transition end
+          const onEnd = (ev) => {
+            if (ev.propertyName !== 'opacity') return;
+            el.style.willChange = '';
+            el.removeEventListener('transitionend', onEnd);
+          };
+          el.addEventListener('transitionend', onEnd);
+        }, idx * STAGGER_MS);
       });
       // if more items queued, schedule another frame
       if (queue.length) flushQueue();
