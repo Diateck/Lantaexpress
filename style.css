@@ -337,13 +337,12 @@ main {
 /* === Performant animation helpers === */
 /* Use only opacity + transform for GPU acceleration. Elements get the
    `anim` class initially; `anim in` triggers the visible state. */
-.anim {
-  opacity: 0;
-  transition: opacity 420ms cubic-bezier(.4,0,.2,1);
-  will-change: opacity;
-}
-.anim.in {
-  opacity: 1;
+.anim, .anim.in {
+  /* Animations disabled: show content immediately */
+  opacity: 1 !important;
+  transition: none !important;
+  transform: none !important;
+  will-change: auto !important;
 }
 
 /* Limit repaint scope and reduce heavy shadows for better performance */
