@@ -334,6 +334,22 @@ main {
   box-shadow: 0 8px 24px rgba(0,136,106,0.12);
 }
 
+/* Fade-in appearance: lightweight, GPU-friendly (opacity only) */
+.feature,
+.item-card {
+  opacity: 0;
+  transition: opacity 380ms cubic-bezier(.4,0,.2,1);
+  will-change: opacity;
+}
+.feature.in-view,
+.item-card.in-view {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .feature, .item-card { transition: none !important; opacity: 1 !important; }
+}
+
 .items-section {
   background: #fff;
   padding: 2rem 1rem;

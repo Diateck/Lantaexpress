@@ -1,31 +1,30 @@
-// Slide-in animation for featured items on mobile
+// Lightweight fade-in using Intersection Observer (professional, performant)
 document.addEventListener('DOMContentLoaded', function () {
-  function isMobile() {
-    return window.innerWidth <= 600;
+  const items = document.querySelectorAll('.features-list .feature, .item-cards .item-card');
+  if (!items || items.length === 0) return;
+
+  // Respect user preference for reduced motion
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReduced) {
+    items.forEach(el => el.classList.add('in-view'));
+    return;
   }
-  function animateFeaturedItems() {
-    if (!isMobile()) return;
-    const cards = document.querySelectorAll('.item-cards .item-card');
-    const triggerBottom = window.innerHeight * 0.95;
-    cards.forEach((card, idx) => {
-      const cardTop = card.getBoundingClientRect().top;
-      const cardBottom = card.getBoundingClientRect().bottom;
-      if (cardTop < triggerBottom && cardBottom > 0) {
-        if ((idx + 1) % 2 === 0) {
-          card.classList.remove('slide-in-left');
-          card.classList.add('slide-in-right');
-        } else {
-          card.classList.remove('slide-in-right');
-          card.classList.add('slide-in-left');
-        }
-      } else {
-        card.classList.remove('slide-in-left', 'slide-in-right');
+
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        obs.unobserve(entry.target); // unobserve to avoid extra work
       }
     });
-  }
-  window.addEventListener('scroll', animateFeaturedItems);
-  window.addEventListener('resize', animateFeaturedItems);
-  animateFeaturedItems();
+  }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
+
+  items.forEach(el => observer.observe(el));
+
+  // Lazy-load images (set native loading attribute) to improve performance
+  document.querySelectorAll('img').forEach(img => {
+    if (!img.hasAttribute('loading')) img.setAttribute('loading', 'lazy');
+  });
 });
 // Mobile menu toggle for responsive nav
 const menuBtn = document.querySelector('.menu-btn');
