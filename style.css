@@ -68,6 +68,43 @@
   }
 }
 /* Lanta Xpress Professional E-commerce Styles */
+.cart-btn {
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.cart-icon {
+  width: 22px;
+  height: 22px;
+  stroke: #fff;
+  display: block;
+  background: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+  .cart-btn {
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .cart-icon {
+    width: 20px;
+    height: 20px;
+    stroke: #fff;
+    background: none !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
 :root {
   --green: #00886a;
   --accent: #ff7a3d;
