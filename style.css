@@ -116,8 +116,8 @@
   --dark: #2b0b0b;
   --light: #e6f7f3;
   --gray: #f8f8f8;
-  --radius: 16px;
-  --shadow: 0 4px 16px rgba(0,0,0,0.10);
+  --radius: 14px;
+  --shadow: 0 2px 8px rgba(0,0,0,0.06);
   --font-main: 'Segoe UI', Arial, sans-serif;
 }
 
@@ -272,7 +272,7 @@ main {
   min-width: 320px;
   overflow: hidden;
   border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
   background: var(--light);
   padding: 0.5rem 0;
   position: relative;
@@ -282,7 +282,6 @@ main {
   display: flex;
   gap: 1.5rem;
   align-items: center;
-  will-change: transform;
   animation: marquee-left 18s linear infinite;
 }
 .marquee-track img {
@@ -294,6 +293,9 @@ main {
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   background: #fff;
 }
+
+/* Make images responsive and avoid layout shifts */
+img { display: block; max-width: 100%; height: auto; }
 @keyframes marquee-left {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
@@ -634,13 +636,16 @@ main {
     overflow-x: hidden;
     background: #e6f7f3;
     border: 1.5px solid #d0eae2;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    box-shadow: 0 1px 6px rgba(0,0,0,0.04);
     padding: 0.5rem 0 0.2rem 0;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     margin-bottom: 0.5rem;
   }
+
+  /* Pause marquee animation on mobile to reduce continuous painting */
+  .marquee-track { animation: none !important; }
   .hero-marquee {
     margin-left: auto;
     margin-right: auto;

@@ -82,4 +82,8 @@ if (marquee) {
   marquee.addEventListener('mouseleave', () => {
     marquee.style.animationPlayState = 'running';
   });
+  // On touch devices pause the marquee when touched to avoid continuous repaints
+  marquee.addEventListener('touchstart', () => {
+    marquee.style.animationPlayState = 'paused';
+  }, { passive: true });
 }
