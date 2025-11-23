@@ -1,4 +1,9 @@
 @media (min-width: 601px) {
+  .mobile-cart-btn {
+    display: none !important;
+  }
+}
+@media (min-width: 601px) {
   .mobile-bottom-nav {
     display: none !important;
   }
