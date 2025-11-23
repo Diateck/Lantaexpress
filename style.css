@@ -137,12 +137,29 @@ main {
 .header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   background: var(--green);
   padding: 0.75rem 1rem;
   position: sticky;
   top: 0;
   z-index: 10;
+}
+
+@media (min-width: 601px) {
+  .logo-area {
+    order: 1;
+  }
+  .header-icons {
+    order: 2;
+    margin-left: 2rem;
+    margin-right: 0.5rem;
+    gap: 0.7rem;
+    display: flex;
+    align-items: center;
+  }
+  .nav {
+    order: 3;
+    margin-left: auto;
+  }
 }
 .logo-area {
   display: flex;
