@@ -1,31 +1,16 @@
-// Slide-in animation for featured items on mobile
+// Professional slide-in animation for features and products using Intersection Observer
 document.addEventListener('DOMContentLoaded', function () {
-  function isMobile() {
-    return window.innerWidth <= 600;
-  }
-  function animateFeaturedItems() {
-    if (!isMobile()) return;
-    const cards = document.querySelectorAll('.item-cards .item-card');
-    const triggerBottom = window.innerHeight * 0.95;
-    cards.forEach((card, idx) => {
-      const cardTop = card.getBoundingClientRect().top;
-      const cardBottom = card.getBoundingClientRect().bottom;
-      if (cardTop < triggerBottom && cardBottom > 0) {
-        if ((idx + 1) % 2 === 0) {
-          card.classList.remove('slide-in-left');
-          card.classList.add('slide-in-right');
-        } else {
-          card.classList.remove('slide-in-right');
-          card.classList.add('slide-in-left');
-        }
-      } else {
-        card.classList.remove('slide-in-left', 'slide-in-right');
+  const cards = document.querySelectorAll('.item-cards .item-card, .features-list .feature');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('slide-in');
       }
     });
-  }
-  window.addEventListener('scroll', animateFeaturedItems);
-  window.addEventListener('resize', animateFeaturedItems);
-  animateFeaturedItems();
+  }, { threshold: 0.2 });
+  cards.forEach(card => {
+    observer.observe(card);
+  });
 });
 // Mobile menu toggle for responsive nav
 const menuBtn = document.querySelector('.menu-btn');
