@@ -337,12 +337,30 @@ main {
 /* === Performant animation helpers === */
 /* Use only opacity + transform for GPU acceleration. Elements get the
    `anim` class initially; `anim in` triggers the visible state. */
+/* Default: no animations (desktop/tablet) - mobile will enable a safe anim via media query */
 .anim, .anim.in {
-  /* Animations disabled: show content immediately */
-  opacity: 1 !important;
-  transition: none !important;
-  transform: none !important;
-  will-change: auto !important;
+  opacity: 1;
+  transition: none;
+  will-change: auto;
+}
+
+/* Mobile-only: GPU-friendly reveal (opacity + translate3d), small movement */
+@media (max-width: 600px) {
+  .anim {
+    opacity: 0;
+    transform: translate3d(0,8px,0);
+    transition: opacity 360ms cubic-bezier(.4,0,.2,1), transform 360ms cubic-bezier(.4,0,.2,1);
+    will-change: opacity, transform;
+  }
+  .anim.in {
+    opacity: 1;
+    transform: translate3d(0,0,0);
+  }
+
+  /* Reduced motion on mobile: disable animations */
+  @media (prefers-reduced-motion: reduce) {
+    .anim { transition: none !important; transform: none !important; opacity: 1 !important; will-change: auto !important; }
+  }
 }
 
 /* Limit repaint scope and reduce heavy shadows for better performance */

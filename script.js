@@ -6,39 +6,44 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Add base 'anim' class so CSS sets initial hidden state
   items.forEach(el => el.classList.add('anim'));
-
-  // Respect reduced-motion preference
+  // Only run animations on mobile and only when device is capable
+  const isMobile = () => window.innerWidth <= 600;
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (prefersReduced) {
+  const lowMemory = navigator.deviceMemory && navigator.deviceMemory < 2;
+  const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+  const slowConnection = conn && (/2g|slow-2g/.test(conn.effectiveType));
+
+  if (!isMobile() || prefersReduced || lowMemory || slowConnection) {
+    // reveal immediately for non-mobile or constrained devices
     items.forEach(el => el.classList.add('in'));
+    // still ensure images lazy-load
+    document.querySelectorAll('img').forEach(img => { if (!img.hasAttribute('loading')) img.setAttribute('loading','lazy'); });
     return;
   }
 
-  // rAF-batched reveal queue to limit main-thread work
+  // rAF-batched reveal queue to limit main-thread work on mobile
   let queue = [];
+  let scheduled = false;
+  const BATCH = 4; // small batch for mobile
+  const STAGGER_MS = 28;
+
   const flushQueue = () => {
-    if (!queue.length) return;
+    if (!queue.length) { scheduled = false; return; }
     requestAnimationFrame(() => {
-      // reveal a small batch per frame to avoid jank
-      const BATCH = 6; // smaller batch to spread work
-      const STAGGER_MS = 28; // small stagger to further reduce simultaneous painting
       const batch = queue.splice(0, BATCH);
       batch.forEach((el, idx) => {
-        // staggered reveal
         setTimeout(() => {
-          try { el.style.willChange = 'opacity'; } catch(e) {}
+          try { el.style.willChange = 'opacity, transform'; } catch(e) {}
           el.classList.add('in');
-          // cleanup will-change after transition end
           const onEnd = (ev) => {
-            if (ev.propertyName !== 'opacity') return;
+            if (ev.propertyName !== 'opacity' && ev.propertyName !== 'transform') return;
             el.style.willChange = '';
             el.removeEventListener('transitionend', onEnd);
           };
           el.addEventListener('transitionend', onEnd);
         }, idx * STAGGER_MS);
       });
-      // if more items queued, schedule another frame
-      if (queue.length) flushQueue();
+      if (queue.length) flushQueue(); else scheduled = false;
     });
   };
 
@@ -49,15 +54,13 @@ document.addEventListener('DOMContentLoaded', function () {
         obs.unobserve(entry.target);
       }
     });
-    if (queue.length) flushQueue();
-  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    if (queue.length && !scheduled) { scheduled = true; flushQueue(); }
+  }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
 
   items.forEach(el => observer.observe(el));
 
   // Lazy-load images to reduce initial load (if not already set)
-  document.querySelectorAll('img').forEach(img => {
-    if (!img.hasAttribute('loading')) img.setAttribute('loading', 'lazy');
-  });
+  document.querySelectorAll('img').forEach(img => { if (!img.hasAttribute('loading')) img.setAttribute('loading','lazy'); });
 });
 // Mobile menu toggle for responsive nav
 const menuBtn = document.querySelector('.menu-btn');
