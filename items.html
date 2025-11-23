@@ -5,6 +5,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Items - Lanta Xpress</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .items-layout { display: flex; gap: 1.5rem; max-width: 1200px; margin: 0 auto; padding: 1rem; }
+    .sidebar { min-width: 170px; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); padding: 1rem 0.5rem; }
+    .sidebar ul { list-style: none; padding: 0; margin: 0; }
+    .sidebar li { margin-bottom: 1.2rem; font-size: 1rem; color: #333; cursor: pointer; }
+    .sidebar li.active { color: var(--green, #00886a); font-weight: bold; }
+    .main-content { flex: 1; }
+    .section { background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem; }
+    .section-title { font-size: 1.1rem; font-weight: 700; color: #222; margin-bottom: 0.7rem; display: flex; justify-content: space-between; align-items: center; }
+    .see-all { color: var(--accent, #ff7a3d); font-size: 0.95rem; text-decoration: none; font-weight: 500; }
+    .category-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; }
+    .category-card { text-align: center; background: #f8f8f8; border-radius: 8px; padding: 0.5rem 0.2rem; }
+    .category-card img { width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #fff; margin-bottom: 0.5rem; }
+    .category-label { font-size: 0.98rem; color: #444; }
+    @media (max-width: 900px) {
+      .items-layout { flex-direction: column; gap: 0.5rem; }
+      .sidebar { min-width: 0; width: 100%; margin-bottom: 1rem; }
+      .main-content { width: 100%; }
+      .category-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .items-layout { padding: 0.5rem; }
+      .sidebar { width: 100%; max-width: 100vw; overflow-x: auto; padding: 0.5rem 0.2rem; font-size: 0.95rem; }
+      .sidebar ul { display: flex; flex-direction: row; gap: 0.7rem; overflow-x: auto; }
+      .sidebar li { margin-bottom: 0; white-space: nowrap; }
+      .main-content { width: 100%; }
+      .section { padding: 0.7rem 0.5rem; }
+      .category-grid { grid-template-columns: repeat(3, 1fr); gap: 0.7rem; }
+      .category-card { padding: 0.3rem 0.1rem; }
+      .category-card img { width: 60px; height: 60px; }
+    }
+  </style>
 </head>
 <body>
   <header class="header">
@@ -45,17 +77,17 @@
   <main>
     <div class="items-layout" style="display: flex; gap: 1.5rem; max-width: 1200px; margin: 0 auto; padding: 1rem;">
       <aside class="sidebar" style="min-width: 170px; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); padding: 1rem 0.5rem;">
-        <ul style="list-style: none; padding: 0; margin: 0;">
-          <li style="margin-bottom: 1.2rem; font-size: 1rem; color: #00886a; font-weight: bold;">Home & Office</li>
-          <li style="margin-bottom: 1.2rem; font-size: 1rem; color: #333;">Phones & Tablets</li>
-          <li style="margin-bottom: 1.2rem; font-size: 1rem; color: #333;">Fashion</li>
-          <li style="margin-bottom: 1.2rem; font-size: 1rem; color: #333;">Health & Beauty</li>
-          <li style="margin-bottom: 1.2rem; font-size: 1rem; color: #333;">Electronics</li>
-          <li style="margin-bottom: 1.2rem; font-size: 1rem; color: #333;">Computing</li>
-          <li style="margin-bottom: 1.2rem; font-size: 1rem; color: #333;">Grocery</li>
-          <li style="margin-bottom: 1.2rem; font-size: 1rem; color: #333;">Garden & Outdoors</li>
-          <li style="margin-bottom: 1.2rem; font-size: 1rem; color: #333;">Automobile</li>
-          <li style="margin-bottom: 1.2rem; font-size: 1rem; color: #333;">Sporting Goods</li>
+        <ul>
+          <li class="active">Home & Office</li>
+          <li>Phones & Tablets</li>
+          <li>Fashion</li>
+          <li>Health & Beauty</li>
+          <li>Electronics</li>
+          <li>Computing</li>
+          <li>Grocery</li>
+          <li>Garden & Outdoors</li>
+          <li>Automobile</li>
+          <li>Sporting Goods</li>
         </ul>
       </aside>
       <section class="main-content" style="flex: 1;">
