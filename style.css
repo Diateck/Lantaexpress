@@ -185,6 +185,26 @@ html, body { overflow-x: hidden; }
 .category-section { display: none; }
 .category-section.active { display: block; }
 
+/* Sidebar category link styling: match site green and remove underlines */
+.sidebar a.category-link {
+  color: var(--green);
+  text-decoration: none;
+  display: inline-block;
+}
+.sidebar a.category-link:visited {
+  color: var(--green);
+}
+.sidebar a.category-link:hover,
+.sidebar li.active a.category-link {
+  color: var(--green);
+  text-decoration: none;
+  font-weight: 700;
+}
+.sidebar a.category-link:focus {
+  outline: 3px solid rgba(0,136,106,0.12);
+  outline-offset: 2px;
+}
+
 
 .header {
   display: flex;
