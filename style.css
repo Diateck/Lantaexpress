@@ -139,6 +139,48 @@ main {
   flex: 1 0 auto;
 }
 
+/* ===== Responsive layout helpers (fluid, safe under zoom) ===== */
+/* Use box-sizing everywhere for predictable sizing */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* Fluid typography that scales gently across viewports */
+html { font-size: clamp(14px, 1.05vw + 0.6rem, 18px); }
+
+/* Reusable centered container with safe max width */
+.container {
+  width: 100%;
+  max-width: 1200px; /* desktop cap */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Make images and media responsive so they never overflow their containers */
+img, picture, video, iframe { max-width: 100%; height: auto; display: block; }
+
+/* Flexible product grid fallback (keeps items inside viewport when zoomed) */
+.products-cards, .item-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+}
+
+/* Prevent accidental horizontal overflow while keeping accessibility preserved.
+   If you see clipped content, increase container padding or adjust specific elements. */
+html, body { overflow-x: hidden; }
+
+/* Slightly narrower container on tablets to keep comfortable line-length */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .container { max-width: 900px; }
+}
+
+@media (max-width: 768px) {
+  .container { padding-left: 0.75rem; padding-right: 0.75rem; }
+}
+
+/* End responsive helpers */
+
 .header {
   display: flex;
   align-items: center;
