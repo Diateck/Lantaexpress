@@ -785,3 +785,23 @@ main {
     transform: translateX(40px);
   }
 }
+/* Make footer sit at the bottom on tablet devices (prevent it floating mid-page) */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .footer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 900;
+    box-shadow: 0 -4px 12px rgba(0,0,0,0.08);
+    margin-top: 0; /* ensure no auto margin interferes */
+  }
+  /* prevent content from being hidden behind the fixed footer */
+  body {
+    padding-bottom: 90px; /* footer height + some breathing room */
+  }
+  main {
+    padding-bottom: 0; /* keep any existing padding rules from doubling */
+  }
+}
