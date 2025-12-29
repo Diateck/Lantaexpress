@@ -185,6 +185,9 @@ html, body { overflow-x: hidden; }
 .category-section { display: none; }
 .category-section.active { display: block; }
 
+/* Make All Products board clearly clickable */
+.section[data-category="appliances"] { cursor: pointer; }
+
 /* Sidebar category link styling: match site green and remove underlines */
 .sidebar a.category-link {
   color: var(--green);

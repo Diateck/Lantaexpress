@@ -150,4 +150,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const h = window.location.hash ? window.location.hash.slice(1) : null;
     if (h) showCategory(h);
   });
+
+  // Make the All Products board clickable (navigate to home)
+  const allProductsSection = document.getElementById('appliances');
+  if (allProductsSection) {
+    allProductsSection.addEventListener('click', function (e) {
+      // If the click is on an internal anchor (like the > link), allow default
+      if (e.target && (e.target.closest('a') || e.target.tagName === 'A')) return;
+      window.location.href = 'index.html';
+    });
+  }
 });
