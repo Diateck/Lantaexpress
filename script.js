@@ -52,38 +52,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     lastMobile = nowMobile;
   });
-
-  // Sidebar category filter (items.html)
-  const sidebarItems = document.querySelectorAll('.sidebar ul li[data-category]');
-  const categorySections = document.querySelectorAll('.category-section');
-  function showCategory(cat) {
-    categorySections.forEach(sec => {
-      if (sec.dataset && sec.dataset.category === cat) {
-        sec.classList.add('active');
-        sec.style.display = '';
-      } else {
-        sec.classList.remove('active');
-        sec.style.display = 'none';
-      }
-    });
-  }
-  if (sidebarItems.length) {
-    sidebarItems.forEach(li => {
-      li.addEventListener('click', (e) => {
-        const cat = li.dataset.category;
-        sidebarItems.forEach(x => x.classList.remove('active'));
-        li.classList.add('active');
-        showCategory(cat);
-        // scroll into view of the main content area
-        const mainContent = document.querySelector('.main-content') || document.querySelector('main');
-        if (mainContent) mainContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    });
-
-    // initialize: show home-office sections
-    const activeLi = document.querySelector('.sidebar ul li.active');
-    if (activeLi) showCategory(activeLi.dataset.category || 'home-office');
-  }
 });
 // Mobile menu toggle for responsive nav
 const menuBtn = document.querySelector('.menu-btn');
