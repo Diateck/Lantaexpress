@@ -15,6 +15,7 @@
     .section { background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem; }
     .section-title { font-size: 1.1rem; font-weight: 700; color: #222; margin-bottom: 0.7rem; display: flex; justify-content: space-between; align-items: center; }
     .see-all { color: var(--accent, #ff7a3d); font-size: 0.95rem; text-decoration: none; font-weight: 500; }
+    .section-title .see-all { margin-left: auto; }
     .category-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; }
     .category-card { text-align: center; background: #f8f8f8; border-radius: 8px; padding: 0.5rem 0.2rem; }
     .category-card img { width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #fff; margin-bottom: 0.5rem; }
@@ -99,7 +100,7 @@
         </div>
         <!-- Phones & Tablets: split into separate boards under the main list, consistent with Home & Office -->
         <div id="phones-mobile" class="section category-section" data-category="phones-mobile" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
-          <div class="section-title">MOBILE PHONES</div>
+          <div class="section-title">MOBILE PHONES <a href="#" class="see-all">See All</a></div>
           <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap;">
             <div class="category-card" style="width: 110px; text-align: center;">
               <img src="assets/phone.jpg" onerror="this.src='assets/earbuds.jpg'" alt="Smartphones" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
@@ -117,7 +118,7 @@
         </div>
 
         <div id="phones-tablets-main" class="section category-section" data-category="phones-tablets-main" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
-          <div class="section-title">TABLETS</div>
+          <div class="section-title">TABLETS <a href="#" class="see-all">See All</a></div>
           <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap;">
             <div class="category-card" style="width: 110px; text-align: center;">
               <img src="assets/tablet-android.jpg" onerror="this.src='assets/earbuds.jpg'" alt="Android tablets" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
@@ -135,7 +136,7 @@
         </div>
 
         <div id="phones-accessories" class="section category-section" data-category="phones-accessories" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
-          <div class="section-title">PHONE ACCESSORIES</div>
+          <div class="section-title">PHONE ACCESSORIES <a href="#" class="see-all">See All</a></div>
           <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap;">
             <div class="category-card" style="width: 110px; text-align: center;">
               <img src="assets/earbuds.jpg" alt="Earphones" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
@@ -157,7 +158,7 @@
         </div>
 
         <div id="tablet-accessories" class="section category-section" data-category="tablet-accessories" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
-          <div class="section-title">TABLET ACCESSORIES</div>
+          <div class="section-title">TABLET ACCESSORIES <a href="#" class="see-all">See All</a></div>
           <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap;">
             <div class="category-card" style="width: 110px; text-align: center;">
               <img src="assets/tablet-case.jpg" onerror="this.src='assets/earbuds.jpg'" alt="Tablet covers" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
@@ -179,7 +180,7 @@
         </div>
 
         <div id="wearables" class="section category-section" data-category="wearables" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
-          <div class="section-title">WEARABLES</div>
+          <div class="section-title">WEARABLES <a href="#" class="see-all">See All</a></div>
           <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap;">
             <div class="category-card" style="width: 110px; text-align: center;">
               <img src="assets/smartwatch.jpg" alt="Smartwatches" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
@@ -193,7 +194,7 @@
         </div>
 
         <div id="connectivity" class="section category-section" data-category="connectivity" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
-          <div class="section-title">SIM & CONNECTIVITY</div>
+          <div class="section-title">SIM & CONNECTIVITY <a href="#" class="see-all">See All</a></div>
           <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap;">
             <div class="category-card" style="width: 110px; text-align: center;">
               <img src="assets/mifi.jpg" onerror="this.src='assets/powerbanks.jpg'" alt="MiFi devices" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
