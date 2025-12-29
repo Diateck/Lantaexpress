@@ -564,6 +564,10 @@ html, body { overflow-x: hidden; }
   margin: 0;
 }
 
+/* Category section show/hide helper */
+.category-section { display: none; }
+.category-section.active { display: block; }
+
 @media (max-width: 1200px) {
   .item-card, .feature { width: 280px; }
 }
