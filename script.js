@@ -137,9 +137,15 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Initialize from hash or the already-active sidebar item
+  // Initialize from URL query param, hash, or the already-active sidebar item
+  const urlParams = new URLSearchParams(window.location.search);
+  const qCat = urlParams.get('category');
   const initialHash = window.location.hash ? window.location.hash.slice(1) : null;
-  if (initialHash) showCategory(initialHash);
+  if (qCat) {
+    // keep URL consistent by replacing the hash (so back/forward still works with hashchange)
+    history.replaceState(null, '', '#' + qCat);
+    showCategory(qCat);
+  } else if (initialHash) showCategory(initialHash);
   else {
     const activeAnchor = document.querySelector('.sidebar li.active a[data-category]');
     const defaultCat = activeAnchor ? activeAnchor.dataset.category : (sidebarLinks[0] && sidebarLinks[0].dataset.category);
