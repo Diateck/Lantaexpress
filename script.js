@@ -74,3 +74,63 @@ if (marquee) {
     marquee.style.animationPlayState = 'running';
   });
 }
+
+// Category switching within items page (hash + JS-driven)
+document.addEventListener('DOMContentLoaded', function () {
+  const sidebarLinks = Array.from(document.querySelectorAll('.sidebar a[data-category]'));
+  const sections = Array.from(document.querySelectorAll('.category-section'));
+
+  const mapping = {
+    'home-office': ['appliances', 'home-kitchen', 'home', 'home-office', 'office-products'],
+    'phones-tablets': ['phones-tablets']
+  };
+
+  function clearActiveSections() {
+    sections.forEach(s => s.classList.remove('active'));
+  }
+
+  function setActiveSidebar(cat) {
+    sidebarLinks.forEach(a => {
+      const li = a.closest('li');
+      if (!li) return;
+      if (a.dataset.category === cat) li.classList.add('active');
+      else li.classList.remove('active');
+    });
+  }
+
+  function showCategory(cat) {
+    if (!cat) return;
+    clearActiveSections();
+    const toShow = mapping[cat] || [cat];
+    toShow.forEach(k => {
+      document.querySelectorAll(`.category-section[data-category="${k}"]`).forEach(el => el.classList.add('active'));
+    });
+    setActiveSidebar(cat);
+    const first = document.querySelector('.category-section.active');
+    if (first) first.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  sidebarLinks.forEach(a => {
+    a.addEventListener('click', function (e) {
+      const cat = this.dataset.category;
+      if (!cat) return;
+      e.preventDefault();
+      history.pushState(null, '', '#' + cat);
+      showCategory(cat);
+    });
+  });
+
+  // Initialize from hash or the already-active sidebar item
+  const initialHash = window.location.hash ? window.location.hash.slice(1) : null;
+  if (initialHash) showCategory(initialHash);
+  else {
+    const activeAnchor = document.querySelector('.sidebar li.active a[data-category]');
+    const defaultCat = activeAnchor ? activeAnchor.dataset.category : (sidebarLinks[0] && sidebarLinks[0].dataset.category);
+    if (defaultCat) showCategory(defaultCat);
+  }
+
+  window.addEventListener('hashchange', () => {
+    const h = window.location.hash ? window.location.hash.slice(1) : null;
+    if (h) showCategory(h);
+  });
+});

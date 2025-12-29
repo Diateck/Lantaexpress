@@ -181,6 +181,11 @@ html, body { overflow-x: hidden; }
 
 /* End responsive helpers */
 
+/* Category sections: hidden by default, shown when activated by JS */
+.category-section { display: none; }
+.category-section.active { display: block; }
+
+
 .header {
   display: flex;
   align-items: center;

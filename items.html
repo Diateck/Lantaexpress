@@ -78,26 +78,44 @@
     <div class="items-layout" style="display: flex; gap: 1.5rem; max-width: 1200px; margin: 0 auto; padding: 1rem;">
       <aside class="sidebar" style="min-width: 170px; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); padding: 1rem 0.5rem;">
         <ul>
-          <li class="active" data-category="home-office">Home & Office</li>
-          <li data-category="phones-tablets">Phones & Tablets</li>
-          <li data-category="fashion">Fashion</li>
-          <li data-category="health-beauty">Health & Beauty</li>
-          <li data-category="electronics">Electronics</li>
-          <li data-category="agriculture">Agriculture & Live stock</li>
-          <li data-category="computing">Computing</li>
-          <li data-category="used-properties">Used Properties</li>
-          <li data-category="grocery">Grocery</li>
-          <li data-category="garden-outdoors">Garden & Outdoors</li>
-          <li data-category="automobile">Automobile</li>
-          <li data-category="sporting-goods">Sporting Goods</li>
-          <li data-category="toys-baby">Toys & Baby Products</li>
+          <li class="active"><a class="category-link" href="#home-office" data-category="home-office">Home & Office</a></li>
+          <li><a class="category-link" href="#phones-tablets" data-category="phones-tablets">Phones & Tablets</a></li>
+          <li><a class="category-link" href="#fashion" data-category="fashion">Fashion</a></li>
+          <li><a class="category-link" href="#health-beauty" data-category="health-beauty">Health & Beauty</a></li>
+          <li><a class="category-link" href="#electronics" data-category="electronics">Electronics</a></li>
+          <li><a class="category-link" href="#agriculture" data-category="agriculture">Agriculture & Live stock</a></li>
+          <li><a class="category-link" href="#computing" data-category="computing">Computing</a></li>
+          <li><a class="category-link" href="#used-properties" data-category="used-properties">Used Properties</a></li>
+          <li><a class="category-link" href="#grocery" data-category="grocery">Grocery</a></li>
+          <li><a class="category-link" href="#garden-outdoors" data-category="garden-outdoors">Garden & Outdoors</a></li>
+          <li><a class="category-link" href="#automobile" data-category="automobile">Automobile</a></li>
+          <li><a class="category-link" href="#sporting-goods" data-category="sporting-goods">Sporting Goods</a></li>
+          <li><a class="category-link" href="#toys-baby" data-category="toys-baby">Toys & Baby Products</a></li>
         </ul>
       </aside>
       <section class="main-content" style="flex: 1;">
-        <div class="section category-section" data-category="appliances" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
+        <div id="appliances" class="section category-section" data-category="appliances" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
           <div class="section-title" style="font-size: 1.1rem; font-weight: 700; color: #222; margin-bottom: 0.7rem; display: flex; justify-content: space-between; align-items: center;">ALL PRODUCTS <span style="flex:1"></span> <a href="#" style="color: #ff7a3d; font-size: 0.95rem; text-decoration: none; font-weight: 500;">&gt;</a></div>
         </div>
-       <div class="section category-section" data-category="home-kitchen" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
+        <!-- Phones & Tablets section (anchor target for sidebar) -->
+        <div id="phones-tablets" class="section category-section" data-category="phones-tablets" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
+          <div class="section-title">PHONES & TABLETS</div>
+          <div class="category-grid" style="display:flex; gap:1rem; flex-wrap:wrap;">
+            <div class="category-card" style="width:140px; text-align:center;">
+              <img src="assets/earbuds.jpg" alt="Smartphones" style="width:100px; height:100px; object-fit:contain; border-radius:8px; background:#f8f8f8; margin-bottom:0.5rem;">
+              <div class="category-label">Smartphones</div>
+            </div>
+            <div class="category-card" style="width:140px; text-align:center;">
+              <img src="assets/smartwatch.jpg" alt="Feature phones" style="width:100px; height:100px; object-fit:contain; border-radius:8px; background:#f8f8f8; margin-bottom:0.5rem;">
+              <div class="category-label">Feature phones</div>
+            </div>
+            <div class="category-card" style="width:140px; text-align:center;">
+              <img src="assets/earbuds.jpg" alt="Refurbished" style="width:100px; height:100px; object-fit:contain; border-radius:8px; background:#f8f8f8; margin-bottom:0.5rem;">
+              <div class="category-label">Refurbished / Used</div>
+            </div>
+          </div>
+        </div>
+      <div id="home-kitchen" class="section category-section" data-category="home-kitchen" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
           <div class="section-title" style="font-size: 1.1rem; font-weight: 700; color: #222; margin-bottom: 0.7rem; display: flex; justify-content: space-between; align-items: center;">APPLIANCES <a href="#" style="color: #ff7a3d; font-size: 0.95rem; text-decoration: none; font-weight: 500;">See All</a></div>
           <div class="category-grid" style="display: flex; gap: 1.2rem; flex-wrap: wrap;">
             <div class="category-card" style="width: 110px; text-align: center;">
@@ -110,7 +128,7 @@
             </div>
           </div>
         </div>
-        <div class="section category-section" data-category="home" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
+        <div id="home" class="section category-section" data-category="home" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
           <div class="section-title" style="font-size: 1.1rem; font-weight: 700; color: #222; margin-bottom: 0.7rem; display: flex; justify-content: space-between; align-items: center;">HOME & KITCHEN <a href="#" style="color: #ff7a3d; font-size: 0.95rem; text-decoration: none; font-weight: 500;">See All</a></div>
           <div class="category-grid" style="display: flex; gap: 1.2rem; flex-wrap: wrap;">
             <div class="category-card" style="width: 110px; text-align: center;">
@@ -131,7 +149,7 @@
             </div>
           </div>
         </div>
-        <div class="section category-section" data-category="home-office" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
+        <div id="home-office" class="section category-section" data-category="home-office" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
           <div class="section-title" style="font-size: 1.1rem; font-weight: 700; color: #222; margin-bottom: 0.7rem; display: flex; justify-content: space-between; align-items: center;">HOME <a href="#" style="color: #ff7a3d; font-size: 0.95rem; text-decoration: none; font-weight: 500;">See All</a></div>
           <div class="category-grid" style="display: flex; gap: 1.2rem; flex-wrap: wrap;">
             <div class="category-card" style="width: 110px; text-align: center;">
@@ -148,7 +166,7 @@
             </div>
           </div>
         </div>
-        <div class="section" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
+        <div id="office-products" class="section category-section" data-category="office-products" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
           <div class="section-title" style="font-size: 1.1rem; font-weight: 700; color: #222; margin-bottom: 0.7rem; display: flex; justify-content: space-between; align-items: center;">OFFICE PRODUCTS <a href="#" style="color: #ff7a3d; font-size: 0.95rem; text-decoration: none; font-weight: 500;">See All</a></div>
           <div class="category-grid" style="display: flex; gap: 1.2rem; flex-wrap: wrap;">
             <div class="category-card" style="width: 110px; text-align: center;">
@@ -162,24 +180,6 @@
             <div class="category-card" style="width: 110px; text-align: center;">
               <img src="assets/stationery.jpg" alt="Stationery" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
               <div class="category-label" style="font-size: 0.98rem; color: #444;">Stationery</div>
-            </div>
-          </div>
-        </div>
-         <!-- Phones & Tablets placeholder section -->
-        <div id="phones-section" class="section category-section" data-category="phones-tablets" style="display:none; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
-          <div class="section-title">PHONES & TABLETS</div>
-          <div class="category-grid" style="display:flex; gap:1rem; flex-wrap:wrap;">
-            <div class="category-card" style="width:140px; text-align:center;">
-              <img src="assets/earbuds.jpg" alt="Smartphones" style="width:100px; height:100px; object-fit:contain; border-radius:8px; background:#f8f8f8; margin-bottom:0.5rem;">
-              <div class="category-label">Smartphones</div>
-            </div>
-            <div class="category-card" style="width:140px; text-align:center;">
-              <img src="assets/smartwatch.jpg" alt="Feature phones" style="width:100px; height:100px; object-fit:contain; border-radius:8px; background:#f8f8f8; margin-bottom:0.5rem;">
-              <div class="category-label">Feature phones</div>
-            </div>
-            <div class="category-card" style="width:140px; text-align:center;">
-              <img src="assets/earbuds.jpg" alt="Refurbished" style="width:100px; height:100px; object-fit:contain; border-radius:8px; background:#f8f8f8; margin-bottom:0.5rem;">
-              <div class="category-label">Refurbished / Used</div>
             </div>
           </div>
         </div>
