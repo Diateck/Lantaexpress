@@ -97,125 +97,115 @@
         <div id="appliances" class="section category-section" data-category="appliances" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
           <div class="section-title" style="font-size: 1.1rem; font-weight: 700; color: #222; margin-bottom: 0.7rem; display: flex; justify-content: space-between; align-items: center;">ALL PRODUCTS <span style="flex:1"></span> <a href="index.html" style="color: #ff7a3d; font-size: 0.95rem; text-decoration: none; font-weight: 500;">&gt;</a></div>
         </div>
-        <!-- Phones & Tablets section (anchor target for sidebar) -->
-        <div id="phones-tablets" class="section category-section" data-category="phones-tablets" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
-          <div class="section-title">PHONES & TABLETS</div>
-
-          <!-- Mobile Phones -->
-          <div class="sub-section" style="margin-top:0.8rem;">
-            <div class="section-title" style="font-size:1rem;">Mobile Phones</div>
-            <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap; margin-top:0.6rem;">
-              <div class="category-card" style="width: 110px; text-align: center;">
-                <img src="assets/phone.jpg" onerror="this.src='assets/earbuds.jpg'" alt="Smartphones" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
-                <div class="category-label">Smartphones (Android, iPhone)</div>
-              </div>
-              <div class="category-card" style="width: 110px; text-align: center;">
-                <img src="assets/feature-phone.jpg" onerror="this.src='assets/smartwatch.jpg'" alt="Feature phones" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
-                <div class="category-label">Feature phones (button phones)</div>
-              </div>
-              <div class="category-card" style="width: 110px; text-align: center;">
-                <img src="assets/used-phone.jpg" onerror="this.src='assets/earbuds.jpg'" alt="Refurbished" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
-                <div class="category-label">Refurbished / Used</div>
-              </div>
+        <!-- Phones & Tablets: split into separate boards under the main list, consistent with Home & Office -->
+        <div id="phones-mobile" class="section category-section" data-category="phones-mobile" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
+          <div class="section-title">MOBILE PHONES</div>
+          <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap;">
+            <div class="category-card" style="width: 110px; text-align: center;">
+              <img src="assets/phone.jpg" onerror="this.src='assets/earbuds.jpg'" alt="Smartphones" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
+              <div class="category-label">Smartphones (Android, iPhone)</div>
+            </div>
+            <div class="category-card" style="width: 110px; text-align: center;">
+              <img src="assets/feature-phone.jpg" onerror="this.src='assets/smartwatch.jpg'" alt="Feature phones" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
+              <div class="category-label">Feature phones</div>
+            </div>
+            <div class="category-card" style="width: 110px; text-align: center;">
+              <img src="assets/used-phone.jpg" onerror="this.src='assets/earbuds.jpg'" alt="Refurbished" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
+              <div class="category-label">Refurbished / Used</div>
             </div>
           </div>
+        </div>
 
-          <!-- Tablets -->
-          <div class="sub-section" style="margin-top:1rem;">
-            <div class="section-title" style="font-size:1rem;">Tablets</div>
-            <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap; margin-top:0.6rem;">
-              <div class="category-card" style="width: 110px; text-align: center;">
-                <img src="assets/tablet-android.jpg" onerror="this.src='assets/earbuds.jpg'" alt="Android tablets" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
-                <div class="category-label">Android tablets</div>
-              </div>
-              <div class="category-card" style="width: 110px; text-align: center;">
-                <img src="assets/ipad.jpg" onerror="this.src='assets/smartwatch.jpg'" alt="iPads" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
-                <div class="category-label">iPads</div>
-              </div>
-              <div class="category-card" style="width: 110px; text-align: center;">
-                <img src="assets/kids-tablet.jpg" onerror="this.src='assets/earbuds.jpg'" alt="Educational tablets" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
-                <div class="category-label">Educational / Kids tablets</div>
-              </div>
+        <div id="phones-tablets-main" class="section category-section" data-category="phones-tablets-main" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
+          <div class="section-title">TABLETS</div>
+          <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap;">
+            <div class="category-card" style="width: 110px; text-align: center;">
+              <img src="assets/tablet-android.jpg" onerror="this.src='assets/earbuds.jpg'" alt="Android tablets" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
+              <div class="category-label">Android tablets</div>
+            </div>
+            <div class="category-card" style="width: 110px; text-align: center;">
+              <img src="assets/ipad.jpg" onerror="this.src='assets/smartwatch.jpg'" alt="iPads" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
+              <div class="category-label">iPads</div>
+            </div>
+            <div class="category-card" style="width: 110px; text-align: center;">
+              <img src="assets/kids-tablet.jpg" onerror="this.src='assets/earbuds.jpg'" alt="Educational tablets" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
+              <div class="category-label">Educational / Kids tablets</div>
             </div>
           </div>
+        </div>
 
-          <!-- Phone Accessories -->
-          <div class="sub-section" style="margin-top:1rem;">
-            <div class="section-title" style="font-size:1rem;">Phone Accessories</div>
-            <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap; margin-top:0.6rem;">
-              <div class="category-card" style="width: 110px; text-align: center;">
-                <img src="assets/earbuds.jpg" alt="Earphones" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
-                <div class="category-label">Earphones & Headphones</div>
-              </div>
-              <div class="category-card" style="width: 110px; text-align: center;">
-                <img src="assets/earbuds.jpg" alt="Bluetooth earbuds" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
-                <div class="category-label">Bluetooth earbuds</div>
-              </div>
-              <div class="category-card" style="width: 110px; text-align: center;">
-                <img src="assets/phone-case.jpg" onerror="this.src='assets/earbuds.jpg'" alt="Phone cases" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
-                <div class="category-label">Phone cases & covers</div>
-              </div>
-              <div class="category-card" style="width: 110px; text-align: center;">
-                <img src="assets/screen-protector.jpg" onerror="this.src='assets/earbuds.jpg'" alt="Screen protectors" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
-                <div class="category-label">Screen protectors</div>
-              </div>
+        <div id="phones-accessories" class="section category-section" data-category="phones-accessories" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
+          <div class="section-title">PHONE ACCESSORIES</div>
+          <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap;">
+            <div class="category-card" style="width: 110px; text-align: center;">
+              <img src="assets/earbuds.jpg" alt="Earphones" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
+              <div class="category-label">Earphones & Headphones</div>
+            </div>
+            <div class="category-card" style="width: 110px; text-align: center;">
+              <img src="assets/earbuds.jpg" alt="Bluetooth earbuds" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
+              <div class="category-label">Bluetooth earbuds</div>
+            </div>
+            <div class="category-card" style="width: 110px; text-align: center;">
+              <img src="assets/phone-case.jpg" onerror="this.src='assets/earbuds.jpg'" alt="Phone cases" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
+              <div class="category-label">Phone cases & covers</div>
+            </div>
+            <div class="category-card" style="width: 110px; text-align: center;">
+              <img src="assets/screen-protector.jpg" onerror="this.src='assets/earbuds.jpg'" alt="Screen protectors" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
+              <div class="category-label">Screen protectors</div>
             </div>
           </div>
+        </div>
 
-          <!-- Tablet Accessories -->
-          <div class="sub-section" style="margin-top:1rem;">
-            <div class="section-title" style="font-size:1rem;">Tablet Accessories</div>
-            <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap; margin-top:0.6rem;">
-              <div class="category-card" style="width: 110px; text-align: center;">
-                <img src="assets/tablet-case.jpg" onerror="this.src='assets/earbuds.jpg'" alt="Tablet covers" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
-                <div class="category-label">Tablet covers & cases</div>
-              </div>
-              <div class="category-card" style="width: 110px; text-align: center;">
-                <img src="assets/keyboard.jpg" onerror="this.src='assets/earbuds.jpg'" alt="Tablet keyboards" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
-                <div class="category-label">Tablet keyboards</div>
-              </div>
-              <div class="category-card" style="width: 110px; text-align: center;">
-                <img src="assets/stylus.jpg" onerror="this.src='assets/earbuds.jpg'" alt="Stylus" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
-                <div class="category-label">Stylus pens</div>
-              </div>
-              <div class="category-card" style="width: 110px; text-align: center;">
-                <img src="assets/screen-protector.jpg" onerror="this.src='assets/earbuds.jpg'" alt="Tablet screen protectors" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
-                <div class="category-label">Screen protectors</div>
-              </div>
+        <div id="tablet-accessories" class="section category-section" data-category="tablet-accessories" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
+          <div class="section-title">TABLET ACCESSORIES</div>
+          <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap;">
+            <div class="category-card" style="width: 110px; text-align: center;">
+              <img src="assets/tablet-case.jpg" onerror="this.src='assets/earbuds.jpg'" alt="Tablet covers" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
+              <div class="category-label">Tablet covers & cases</div>
+            </div>
+            <div class="category-card" style="width: 110px; text-align: center;">
+              <img src="assets/keyboard.jpg" onerror="this.src='assets/earbuds.jpg'" alt="Tablet keyboards" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
+              <div class="category-label">Tablet keyboards</div>
+            </div>
+            <div class="category-card" style="width: 110px; text-align: center;">
+              <img src="assets/stylus.jpg" onerror="this.src='assets/earbuds.jpg'" alt="Stylus" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
+              <div class="category-label">Stylus pens</div>
+            </div>
+            <div class="category-card" style="width: 110px; text-align: center;">
+              <img src="assets/screen-protector.jpg" onerror="this.src='assets/earbuds.jpg'" alt="Tablet screen protectors" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
+              <div class="category-label">Screen protectors</div>
             </div>
           </div>
+        </div>
 
-          <!-- Wearables -->
-          <div class="sub-section" style="margin-top:1rem;">
-            <div class="section-title" style="font-size:1rem;">Wearables</div>
-            <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap; margin-top:0.6rem;">
-              <div class="category-card" style="width: 110px; text-align: center;">
-                <img src="assets/smartwatch.jpg" alt="Smartwatches" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
-                <div class="category-label">Smartwatches</div>
-              </div>
-              <div class="category-card" style="width: 110px; text-align: center;">
-                <img src="assets/fitness-band.jpg" onerror="this.src='assets/smartwatch.jpg'" alt="Fitness bands" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
-                <div class="category-label">Fitness bands</div>
-              </div>
+        <div id="wearables" class="section category-section" data-category="wearables" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
+          <div class="section-title">WEARABLES</div>
+          <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap;">
+            <div class="category-card" style="width: 110px; text-align: center;">
+              <img src="assets/smartwatch.jpg" alt="Smartwatches" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
+              <div class="category-label">Smartwatches</div>
+            </div>
+            <div class="category-card" style="width: 110px; text-align: center;">
+              <img src="assets/fitness-band.jpg" onerror="this.src='assets/smartwatch.jpg'" alt="Fitness bands" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
+              <div class="category-label">Fitness bands</div>
             </div>
           </div>
+        </div>
 
-          <!-- SIM & Connectivity -->
-          <div class="sub-section" style="margin-top:1rem;">
-            <div class="section-title" style="font-size:1rem;">SIM & Connectivity</div>
-            <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap; margin-top:0.6rem;">
-              <div class="category-card" style="width: 110px; text-align: center;">
-                <img src="assets/mifi.jpg" onerror="this.src='assets/powerbanks.jpg'" alt="MiFi devices" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
-                <div class="category-label">MiFi devices</div>
-              </div>
-              <div class="category-card" style="width: 110px; text-align: center;">
-                <img src="assets/router.jpg" onerror="this.src='assets/powerbanks.jpg'" alt="Mobile Wi-Fi routers" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
-                <div class="category-label">Mobile Wi-Fi routers</div>
-              </div>
-              <div class="category-card" style="width: 110px; text-align: center;">
-                <img src="assets/modem.jpg" onerror="this.src='assets/powerbanks.jpg'" alt="Modems" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
-                <div class="category-label">Modems</div>
-              </div>
+        <div id="connectivity" class="section category-section" data-category="connectivity" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
+          <div class="section-title">SIM & CONNECTIVITY</div>
+          <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap;">
+            <div class="category-card" style="width: 110px; text-align: center;">
+              <img src="assets/mifi.jpg" onerror="this.src='assets/powerbanks.jpg'" alt="MiFi devices" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
+              <div class="category-label">MiFi devices</div>
+            </div>
+            <div class="category-card" style="width: 110px; text-align: center;">
+              <img src="assets/router.jpg" onerror="this.src='assets/powerbanks.jpg'" alt="Mobile Wi-Fi routers" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
+              <div class="category-label">Mobile Wi-Fi routers</div>
+            </div>
+            <div class="category-card" style="width: 110px; text-align: center;">
+              <img src="assets/modem.jpg" onerror="this.src='assets/powerbanks.jpg'" alt="Modems" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
+              <div class="category-label">Modems</div>
             </div>
           </div>
         </div>

@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const mapping = {
     'home-office': ['appliances', 'home-kitchen', 'home', 'home-office', 'office-products'],
-    'phones-tablets': ['phones-tablets']
+    'phones-tablets': ['phones-mobile', 'phones-tablets-main', 'phones-accessories', 'tablet-accessories', 'wearables', 'connectivity']
   };
 
   function clearActiveSections() {
