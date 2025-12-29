@@ -564,7 +564,7 @@ html, body { overflow-x: hidden; }
   margin: 0;
 }
 
-/* Category show/hide helper for items page */
+/* Category sections on items page — hidden by default, revealed by JS */
 .category-section { display: none; }
 .category-section.active { display: block; }
 
