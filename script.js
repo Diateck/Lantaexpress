@@ -88,6 +88,11 @@ document.addEventListener('DOMContentLoaded', function () {
       'fashion-womens-clothing', 'fashion-womens-shoes', 'fashion-kids-baby',
       'fashion-kids-shoes', 'fashion-unisex', 'fashion-bags-footwear'
     ]
+    ,
+    'health-beauty': [
+      'beauty-skincare', 'beauty-haircare', 'beauty-makeup', 'beauty-fragrances', 'beauty-bathbody',
+      'health-personal', 'health-medical', 'health-oral', 'fitness-wellness', 'grooming-mens', 'womens-health', 'baby-health'
+    ]
   };
 
   function clearActiveSections() {
