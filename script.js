@@ -82,7 +82,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const mapping = {
     'home-office': ['appliances', 'home-kitchen', 'home', 'home-office', 'office-products'],
-    'phones-tablets': ['phones-mobile', 'phones-tablets-main', 'phones-accessories', 'tablet-accessories', 'wearables', 'connectivity']
+    'phones-tablets': ['phones-mobile', 'phones-tablets-main', 'phones-accessories', 'tablet-accessories', 'wearables', 'connectivity'],
+    'fashion': [
+      'fashion-mens-clothing', 'fashion-mens-shoes', 'fashion-mens-accessories',
+      'fashion-womens-clothing', 'fashion-womens-shoes', 'fashion-kids-baby',
+      'fashion-kids-shoes', 'fashion-unisex', 'fashion-bags-footwear'
+    ]
   };
 
   function clearActiveSections() {
