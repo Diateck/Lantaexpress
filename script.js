@@ -102,7 +102,9 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!cat) return;
     clearActiveSections();
     const toShow = mapping[cat] || [cat];
-    toShow.forEach(k => {
+    // Always include the 'appliances' (All Products) board so it's visible across categories
+    const combined = Array.from(new Set([].concat(toShow, ['appliances'])));
+    combined.forEach(k => {
       document.querySelectorAll(`.category-section[data-category="${k}"]`).forEach(el => el.classList.add('active'));
     });
     setActiveSidebar(cat);
