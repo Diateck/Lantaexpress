@@ -287,6 +287,29 @@ html, body { overflow-x: hidden; }
 @media (max-width: 700px) {
   .nav ul { gap: 1rem; }
   .brand-name { font-size: 1.1rem; }
+
+/* Mobile: keep category options visible at top by making sidebar sticky */
+@media (max-width: 600px) {
+  .sidebar {
+    position: sticky;
+    top: 68px; /* leave space for the sticky header */
+    z-index: 15;
+    background: #fff;
+    padding-top: 0.45rem;
+    padding-bottom: 0.45rem;
+    margin-bottom: 0.5rem;
+  }
+  .sidebar ul {
+    display: flex;
+    flex-direction: row;
+    gap: 0.8rem;
+    overflow-x: auto;
+    padding-left: 0.6rem;
+    padding-right: 0.6rem;
+    margin: 0;
+  }
+  .sidebar li { margin-bottom: 0; white-space: nowrap; }
+}
 }
 
 .hero {

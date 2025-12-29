@@ -107,7 +107,22 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     setActiveSidebar(cat);
     const first = document.querySelector('.category-section.active');
-    if (first) first.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (first) {
+      // On small screens, keep the sidebar (category options) visible at the top.
+      // Calculate a scroll position that places the active section just below header + sidebar.
+      const isMobile = window.innerWidth <= 600;
+      if (isMobile) {
+        const header = document.querySelector('.header');
+        const sidebar = document.querySelector('.sidebar');
+        const headerH = header ? header.offsetHeight : 0;
+        const sidebarH = sidebar ? sidebar.offsetHeight : 0;
+        const sectionTop = first.getBoundingClientRect().top + window.pageYOffset;
+        const target = Math.max(0, sectionTop - headerH - sidebarH - 8);
+        window.scrollTo({ top: target, behavior: 'smooth' });
+      } else {
+        first.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
   }
 
   sidebarLinks.forEach(a => {
