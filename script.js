@@ -1,31 +1,57 @@
-// Slide-in animation for featured items on mobile
+// Slide-in animation for featured items on mobile using IntersectionObserver
 document.addEventListener('DOMContentLoaded', function () {
   function isMobile() {
     return window.innerWidth <= 600;
   }
-  function animateFeaturedItems() {
-    if (!isMobile()) return;
-    const cards = document.querySelectorAll('.item-cards .item-card');
-    const triggerBottom = window.innerHeight * 0.95;
+
+  const cards = Array.from(document.querySelectorAll('.item-cards .item-card'));
+  if (!cards.length) return;
+
+  // Fallback for browsers without IntersectionObserver
+  if (!('IntersectionObserver' in window)) {
+    // simple immediate reveal for older browsers
     cards.forEach((card, idx) => {
-      const cardTop = card.getBoundingClientRect().top;
-      const cardBottom = card.getBoundingClientRect().bottom;
-      if (cardTop < triggerBottom && cardBottom > 0) {
-        if ((idx + 1) % 2 === 0) {
-          card.classList.remove('slide-in-left');
-          card.classList.add('slide-in-right');
-        } else {
-          card.classList.remove('slide-in-right');
-          card.classList.add('slide-in-left');
-        }
-      } else {
-        card.classList.remove('slide-in-left', 'slide-in-right');
-      }
+      if ((idx + 1) % 2 === 0) card.classList.add('slide-in-right');
+      else card.classList.add('slide-in-left');
     });
+    return;
   }
-  window.addEventListener('scroll', animateFeaturedItems);
-  window.addEventListener('resize', animateFeaturedItems);
-  animateFeaturedItems();
+
+  function observeCards() {
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const card = entry.target;
+        const idx = cards.indexOf(card);
+
+        // alternate left/right
+        if ((idx + 1) % 2 === 0) card.classList.add('slide-in-right');
+        else card.classList.add('slide-in-left');
+
+        // small stagger based on index for a polished look
+        const stagger = Math.min(160, idx * 40);
+        card.style.transitionDelay = stagger + 'ms';
+
+        // stop observing once animated
+        obs.unobserve(card);
+      });
+    }, { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.12 });
+
+    cards.forEach(c => observer.observe(c));
+  }
+
+  if (isMobile()) observeCards();
+
+  // Re-evaluate on resize if crossing mobile boundary
+  let lastMobile = isMobile();
+  window.addEventListener('resize', () => {
+    const nowMobile = isMobile();
+    if (nowMobile && !lastMobile) {
+      // became mobile: observe
+      observeCards();
+    }
+    lastMobile = nowMobile;
+  });
 });
 // Mobile menu toggle for responsive nav
 const menuBtn = document.querySelector('.menu-btn');
