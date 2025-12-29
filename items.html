@@ -5,39 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Items - Lanta Xpress</title>
   <link rel="stylesheet" href="style.css">
-  <style>
-    .items-layout { display: flex; gap: 1.5rem; max-width: 1200px; margin: 0 auto; padding: 1rem; }
-    .sidebar { min-width: 170px; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); padding: 1rem 0.5rem; }
-    .sidebar ul { list-style: none; padding: 0; margin: 0; }
-    .sidebar li { margin-bottom: 1.2rem; font-size: 1rem; color: #333; cursor: pointer; }
-    .sidebar li.active { color: var(--green, #00886a); font-weight: bold; }
-    .main-content { flex: 1; }
-    .section { background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem; }
-    .section-title { font-size: 1.1rem; font-weight: 700; color: #222; margin-bottom: 0.7rem; display: flex; justify-content: space-between; align-items: center; }
-    .see-all { color: var(--accent, #ff7a3d); font-size: 0.95rem; text-decoration: none; font-weight: 500; }
-    .section-title .see-all { margin-left: auto; }
-    .category-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; }
-    .category-card { text-align: center; background: #f8f8f8; border-radius: 8px; padding: 0.5rem 0.2rem; }
-    .category-card img { width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #fff; margin-bottom: 0.5rem; }
-    .category-label { font-size: 0.98rem; color: #444; }
-    @media (max-width: 900px) {
-      .items-layout { flex-direction: column; gap: 0.5rem; }
-      .sidebar { min-width: 0; width: 100%; margin-bottom: 1rem; }
-      .main-content { width: 100%; }
-      .category-grid { grid-template-columns: repeat(3, 1fr); }
-    }
-    @media (max-width: 600px) {
-      .items-layout { padding: 0.5rem; }
-      .sidebar { width: 100%; max-width: 100vw; overflow-x: auto; padding: 0.5rem 0.2rem; font-size: 0.95rem; }
-      .sidebar ul { display: flex; flex-direction: row; gap: 0.7rem; overflow-x: auto; }
-      .sidebar li { margin-bottom: 0; white-space: nowrap; }
-      .main-content { width: 100%; }
-      .section { padding: 0.7rem 0.5rem; }
-      .category-grid { grid-template-columns: repeat(3, 1fr); gap: 0.7rem; }
-      .category-card { padding: 0.3rem 0.1rem; }
-      .category-card img { width: 60px; height: 60px; }
-    }
-  </style>
+  <!-- page-specific styles moved to style.css for maintainability -->
 </head>
 <body>
   <header class="header">
@@ -76,8 +44,8 @@
     </div>
   </header>
   <main class="container">
-    <div class="items-layout" style="display: flex; gap: 1.5rem; max-width: 1200px; margin: 0 auto; padding: 1rem;">
-      <aside class="sidebar" style="min-width: 170px; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); padding: 1rem 0.5rem;">
+    <div class="items-layout">
+      <aside class="sidebar">
         <ul>
           <li class="active"><a class="category-link" href="#home-office" data-category="home-office">Home & Office</a></li>
           <li><a class="category-link" href="#phones-tablets" data-category="phones-tablets">Phones & Tablets</a></li>
@@ -94,12 +62,12 @@
           <li><a class="category-link" href="#toys-baby" data-category="toys-baby">Toys & Baby Products</a></li>
         </ul>
       </aside>
-      <section class="main-content" style="flex: 1;">
-        <div id="appliances" class="section category-section" data-category="appliances" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
-          <div class="section-title" style="font-size: 1.1rem; font-weight: 700; color: #222; margin-bottom: 0.7rem; display: flex; justify-content: space-between; align-items: center;">ALL PRODUCTS <span style="flex:1"></span> <a href="index.html" style="color: #ff7a3d; font-size: 0.95rem; text-decoration: none; font-weight: 500;">&gt;</a></div>
+      <section class="main-content">
+        <div id="appliances" class="section category-section" data-category="appliances">
+          <div class="section-title">ALL PRODUCTS <span class="spacer"></span> <a href="index.html" class="appliances-link">&gt;</a></div>
         </div>
         <!-- Phones & Tablets: split into separate boards under the main list, consistent with Home & Office -->
-        <div id="phones-mobile" class="section category-section" data-category="phones-mobile" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
+        <div id="phones-mobile" class="section category-section" data-category="phones-mobile">
           <div class="section-title">MOBILE PHONES <a href="items.html?category=phones-mobile" class="see-all">See All</a></div>
           <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap;">
             <div class="category-card" style="width: 110px; text-align: center;">
@@ -117,7 +85,7 @@
           </div>
         </div>
 
-        <div id="phones-tablets-main" class="section category-section" data-category="phones-tablets-main" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
+        <div id="phones-tablets-main" class="section category-section" data-category="phones-tablets-main">
           <div class="section-title">TABLETS <a href="items.html?category=phones-tablets-main" class="see-all">See All</a></div>
           <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap;">
             <div class="category-card" style="width: 110px; text-align: center;">
@@ -135,7 +103,7 @@
           </div>
         </div>
 
-        <div id="phones-accessories" class="section category-section" data-category="phones-accessories" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
+        <div id="phones-accessories" class="section category-section" data-category="phones-accessories">
           <div class="section-title">PHONE ACCESSORIES <a href="items.html?category=phones-accessories" class="see-all">See All</a></div>
           <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap;">
             <div class="category-card" style="width: 110px; text-align: center;">
@@ -157,7 +125,7 @@
           </div>
         </div>
 
-        <div id="tablet-accessories" class="section category-section" data-category="tablet-accessories" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
+        <div id="tablet-accessories" class="section category-section" data-category="tablet-accessories">
           <div class="section-title">TABLET ACCESSORIES <a href="items.html?category=tablet-accessories" class="see-all">See All</a></div>
           <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap;">
             <div class="category-card" style="width: 110px; text-align: center;">
@@ -179,7 +147,7 @@
           </div>
         </div>
 
-        <div id="wearables" class="section category-section" data-category="wearables" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
+        <div id="wearables" class="section category-section" data-category="wearables">
           <div class="section-title">WEARABLES <a href="items.html?category=wearables" class="see-all">See All</a></div>
           <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap;">
             <div class="category-card" style="width: 110px; text-align: center;">
@@ -193,7 +161,7 @@
           </div>
         </div>
 
-        	<div id="connectivity" class="section category-section" data-category="connectivity" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
+          <div id="connectivity" class="section category-section" data-category="connectivity">
           <div class="section-title">SIM & CONNECTIVITY <a href="items.html?category=connectivity" class="see-all">See All</a></div>
           <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap;">
             <div class="category-card" style="width: 110px; text-align: center;">
@@ -212,7 +180,7 @@
         </div>
 
         <!-- Fashion: Men, Women, Kids, Unisex, Bags & Footwear -->
-        <div id="fashion-mens-clothing" class="section category-section" data-category="fashion-mens-clothing" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
+        <div id="fashion-mens-clothing" class="section category-section" data-category="fashion-mens-clothing">
           <div class="section-title">MEN'S CLOTHING <a href="items.html?category=fashion-mens-clothing" class="see-all">See All</a></div>
           <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap;">
             <div class="category-card" style="width: 110px; text-align: center;">
@@ -230,7 +198,7 @@
           </div>
         </div>
 
-        <div id="fashion-mens-shoes" class="section category-section" data-category="fashion-mens-shoes" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
+        <div id="fashion-mens-shoes" class="section category-section" data-category="fashion-mens-shoes">
           <div class="section-title">MEN'S SHOES <a href="items.html?category=fashion-mens-shoes" class="see-all">See All</a></div>
           <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap;">
             <div class="category-card" style="width: 110px; text-align: center;">
@@ -248,7 +216,7 @@
           </div>
         </div>
 
-        <div id="fashion-mens-accessories" class="section category-section" data-category="fashion-mens-accessories" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
+        <div id="fashion-mens-accessories" class="section category-section" data-category="fashion-mens-accessories">
           <div class="section-title">MEN'S ACCESSORIES <a href="items.html?category=fashion-mens-accessories" class="see-all">See All</a></div>
           <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap;">
             <div class="category-card" style="width: 110px; text-align: center;">
@@ -266,7 +234,7 @@
           </div>
         </div>
 
-        <div id="fashion-womens-clothing" class="section category-section" data-category="fashion-womens-clothing" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
+        <div id="fashion-womens-clothing" class="section category-section" data-category="fashion-womens-clothing">
           <div class="section-title">WOMEN'S CLOTHING <a href="items.html?category=fashion-womens-clothing" class="see-all">See All</a></div>
           <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap;">
             <div class="category-card" style="width: 110px; text-align: center;">
@@ -284,7 +252,7 @@
           </div>
         </div>
 
-        <div id="fashion-womens-shoes" class="section category-section" data-category="fashion-womens-shoes" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
+        <div id="fashion-womens-shoes" class="section category-section" data-category="fashion-womens-shoes">
           <div class="section-title">WOMEN'S SHOES <a href="items.html?category=fashion-womens-shoes" class="see-all">See All</a></div>
           <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap;">
             <div class="category-card" style="width: 110px; text-align: center;">
@@ -302,7 +270,7 @@
           </div>
         </div>
 
-        <div id="fashion-kids-baby" class="section category-section" data-category="fashion-kids-baby" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
+        <div id="fashion-kids-baby" class="section category-section" data-category="fashion-kids-baby">
           <div class="section-title">KIDS & BABY FASHION <a href="items.html?category=fashion-kids-baby" class="see-all">See All</a></div>
           <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap;">
             <div class="category-card" style="width: 110px; text-align: center;">
@@ -320,7 +288,7 @@
           </div>
         </div>
 
-        <div id="fashion-kids-shoes" class="section category-section" data-category="fashion-kids-shoes" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
+        <div id="fashion-kids-shoes" class="section category-section" data-category="fashion-kids-shoes">
           <div class="section-title">KIDS' SHOES <a href="items.html?category=fashion-kids-shoes" class="see-all">See All</a></div>
           <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap;">
             <div class="category-card" style="width: 110px; text-align: center;">
@@ -330,7 +298,7 @@
           </div>
         </div>
 
-        <div id="fashion-unisex" class="section category-section" data-category="fashion-unisex" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
+        <div id="fashion-unisex" class="section category-section" data-category="fashion-unisex">
           <div class="section-title">UNISEX FASHION <a href="items.html?category=fashion-unisex" class="see-all">See All</a></div>
           <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap;">
             <div class="category-card" style="width: 110px; text-align: center;">
@@ -348,7 +316,7 @@
           </div>
         </div>
 
-        <div id="fashion-bags-footwear" class="section category-section" data-category="fashion-bags-footwear" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
+        <div id="fashion-bags-footwear" class="section category-section" data-category="fashion-bags-footwear">
           <div class="section-title">BAGS & FOOTWEAR <a href="items.html?category=fashion-bags-footwear" class="see-all">See All</a></div>
           <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap;">
             <div class="category-card" style="width: 110px; text-align: center;">
@@ -371,7 +339,7 @@
         </div>
 
         <!-- Health & Beauty: grouped boards (each 3-4 cards) -->
-        <div id="beauty-skin" class="section category-section" data-category="beauty-skin" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
+        <div id="beauty-skin" class="section category-section" data-category="beauty-skin">
           <div class="section-title">SKIN CARE <a href="items.html?category=beauty-skin" class="see-all">See All</a></div>
           <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap;">
             <div class="category-card" style="width:110px;text-align:center;">
@@ -393,7 +361,7 @@
           </div>
         </div>
 
-        <div id="beauty-hair" class="section category-section" data-category="beauty-hair" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
+        <div id="beauty-hair" class="section category-section" data-category="beauty-hair">
           <div class="section-title">HAIR CARE <a href="items.html?category=beauty-hair" class="see-all">See All</a></div>
           <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap;">
             <div class="category-card" style="width:110px;text-align:center;">
@@ -415,7 +383,7 @@
           </div>
         </div>
 
-        <div id="beauty-makeup" class="section category-section" data-category="beauty-makeup" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
+        <div id="beauty-makeup" class="section category-section" data-category="beauty-makeup">
           <div class="section-title">MAKEUP <a href="items.html?category=beauty-makeup" class="see-all">See All</a></div>
           <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap;">
             <div class="category-card" style="width:110px;text-align:center;">
@@ -437,7 +405,7 @@
           </div>
         </div>
 
-        <div id="beauty-bathbody" class="section category-section" data-category="beauty-bathbody" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
+        <div id="beauty-bathbody" class="section category-section" data-category="beauty-bathbody">
           <div class="section-title">BATH & BODY <a href="items.html?category=beauty-bathbody" class="see-all">See All</a></div>
           <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap;">
             <div class="category-card" style="width:110px;text-align:center;">
@@ -460,7 +428,7 @@
         </div>
 
         <!-- Health groups -->
-        <div id="health-personal" class="section category-section" data-category="health-personal" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
+        <div id="health-personal" class="section category-section" data-category="health-personal">
           <div class="section-title">PERSONAL HEALTH <a href="items.html?category=health-personal" class="see-all">See All</a></div>
           <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap;">
             <div class="category-card" style="width:110px;text-align:center;">
@@ -482,7 +450,7 @@
           </div>
         </div>
 
-        <div id="health-medical" class="section category-section" data-category="health-medical" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
+        <div id="health-medical" class="section category-section" data-category="health-medical">
           <div class="section-title">MEDICAL SUPPLIES <a href="items.html?category=health-medical" class="see-all">See All</a></div>
           <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap;">
             <div class="category-card" style="width:110px;text-align:center;">
@@ -504,7 +472,7 @@
           </div>
         </div>
 
-        <div id="health-oral" class="section category-section" data-category="health-oral" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
+        <div id="health-oral" class="section category-section" data-category="health-oral">
           <div class="section-title">ORAL CARE <a href="items.html?category=health-oral" class="see-all">See All</a></div>
           <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap;">
             <div class="category-card" style="width:110px;text-align:center;">
@@ -526,7 +494,7 @@
           </div>
         </div>
 
-        <div id="fitness-wellness" class="section category-section" data-category="fitness-wellness" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
+        <div id="fitness-wellness" class="section category-section" data-category="fitness-wellness">
           <div class="section-title">FITNESS & WELLNESS <a href="items.html?category=fitness-wellness" class="see-all">See All</a></div>
           <div class="category-grid" style="display:flex; gap:1.2rem; flex-wrap:wrap;">
             <div class="category-card" style="width:110px;text-align:center;">
@@ -549,8 +517,8 @@
         </div>
 
 
-      <div id="home-kitchen" class="section category-section" data-category="home-kitchen" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
-          <div class="section-title" style="font-size: 1.1rem; font-weight: 700; color: #222; margin-bottom: 0.7rem; display: flex; justify-content: space-between; align-items: center;">APPLIANCES <a href="items.html?category=home-kitchen" style="color: #ff7a3d; font-size: 0.95rem; text-decoration: none; font-weight: 500;">See All</a></div>
+        <div id="home-kitchen" class="section category-section" data-category="home-kitchen">
+          <div class="section-title">APPLIANCES <a href="items.html?category=home-kitchen" class="see-all">See All</a></div>
           <div class="category-grid" style="display: flex; gap: 1.2rem; flex-wrap: wrap;">
             <div class="category-card" style="width: 110px; text-align: center;">
               <img src="assets/large-appliances.jpg" alt="Large Appliances" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
@@ -562,8 +530,8 @@
             </div>
           </div>
         </div>
-        <div id="home" class="section category-section" data-category="home" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
-          <div class="section-title" style="font-size: 1.1rem; font-weight: 700; color: #222; margin-bottom: 0.7rem; display: flex; justify-content: space-between; align-items: center;">HOME & KITCHEN <a href="items.html?category=home-kitchen" style="color: #ff7a3d; font-size: 0.95rem; text-decoration: none; font-weight: 500;">See All</a></div>
+        <div id="home" class="section category-section" data-category="home">
+          <div class="section-title">HOME & KITCHEN <a href="items.html?category=home-kitchen" class="see-all">See All</a></div>
           <div class="category-grid" style="display: flex; gap: 1.2rem; flex-wrap: wrap;">
             <div class="category-card" style="width: 110px; text-align: center;">
               <img src="assets/cookware.jpg" alt="Cookware" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
@@ -583,8 +551,8 @@
             </div>
           </div>
         </div>
-        <div id="home-office" class="section category-section" data-category="home-office" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
-          <div class="section-title" style="font-size: 1.1rem; font-weight: 700; color: #222; margin-bottom: 0.7rem; display: flex; justify-content: space-between; align-items: center;">HOME <a href="items.html?category=home" style="color: #ff7a3d; font-size: 0.95rem; text-decoration: none; font-weight: 500;">See All</a></div>
+        <div id="home-office" class="section category-section" data-category="home-office">
+          <div class="section-title">HOME <a href="items.html?category=home" class="see-all">See All</a></div>
           <div class="category-grid" style="display: flex; gap: 1.2rem; flex-wrap: wrap;">
             <div class="category-card" style="width: 110px; text-align: center;">
               <img src="assets/bedding.jpg" alt="Bedding" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
@@ -600,8 +568,8 @@
             </div>
           </div>
         </div>
-        <div id="office-products" class="section category-section" data-category="office-products" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem; padding: 1rem 1.2rem;">
-          <div class="section-title" style="font-size: 1.1rem; font-weight: 700; color: #222; margin-bottom: 0.7rem; display: flex; justify-content: space-between; align-items: center;">OFFICE PRODUCTS <a href="items.html?category=office-products" style="color: #ff7a3d; font-size: 0.95rem; text-decoration: none; font-weight: 500;">See All</a></div>
+        <div id="office-products" class="section category-section" data-category="office-products">
+          <div class="section-title">OFFICE PRODUCTS <a href="items.html?category=office-products" class="see-all">See All</a></div>
           <div class="category-grid" style="display: flex; gap: 1.2rem; flex-wrap: wrap;">
             <div class="category-card" style="width: 110px; text-align: center;">
               <img src="assets/office-chair.jpg" alt="Office Chair" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f8f8f8; margin-bottom: 0.5rem;">
