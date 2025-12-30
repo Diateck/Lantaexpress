@@ -98,6 +98,11 @@ document.addEventListener('DOMContentLoaded', function () {
       'agriculture-poultry',
       'agriculture-feed'
     ],
+    'computing': [
+      'computing-computers', 'computing-components', 'computing-accessories',
+      'computing-storage', 'computing-printers', 'computing-networking',
+      'computing-power', 'computing-software'
+    ],
     'health-beauty': [
       'beauty-skin', 'beauty-hair', 'beauty-makeup', 'beauty-bathbody',
       'health-personal', 'health-medical', 'health-oral', 'fitness-wellness'
