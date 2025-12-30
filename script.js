@@ -92,6 +92,10 @@ document.addEventListener('DOMContentLoaded', function () {
     'health-beauty': [
       'beauty-skin', 'beauty-hair', 'beauty-makeup', 'beauty-bathbody',
       'health-personal', 'health-medical', 'health-oral', 'fitness-wellness'
+    ],
+    'electronics': [
+      'electronics-television', 'electronics-audio', 'electronics-cameras',
+      'electronics-computers', 'electronics-gaming', 'electronics-wearables', 'electronics-networking'
     ]
   };
 
