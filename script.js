@@ -89,6 +89,15 @@ document.addEventListener('DOMContentLoaded', function () {
       'fashion-kids-shoes', 'fashion-unisex', 'fashion-bags-footwear'
     ]
     ,
+    'agriculture': [
+      'agriculture-crop',
+      'agriculture-seeds',
+      'agriculture-tools',
+      'agriculture-fertilizers',
+      'agriculture-livestock',
+      'agriculture-poultry',
+      'agriculture-feed'
+    ],
     'health-beauty': [
       'beauty-skin', 'beauty-hair', 'beauty-makeup', 'beauty-bathbody',
       'health-personal', 'health-medical', 'health-oral', 'fitness-wellness'
