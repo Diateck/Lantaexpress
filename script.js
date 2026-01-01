@@ -125,6 +125,17 @@ document.addEventListener('DOMContentLoaded', function () {
       'automobile-cars', 'automobile-motorcycles', 'automobile-parts',
       'automobile-tyres', 'automobile-electronics'
     ],
+    'sporting-goods': [
+      'sports-team', 'sports-fitness', 'sports-outdoor', 'sports-indoor',
+      'sports-protective', 'sports-water', 'sports-racquet', 'sports-cycling',
+      'sports-apparel'
+    ],
+    // alias commonly used in sidebar
+    'sports': [
+      'sports-team', 'sports-fitness', 'sports-outdoor', 'sports-indoor',
+      'sports-protective', 'sports-water', 'sports-racquet', 'sports-cycling',
+      'sports-apparel'
+    ],
     // alias so sidebar `data-category="grocery"` or `#grocery` shows the same boards
     'grocery': [
       'food-staples-rice', 'food-staples-grains', 'food-staples-ingredients',
