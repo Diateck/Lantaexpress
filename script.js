@@ -239,3 +239,80 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 });
+
+// Logistics page: tabs + simple booking form handler
+document.addEventListener('DOMContentLoaded', function () {
+  const tabs = Array.from(document.querySelectorAll('.tab'));
+  const serviceInput = document.getElementById('serviceType');
+  const form = document.getElementById('logistics-form');
+  const formMessage = document.getElementById('form-message');
+
+  if (tabs.length && serviceInput) {
+    tabs.forEach(t => t.addEventListener('click', function () {
+      tabs.forEach(x => x.classList.remove('active'));
+      this.classList.add('active');
+      serviceInput.value = this.dataset.type || 'food';
+    }));
+  }
+
+  if (!form) return;
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!formMessage) return;
+    const data = new FormData(form);
+    const name = (data.get('name') || '').toString().trim();
+    const phone = (data.get('phone') || '').toString().trim();
+    const pickup = (data.get('pickup') || '').toString().trim();
+    const dropoff = (data.get('dropoff') || '').toString().trim();
+
+    if (!name || !phone || !pickup || !dropoff) {
+      formMessage.style.color = 'crimson';
+      formMessage.textContent = 'Please complete the required fields.';
+      return;
+    }
+
+    // Show friendly success message and reset form (placeholder for real submission)
+    formMessage.style.color = 'var(--green)';
+    formMessage.textContent = 'Thanks! Pickup requested — our logistics team will contact you shortly.';
+    form.reset();
+    // keep service type synced to the active tab
+    const active = document.querySelector('.tab.active');
+    if (serviceInput) serviceInput.value = (active && active.dataset.type) ? active.dataset.type : 'food';
+
+    // Clear message after a few seconds
+    setTimeout(() => { if (formMessage) formMessage.textContent = ''; }, 7000);
+
+    // TODO: replace this with a real fetch POST to your backend endpoint
+  });
+});
+
+// Entrance animations for logistics page elements (staggered)
+document.addEventListener('DOMContentLoaded', function () {
+  const hero = document.querySelector('.logistics-hero');
+  const heading = hero && hero.querySelector('h1');
+  const features = Array.from(document.querySelectorAll('.feature'));
+  const fadeEls = Array.from(document.querySelectorAll('.fade-in-up'));
+
+  if (heading) {
+    heading.classList.add('heading-appear');
+    requestAnimationFrame(() => setTimeout(() => heading.classList.add('visible'), 60));
+  }
+
+  // stagger features
+  features.forEach((f, i) => {
+    f.classList.add('fade-in-up');
+    setTimeout(() => f.classList.add('visible'), 120 + i * 120);
+  });
+
+  // additional fade elements
+  fadeEls.forEach((el, i) => setTimeout(() => el.classList.add('visible'), 100 + i * 80));
+
+  // Make the logistics visual participate in the stagger if present
+  const visual = document.querySelector('.logistics-visual');
+  if (visual) {
+    // ensure it has the fade class and schedule its reveal slightly after heading
+    visual.classList.add('fade-in-up');
+    setTimeout(() => visual.classList.add('visible'), 260);
+  }
+});

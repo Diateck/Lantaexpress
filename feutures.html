@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lanta Express — Logistics</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="logo-area">
+      <img src="assets/lantalogo2.jpg" alt="Lanta Xpress Logo" class="logo">
+      <span class="brand-name">LantaXpress</span>
+    </div>
+    <nav class="nav">
+      <ul id="main-menu">
+        <li>
+          <button class="cart-btn" aria-label="View cart">
+            <svg class="cart-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="9" cy="21" r="1"/>
+              <circle cx="20" cy="21" r="1"/>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+            </svg>
+          </button>
+        </li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="items.html">Items</a></li>
+        <li><a href="feutures.html" aria-current="page">Logistics</a></li>
+      </ul>
+    </nav>
+    <div class="header-icons">
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <button class="cart-btn mobile-cart-btn" aria-label="View cart">
+          <svg class="cart-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"/>
+            <circle cx="20" cy="21" r="1"/>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+          </svg>
+        </button>
+        <button class="menu-btn" aria-label="Toggle menu" aria-expanded="false" aria-controls="main-menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero logistics-hero">
+      <div class="container" style="display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap;">
+        <div class="hero-content" style="flex:1 1 360px;min-width:240px;">
+          <h1>Logistics that Deliver — Fast, Safe, Everywhere</h1>
+          <p class="subtitle">We pick up and deliver orders anywhere you want. Choose Food Logistics for restaurants and takeaway, or Domestic Logistics for parcels, business deliveries, and more.</p>
+          <a class="cta-btn" href="#book">Book a pickup</a>
+        </div>
+
+        <!-- Animated image spot: replace `assets/logistics-placeholder.jpg` later with your final design -->
+        <div class="logistics-visual fade-in-up" aria-hidden="false" style="flex:0 0 320px;">
+          <img src="assets/logistics-placeholder.jpg" alt="Logistics visual placeholder" onerror="this.onerror=null;this.src='assets/lantaexpressimage1.jpg'" />
+        </div>
+      </div>
+    </section>
+
+    <section class="features container">
+      <h2>How Our Logistics Works</h2>
+      <p>Whether you're a buyer or a business owner, Lanta Express simplifies pickup and delivery. Tell us where to collect, where to drop, and we'll handle the rest — on our network or via a trusted partner.</p>
+
+      <div class="features-list" style="margin-top:1.2rem;">
+        <article class="feature">
+          <h3>Food Logistics</h3>
+          <p>For restaurants, food vendors, and buyers ordering meals externally — we pick up your order on-time with temperature-aware handling and safe, contactless delivery.</p>
+        </article>
+
+        <article class="feature">
+          <h3>Domestic Logistics</h3>
+          <p>Ship parcels, retail orders, or business consignments anywhere in the country. Door-to-door pickup, tracked delivery, and flexible drop-off windows.</p>
+        </article>
+
+        <article class="feature">
+          <h3>For Businesses</h3>
+          <p>Integrate with Lanta Express to deliver to your customers — bulk pickups, scheduled runs, and competitive pricing for business owners.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="book" class="container items-section" style="margin-top:1.5rem;">
+      <h2>Book a Pickup / Delivery</h2>
+
+      <div class="tabs" style="margin:0.6rem 0 1rem 0;">
+        <button class="tab active" data-type="food">Food Logistics</button>
+        <button class="tab" data-type="domestic">Domestic Logistics</button>
+      </div>
+
+      <form id="logistics-form" class="booking-form">
+        <input type="hidden" name="serviceType" id="serviceType" value="food" />
+        <label>
+          Full name
+          <input name="name" type="text" required />
+        </label>
+
+        <label>
+          Phone number
+          <input name="phone" type="tel" required />
+        </label>
+
+        <label>
+          Pickup address (where we collect)
+          <input name="pickup" type="text" required />
+        </label>
+
+        <label>
+          Dropoff address (where to deliver)
+          <input name="dropoff" type="text" required />
+        </label>
+
+        <label>
+          Preferred pickup time (optional)
+          <input name="time" type="text" placeholder="e.g. Today 18:00 - 19:00" />
+        </label>
+
+        <label>
+          Additional notes
+          <textarea name="notes" rows="3" placeholder="Any special instructions (gate codes, temperature, fragile)..."></textarea>
+        </label>
+
+        <label style="display:flex;gap:.5rem;align-items:center;margin-top:.4rem;">
+          <input name="isBusiness" type="checkbox" />
+          I'm a business owner (request business pricing and scheduled pickups)
+        </label>
+
+        <div style="margin-top:1rem;">
+          <button type="submit" class="cta-btn">Request Pickup</button>
+        </div>
+        <div id="form-message" role="status" style="margin-top:.8rem;color:var(--green);"></div>
+      </form>
+    </section>
+
+    <section class="container features" style="margin-top:1.5rem;">
+      <h2>Why Choose Lanta Express</h2>
+      <ul style="margin-top:.6rem;line-height:1.6;">
+        <li><strong>Reliable timing:</strong> real-time updates and delivery windows.</li>
+        <li><strong>Temperature-aware:</strong> special handling for food and fragile goods.</li>
+        <li><strong>Business-friendly:</strong> invoicing, scheduled pickups, and bulk discounts.</li>
+        <li><strong>Easy tracking:</strong> live status so buyers and businesses stay informed.</li>
+      </ul>
+      <p style="margin-top:.8rem;">Want to integrate with us or get a business quote? <a href="mailto:logistics@lantaexpress.com">Contact our logistics team</a>.</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <img src="assets/footer-image.jpg" class="footer-img" alt="Lanta Xpress" />
+      <p>Trusted logistics across the country — Lanta Xpress</p>
+    </div>
+  </footer>
+</body>
+  <!-- Mobile Bottom Navigation (consistent with main site) -->
+  <nav class="mobile-bottom-nav">
+    <a href="index.html#home" class="nav-item">
+      <span class="nav-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00886a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12L12 3l9 9"/><path d="M9 21V9h6v12"/></svg>
+      </span>
+      <span class="nav-label">Home</span>
+    </a>
+    <a href="items.html" class="nav-item">
+      <span class="nav-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00886a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      </span>
+      <span class="nav-label">Items</span>
+    </a>
+    <a href="feutures.html" class="nav-item">
+      <span class="nav-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00886a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+      </span>
+      <span class="nav-label">Logistics</span>
+    </a>
+    <a href="#account" class="nav-item">
+      <span class="nav-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00886a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"/><path d="M5.5 21a8.38 8.38 0 0 1 13 0"/></svg>
+      </span>
+      <span class="nav-label">Account</span>
+    </a>
+  </nav>
+
+  <script src="script.js"></script>
+</body>
+</html>
+</body>
+</html>
