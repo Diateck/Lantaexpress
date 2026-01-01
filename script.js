@@ -316,3 +316,84 @@ document.addEventListener('DOMContentLoaded', function () {
     setTimeout(() => visual.classList.add('visible'), 260);
   }
 });
+
+// Mobile 'rolling pop' page transition — plays ripple animation then navigates
+(function () {
+  function prefersReducedMotion() {
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }
+
+  function createRipple(x, y) {
+    const container = document.createElement('div');
+    container.className = 'page-ripple';
+
+    const overlay = document.createElement('div');
+    overlay.className = 'overlay';
+    container.appendChild(overlay);
+
+    const circle = document.createElement('div');
+    circle.className = 'ripple-circle';
+    // place circle so its center is at the click point
+    circle.style.left = (x - 10) + 'px';
+    circle.style.top = (y - 10) + 'px';
+    container.appendChild(circle);
+
+    document.body.appendChild(container);
+    // force layout then animate
+    // visible overlay first
+    requestAnimationFrame(() => overlay.classList.add('visible'));
+    // small timeout to ensure class toggles register
+    requestAnimationFrame(() => circle.classList.add('animate'));
+
+    return { container, circle, overlay };
+  }
+
+  function removeRipple(container) {
+    if (!container) return;
+    // fade out before removal
+    const overlay = container.querySelector('.overlay');
+    if (overlay) overlay.classList.remove('visible');
+    setTimeout(() => { try { document.body.removeChild(container); } catch (e) {} }, 600);
+  }
+
+  // Intercept mobile nav taps and play animation before navigating
+  document.addEventListener('click', function (ev) {
+    try {
+      const target = ev.target.closest && ev.target.closest('.mobile-bottom-nav .nav-item, .nav a');
+      if (!target) return;
+      // only run on small screens
+      if (window.innerWidth > 700) return;
+      // find link href
+      const link = target.closest('a');
+      if (!link) return;
+      const href = link.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('mailto:') || link.target === '_blank') return;
+
+      if (prefersReducedMotion()) {
+        // respect preference — allow normal navigation
+        return;
+      }
+
+      // prevent immediate navigation so we can animate
+      ev.preventDefault();
+
+      // coordinates — prefer touch coords if available
+      let x = ev.clientX || (ev.touches && ev.touches[0] && ev.touches[0].clientX) || (window.innerWidth / 2);
+      let y = ev.clientY || (ev.touches && ev.touches[0] && ev.touches[0].clientY) || (window.innerHeight / 2);
+
+      const { container } = createRipple(x, y);
+
+      // After animation complete, navigate
+      const duration = 560; // ms (should match CSS)
+      setTimeout(() => {
+        // Use location.assign so back button works predictably
+        window.location.assign(href);
+        // keep cleaning up in case navigation is slow
+        setTimeout(() => removeRipple(container), 800);
+      }, duration);
+    } catch (err) {
+      // any error: let default behavior continue
+      console.error('ripple navigation error', err);
+    }
+  }, { passive: false });
+})();

@@ -950,6 +950,51 @@ html, body { overflow-x: hidden; }
 
 /* end animations */
 
+/* Mobile app-like rolling pop (ripple) transition */
+.page-ripple {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 2000;
+}
+.page-ripple .ripple-circle {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(0,136,106,0.95), rgba(0,136,106,0.85));
+  box-shadow: 0 8px 30px rgba(0,136,106,0.18);
+  transform: scale(0);
+  opacity: 0.95;
+  will-change: transform, opacity;
+  transition: transform 520ms cubic-bezier(.2,.9,.2,1), opacity 420ms ease;
+}
+.page-ripple .ripple-circle.animate {
+  transform: scale(120); /* large enough to cover most screens */
+  opacity: 1;
+}
+
+/* A subtle page overlay during transition to mask content flash */
+.page-ripple .overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
+  opacity: 0;
+  transition: opacity 420ms ease;
+}
+.page-ripple .overlay.visible { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .page-ripple .ripple-circle { transition: none !important; }
+  .page-ripple .overlay { transition: none !important; }
+}
+
+/* End ripple transition styles */
+
 /* Logistics visual placeholder styles */
 .logistics-visual {
   width: 320px;
