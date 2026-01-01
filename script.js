@@ -112,6 +112,11 @@ document.addEventListener('DOMContentLoaded', function () {
       'food-staples-rice', 'food-staples-grains', 'food-staples-ingredients',
       'food-staples-spices', 'food-staples-canned'
     ],
+    // alias so sidebar `data-category="grocery"` or `#grocery` shows the same boards
+    'grocery': [
+      'food-staples-rice', 'food-staples-grains', 'food-staples-ingredients',
+      'food-staples-spices', 'food-staples-canned'
+    ],
     'health-beauty': [
       'beauty-skin', 'beauty-hair', 'beauty-makeup', 'beauty-bathbody',
       'health-personal', 'health-medical', 'health-oral', 'fitness-wellness'
