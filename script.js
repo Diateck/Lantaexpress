@@ -103,6 +103,11 @@ document.addEventListener('DOMContentLoaded', function () {
       'computing-storage', 'computing-printers', 'computing-networking',
       'computing-power', 'computing-software'
     ],
+    'used-properties': [
+      'used-home-appliances', 'used-kitchen-appliances', 'used-electronics',
+      'used-phones-tablets', 'used-computing-devices', 'used-vehicles',
+      'used-power-electrical', 'used-furniture-home'
+    ],
     'health-beauty': [
       'beauty-skin', 'beauty-hair', 'beauty-makeup', 'beauty-bathbody',
       'health-personal', 'health-medical', 'health-oral', 'fitness-wellness'
