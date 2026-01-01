@@ -950,51 +950,6 @@ html, body { overflow-x: hidden; }
 
 /* end animations */
 
-/* Mobile app-like rolling pop (ripple) transition */
-.page-ripple {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 2000;
-}
-.page-ripple .ripple-circle {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, rgba(0,136,106,0.95), rgba(0,136,106,0.85));
-  box-shadow: 0 8px 30px rgba(0,136,106,0.18);
-  transform: scale(0);
-  opacity: 0.95;
-  will-change: transform, opacity;
-  transition: transform 520ms cubic-bezier(.2,.9,.2,1), opacity 420ms ease;
-}
-.page-ripple .ripple-circle.animate {
-  transform: scale(120); /* large enough to cover most screens */
-  opacity: 1;
-}
-
-/* A subtle page overlay during transition to mask content flash */
-.page-ripple .overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
-  opacity: 0;
-  transition: opacity 420ms ease;
-}
-.page-ripple .overlay.visible { opacity: 1; }
-
-@media (prefers-reduced-motion: reduce) {
-  .page-ripple .ripple-circle { transition: none !important; }
-  .page-ripple .overlay { transition: none !important; }
-}
-
-/* End ripple transition styles */
-
 /* Logistics visual placeholder styles */
 .logistics-visual {
   width: 320px;
@@ -1038,3 +993,41 @@ html, body { overflow-x: hidden; }
 /* make sure fade-in is respected */
 .logistics-visual.fade-in-up { opacity:0; transform: translateY(10px); }
 .logistics-visual.fade-in-up.visible { opacity:1; transform: translateY(0); transition: opacity 520ms ease, transform 520ms cubic-bezier(.2,.9,.2,1); }
+
+/* ===== Mobile spinner overlay ===== */
+.mobile-spinner-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.65);
+  z-index: 3000;
+  pointer-events: none; /* allow taps to pass when not intended */
+}
+.mobile-spinner-overlay.visible { pointer-events: auto; }
+.mobile-spinner {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 6px solid rgba(0,0,0,0.08);
+  border-top-color: var(--green);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  animation: spinner-rotate 900ms linear infinite;
+}
+@keyframes spinner-rotate { to { transform: rotate(360deg); } }
+
+/* Reduced motion: show static indicator */
+@media (prefers-reduced-motion: reduce) {
+  .mobile-spinner { animation: none; transform: none; border-top-color: var(--green); }
+}
+
+/* small label under spinner for clarity */
+.mobile-spinner-label { margin-top: 10px; font-weight:600; color:var(--dark); font-size:0.95rem; text-align:center; }
+
+@media (min-width: 701px) {
+  /* spinner is targeted at mobile; hide on larger screens */
+  .mobile-spinner-overlay { display: none !important; }
+}
+
+/* ===== end spinner styles ===== */

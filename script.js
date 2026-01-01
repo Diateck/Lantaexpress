@@ -53,6 +53,89 @@ document.addEventListener('DOMContentLoaded', function () {
     lastMobile = nowMobile;
   });
 });
+
+// Mobile spinner: show a lightweight overlay on mobile when navigation or actions occur
+(function () {
+  function isSmallScreen() {
+    return window.innerWidth <= 700;
+  }
+
+  function createSpinner() {
+    if (document.getElementById('mobile-spinner-overlay')) return document.getElementById('mobile-spinner-overlay');
+    const overlay = document.createElement('div');
+    overlay.id = 'mobile-spinner-overlay';
+    overlay.className = 'mobile-spinner-overlay visible';
+
+    const wrapper = document.createElement('div');
+    wrapper.style.display = 'flex';
+    wrapper.style.flexDirection = 'column';
+    wrapper.style.alignItems = 'center';
+    wrapper.style.justifyContent = 'center';
+
+    const spinner = document.createElement('div');
+    spinner.className = 'mobile-spinner';
+
+    const label = document.createElement('div');
+    label.className = 'mobile-spinner-label';
+    label.textContent = 'Loading...';
+
+    wrapper.appendChild(spinner);
+    wrapper.appendChild(label);
+    overlay.appendChild(wrapper);
+    document.body.appendChild(overlay);
+    return overlay;
+  }
+
+  function removeSpinner() {
+    const el = document.getElementById('mobile-spinner-overlay');
+    if (!el) return;
+    try { document.body.removeChild(el); } catch (e) {}
+  }
+
+  // Intercept mobile nav clicks and show spinner briefly before navigation
+  document.addEventListener('click', function (ev) {
+    const link = ev.target.closest && ev.target.closest('a');
+    if (!link) return;
+    // only for small screens
+    if (!isSmallScreen()) return;
+
+    const href = link.getAttribute('href');
+    if (!href) return;
+    // ignore same-page anchors, mailto, javascript, and external blank targets
+    if (href.startsWith('#') || href.startsWith('mailto:') || link.target === '_blank' || href.startsWith('javascript:')) return;
+
+    // show spinner then navigate
+    try {
+      ev.preventDefault();
+      const overlay = createSpinner();
+      // small delay so spinner appears visibly (for very fast navigations)
+      const delay = 220;
+      setTimeout(() => {
+        // navigate
+        window.location.assign(href);
+        // remove spinner in case navigation is slow or prevented
+        setTimeout(removeSpinner, 2000);
+      }, delay);
+    } catch (err) {
+      // fallback: allow navigation
+      console.error(err);
+      window.location.assign(href);
+    }
+  }, { passive: false });
+
+  // Show spinner on logistics booking form submit on mobile
+  document.addEventListener('submit', function (ev) {
+    if (!isSmallScreen()) return;
+    const form = ev.target;
+    if (!form) return;
+    // if form has attribute data-no-spinner, skip
+    if (form.dataset && form.dataset.noSpinner) return;
+    // show spinner — allow form's submit handler to run
+    createSpinner();
+    // remove after a timeout in case form is handled via JS
+    setTimeout(removeSpinner, 4000);
+  }, true);
+})();
 // Mobile menu toggle for responsive nav
 const menuBtn = document.querySelector('.menu-btn');
 const navMenu = document.getElementById('main-menu');
@@ -316,84 +399,3 @@ document.addEventListener('DOMContentLoaded', function () {
     setTimeout(() => visual.classList.add('visible'), 260);
   }
 });
-
-// Mobile 'rolling pop' page transition — plays ripple animation then navigates
-(function () {
-  function prefersReducedMotion() {
-    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  }
-
-  function createRipple(x, y) {
-    const container = document.createElement('div');
-    container.className = 'page-ripple';
-
-    const overlay = document.createElement('div');
-    overlay.className = 'overlay';
-    container.appendChild(overlay);
-
-    const circle = document.createElement('div');
-    circle.className = 'ripple-circle';
-    // place circle so its center is at the click point
-    circle.style.left = (x - 10) + 'px';
-    circle.style.top = (y - 10) + 'px';
-    container.appendChild(circle);
-
-    document.body.appendChild(container);
-    // force layout then animate
-    // visible overlay first
-    requestAnimationFrame(() => overlay.classList.add('visible'));
-    // small timeout to ensure class toggles register
-    requestAnimationFrame(() => circle.classList.add('animate'));
-
-    return { container, circle, overlay };
-  }
-
-  function removeRipple(container) {
-    if (!container) return;
-    // fade out before removal
-    const overlay = container.querySelector('.overlay');
-    if (overlay) overlay.classList.remove('visible');
-    setTimeout(() => { try { document.body.removeChild(container); } catch (e) {} }, 600);
-  }
-
-  // Intercept mobile nav taps and play animation before navigating
-  document.addEventListener('click', function (ev) {
-    try {
-      const target = ev.target.closest && ev.target.closest('.mobile-bottom-nav .nav-item, .nav a');
-      if (!target) return;
-      // only run on small screens
-      if (window.innerWidth > 700) return;
-      // find link href
-      const link = target.closest('a');
-      if (!link) return;
-      const href = link.getAttribute('href');
-      if (!href || href.startsWith('#') || href.startsWith('mailto:') || link.target === '_blank') return;
-
-      if (prefersReducedMotion()) {
-        // respect preference — allow normal navigation
-        return;
-      }
-
-      // prevent immediate navigation so we can animate
-      ev.preventDefault();
-
-      // coordinates — prefer touch coords if available
-      let x = ev.clientX || (ev.touches && ev.touches[0] && ev.touches[0].clientX) || (window.innerWidth / 2);
-      let y = ev.clientY || (ev.touches && ev.touches[0] && ev.touches[0].clientY) || (window.innerHeight / 2);
-
-      const { container } = createRipple(x, y);
-
-      // After animation complete, navigate
-      const duration = 560; // ms (should match CSS)
-      setTimeout(() => {
-        // Use location.assign so back button works predictably
-        window.location.assign(href);
-        // keep cleaning up in case navigation is slow
-        setTimeout(() => removeRipple(container), 800);
-      }, duration);
-    } catch (err) {
-      // any error: let default behavior continue
-      console.error('ripple navigation error', err);
-    }
-  }, { passive: false });
-})();
