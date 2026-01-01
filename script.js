@@ -136,6 +136,12 @@ document.addEventListener('DOMContentLoaded', function () {
       'sports-protective', 'sports-water', 'sports-racquet', 'sports-cycling',
       'sports-apparel'
     ],
+    'toys-baby': [
+      'baby-care', 'baby-feeding', 'baby-clothing', 'baby-health', 'baby-gear'
+    ],
+    'baby': [
+      'baby-care', 'baby-feeding', 'baby-clothing', 'baby-health', 'baby-gear'
+    ],
     // alias so sidebar `data-category="grocery"` or `#grocery` shows the same boards
     'grocery': [
       'food-staples-rice', 'food-staples-grains', 'food-staples-ingredients',
