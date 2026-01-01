@@ -121,6 +121,10 @@ document.addEventListener('DOMContentLoaded', function () {
       'garden-tools', 'garden-plants', 'garden-furniture',
       'garden-lawn', 'garden-supplies', 'garden-lighting'
     ],
+    'automobile': [
+      'automobile-cars', 'automobile-motorcycles', 'automobile-parts',
+      'automobile-tyres', 'automobile-electronics'
+    ],
     // alias so sidebar `data-category="grocery"` or `#grocery` shows the same boards
     'grocery': [
       'food-staples-rice', 'food-staples-grains', 'food-staples-ingredients',
