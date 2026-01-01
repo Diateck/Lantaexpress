@@ -112,6 +112,15 @@ document.addEventListener('DOMContentLoaded', function () {
       'food-staples-rice', 'food-staples-grains', 'food-staples-ingredients',
       'food-staples-spices', 'food-staples-canned'
     ],
+    'garden-outdoors': [
+      'garden-tools', 'garden-plants', 'garden-furniture',
+      'garden-lawn', 'garden-supplies', 'garden-lighting'
+    ],
+    // alias for sidebar uses like `garden`
+    'garden': [
+      'garden-tools', 'garden-plants', 'garden-furniture',
+      'garden-lawn', 'garden-supplies', 'garden-lighting'
+    ],
     // alias so sidebar `data-category="grocery"` or `#grocery` shows the same boards
     'grocery': [
       'food-staples-rice', 'food-staples-grains', 'food-staples-ingredients',
