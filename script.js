@@ -108,6 +108,10 @@ document.addEventListener('DOMContentLoaded', function () {
       'used-phones-tablets', 'used-computing-devices', 'used-vehicles',
       'used-power-electrical', 'used-furniture-home'
     ],
+    'food-staples': [
+      'food-staples-rice', 'food-staples-grains', 'food-staples-ingredients',
+      'food-staples-spices', 'food-staples-canned'
+    ],
     'health-beauty': [
       'beauty-skin', 'beauty-hair', 'beauty-makeup', 'beauty-bathbody',
       'health-personal', 'health-medical', 'health-oral', 'fitness-wellness'
