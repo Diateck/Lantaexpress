@@ -398,41 +398,6 @@ html, body { overflow-x: hidden; }
   color: var(--dark);
 }
 .features-list {
-
-/* Hybrid dashboard styles (scoped with hyb- prefix) */
-.hyb-container { display: flex; gap: 1rem; margin-top: 1rem; }
-.hyb-sidebar { width: 260px; background: #fff; border-radius: 12px; padding: 1rem; box-shadow: var(--shadow); }
-.hyb-profile { display:flex; gap:0.75rem; align-items:center; margin-bottom:1rem; }
-.hyb-avatar { width:48px; height:48px; border-radius:8px; }
-.hyb-name { font-weight:700; }
-.hyb-main { flex:1; }
-.hyb-topbar { display:flex; justify-content:space-between; align-items:center; gap:1rem; margin-bottom:1rem; }
-.hyb-title { margin:0; font-size:1.3rem; }
-.hyb-kpis { display:grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap:0.75rem; margin-bottom:1rem; }
-.hyb-kpi { background:#fff; border-radius:10px; padding:0.8rem; box-shadow: 0 6px 18px rgba(11,11,11,0.05); }
-.hyb-kpi-title { color:#666; font-size:0.9rem; }
-.hyb-kpi-value { font-weight:800; font-size:1.15rem; margin-top:0.35rem; }
-.hyb-grid { display:grid; grid-template-columns: 1fr 320px; gap:1rem; }
-.hyb-left .hyb-card, .hyb-right .hyb-card { background:#fff; border-radius:10px; padding:0.8rem; box-shadow: var(--shadow); }
-.hyb-card { margin-bottom:1rem; }
-.hyb-table-wrap { overflow:auto; }
-.hyb-table { width:100%; border-collapse:collapse; }
-.hyb-table th, .hyb-table td { text-align:left; padding:0.6rem 0.5rem; border-bottom:1px solid #f0f0f0; }
-.hyb-products-list { display:flex; flex-direction:column; gap:0.6rem; }
-.hyb-product-item { display:flex; gap:0.6rem; align-items:center; }
-.hyb-product-item img { width:64px; height:64px; object-fit:cover; border-radius:8px; }
-.hyb-actions { display:flex; gap:0.5rem; flex-direction:column; }
-.hyb-actions .cta-btn { padding:0.5rem 0.8rem; font-size:0.95rem; }
-.hyb-chart { min-height:120px; display:flex; align-items:center; justify-content:center; }
-
-/* Mobile adjustments: collapse sidebar to top tabs and single column layout */
-@media (max-width: 900px) {
-  .hyb-container { flex-direction: column; }
-  .hyb-sidebar { width:100%; display:flex; overflow:auto; }
-  .hyb-grid { grid-template-columns: 1fr; }
-  .hyb-right { order: 2; }
-}
-
   display: flex;
   gap: 2rem;
   justify-content: center;
