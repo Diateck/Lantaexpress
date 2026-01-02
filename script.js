@@ -183,7 +183,21 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     window.addEventListener('resize', drawAxChart);
-    drawAxChart();
+    // Defer initial chart draw to avoid blocking initial paint — use idle callback when available
+    if ('requestIdleCallback' in window) requestIdleCallback(drawAxChart, { timeout: 500 });
+    else setTimeout(drawAxChart, 120);
+
+    // Optimize category images for faster first paint on mobile/slow networks
+    function optimizeCategoryImages() {
+      try {
+        const imgs = document.querySelectorAll('.category-section img');
+        imgs.forEach(img => {
+          try { img.loading = 'lazy'; img.decoding = 'async'; } catch (e) {}
+        });
+      } catch (e) { /* ignore */ }
+    }
+    if (document.readyState !== 'loading') optimizeCategoryImages();
+    else document.addEventListener('DOMContentLoaded', optimizeCategoryImages);
 
     // sidebar mobile behavior: convert to horizontal tabs on small screens (CSS handles most)
     const sidebarItems = Array.from(document.querySelectorAll('.ax-sidebar nav ul li'));
@@ -228,7 +242,7 @@ if (marquee) {
 }
 
 // Category switching within items page (hash + JS-driven)
-function initCategorySwitching() {
+document.addEventListener('DOMContentLoaded', function () {
   const sidebarLinks = Array.from(document.querySelectorAll('.sidebar a[data-category]'));
   const sections = Array.from(document.querySelectorAll('.category-section'));
   console.debug('items: category init', { sidebarLinks: sidebarLinks.length, sections: sections.length });
@@ -397,11 +411,7 @@ function initCategorySwitching() {
       window.location.href = 'index.html';
     });
   }
-}
-
-// Run category init ASAP: if DOM already parsed run now, otherwise wait for DOMContentLoaded
-if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initCategorySwitching);
-else initCategorySwitching();
+});
 
 // Logistics page: tabs + simple booking form handler
 document.addEventListener('DOMContentLoaded', function () {
