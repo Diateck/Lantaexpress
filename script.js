@@ -241,6 +241,24 @@ if (marquee) {
   });
 }
 
+// Mobile: ensure Account nav links open the dedicated account page
+// (many pages use anchors like `#account` in nav; on small screens prefer full `account.html`)
+document.addEventListener('click', function (ev) {
+  try {
+    if (!isSmallScreen()) return;
+    const a = ev.target && ev.target.closest ? ev.target.closest('a[href$="#account"], a[href="#account"], a[href*="account.html"]') : null;
+    if (!a) return;
+    const href = (a.getAttribute('href') || '').trim();
+    // If it already points to account.html, let it proceed
+    if (!href) return;
+    if (href.toLowerCase().includes('account.html')) return;
+    // Prevent the default in-page hash navigation and go to account.html instead
+    ev.preventDefault();
+    // Add a small delay so the spinner handler (if present) can show briefly on very slow devices
+    setTimeout(() => { window.location.href = 'account.html'; }, 10);
+  } catch (err) { /* ignore */ }
+}, true);
+
 // Category switching within items page (hash + JS-driven)
 document.addEventListener('DOMContentLoaded', function () {
   const sidebarLinks = Array.from(document.querySelectorAll('.sidebar a[data-category]'));
