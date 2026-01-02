@@ -522,7 +522,7 @@ function initAccountPage() {
   if (!root) return; // not on account page
 
   // Demo current user (in production replace with server-provided user object)
-  const currentUser = window.currentUser || { name: 'Jane Doe', role: 'buyer', avatar: '', email: 'jane@example.com' };
+  const currentUser = window.currentUser || { name: 'Diateck', role: 'buyer', avatar: '', email: 'diateck@example.com' };
 
   // Elements
   const sidebar = root.querySelector('.ax-sidebar');
@@ -606,7 +606,7 @@ function initAccountPage() {
   // Render main default panels and widgets
   function buildMain() {
     main.innerHTML = `
-      <div class="ax-topbar-row"><div class="ax-welcome">Welcome, ${currentUser.name}</div><div class="ax-actions"><input id="ax-search" placeholder="Search orders, products..."/></div></div>
+      <div class="ax-topbar-row"><div class="ax-welcome">Welcome ${currentUser.name}</div><div class="ax-actions"><input id="ax-search" placeholder="Search orders, products..."/></div></div>
       <div class="ax-cards">
         <div class="ax-card" data-widget="kpi-products">
           <div class="ax-icon">
