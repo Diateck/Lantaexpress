@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dashboard — LantaXpress</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="logo-area">
+      <img src="assets/lantalogo2.jpg" alt="Lanta Xpress Logo" class="logo">
+      <span class="brand-name">LantaXpress</span>
+    </div>
+    <nav class="nav">
+      <ul id="main-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="items.html">Items</a></li>
+        <li><a href="logistics.html">Logistics</a></li>
+        <li><a href="dashboard.html" aria-current="page">Account</a></li>
+      </ul>
+    </nav>
+    <div class="header-icons">
+      <div style="display:flex;align-items:center;gap:.5rem;">
+        <button class="menu-btn" aria-label="Toggle menu" aria-expanded="false" aria-controls="main-menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container dashboard-container">
+    <aside class="dashboard-nav">
+      <div class="profile-brief">
+        <img src="assets/lantalogo2.jpg" alt="Avatar" class="avatar">
+        <div>
+          <div class="name">Hello, <strong>Jane Seller</strong></div>
+          <div class="role">Seller</div>
+        </div>
+      </div>
+      <ul>
+        <li class="active" data-section="overview"><a href="#">Overview</a></li>
+        <li data-section="orders"><a href="#">Orders</a></li>
+        <li data-section="products"><a href="#">Products</a></li>
+        <li data-section="logistics"><a href="#">Logistics</a></li>
+        <li data-section="wallet"><a href="#">Wallet & Payouts</a></li>
+        <li data-section="settings"><a href="#">Settings</a></li>
+      </ul>
+      <div style="margin-top:auto;padding-top:1rem;">
+        <button id="logoutBtn" class="cta-btn" style="width:100%">Logout</button>
+      </div>
+    </aside>
+
+    <section class="dashboard-main">
+      <header class="dashboard-header">
+        <h1>Seller Dashboard</h1>
+        <div class="header-actions">
+          <button id="switchViewBtn" class="cta-btn">Switch to Buyer View</button>
+        </div>
+      </header>
+
+      <div id="section-overview" class="dashboard-section active">
+        <div class="cards-grid">
+          <div class="card">
+            <h4>Total Sold</h4>
+            <div class="card-value" id="totalSold">₦0</div>
+            <div class="muted">Lifetime sales</div>
+          </div>
+          <div class="card">
+            <h4>Available Balance</h4>
+            <div class="card-value highlight" id="availableBalance">₦0</div>
+            <div class="muted">Ready for withdrawal</div>
+          </div>
+          <div class="card">
+            <h4>Pending Payouts</h4>
+            <div class="card-value" id="pendingPayouts">₦0</div>
+            <div class="muted">Processing</div>
+          </div>
+        </div>
+
+        <div style="margin-top:1.2rem;display:flex;gap:1rem;flex-wrap:wrap;align-items:flex-start;">
+          <div style="flex:1;min-width:320px;">
+            <div class="section-card">
+              <div class="section-card-header">
+                <h3>Recent Sales</h3>
+                <a href="#" class="see-all">See all</a>
+              </div>
+              <table class="table" id="recentSalesTable">
+                <thead><tr><th>Order</th><th>Date</th><th>Amount</th><th>Status</th></tr></thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div style="width:320px;">
+            <div class="section-card">
+              <h3>Quick Actions</h3>
+              <div style="display:flex;flex-direction:column;gap:.6rem;margin-top:.6rem;">
+                <button id="addProductBtn" class="cta-btn">Add Product</button>
+                <button id="requestWithdrawBtn" class="cta-btn" style="background:var(--accent)">Request Withdrawal</button>
+                <a href="#" class="cta-btn" style="background:#fff;border:1px solid #e6e6e6;color:var(--dark);text-align:center;">View Analytics</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="section-wallet" class="dashboard-section" style="display:none;">
+        <div class="section-card">
+          <div class="section-card-header">
+            <h3>Wallet & Payouts</h3>
+          </div>
+          <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:.8rem;">
+            <div style="flex:1;min-width:240px;">
+              <h4>Available Balance</h4>
+              <div class="card-value highlight" id="walletAvailable">₦0</div>
+              <div class="muted">Withdraw funds to your bank or mobile money</div>
+            </div>
+            <div style="width:320px;">
+              <button id="withdrawBtn" class="cta-btn">Request Withdrawal</button>
+            </div>
+          </div>
+
+          <div style="margin-top:1rem;">
+            <h4>Payout History</h4>
+            <table class="table" id="payoutHistoryTable">
+              <thead><tr><th>ID</th><th>Date</th><th>Amount</th><th>Status</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Withdraw modal (hidden) -->
+      <div id="withdrawModal" class="modal" aria-hidden="true">
+        <div class="modal-content">
+          <button class="modal-close" aria-label="Close">×</button>
+          <h3>Request Withdrawal</h3>
+          <form id="withdrawForm">
+            <label>Amount (₦)
+              <input type="number" name="amount" min="1000" required />
+            </label>
+            <label>Payout Method
+              <select name="method">
+                <option value="bank">Bank Transfer</option>
+                <option value="mobile">Mobile Money</option>
+              </select>
+            </label>
+            <div id="payoutDetails"></div>
+            <div style="display:flex;gap:.6rem;margin-top:.8rem;">
+              <button type="submit" class="cta-btn">Confirm Withdrawal</button>
+              <button type="button" class="btn-secondary modal-close">Cancel</button>
+            </div>
+            <div id="withdrawMessage" style="margin-top:.6rem"></div>
+          </form>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <img src="assets/footer-image.jpg" class="footer-img" alt="Lanta Xpress" />
+      <p>Seller tools — LantaXpress</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -399,3 +399,175 @@ document.addEventListener('DOMContentLoaded', function () {
     setTimeout(() => visual.classList.add('visible'), 260);
   }
 });
+
+// Dashboard interactions: simple client-side scaffolding for demo data, section routing, and withdraw modal
+(function () {
+  function qs(sel, ctx) { return (ctx || document).querySelector(sel); }
+  function qsa(sel, ctx) { return Array.from((ctx || document).querySelectorAll(sel)); }
+
+  const dashboardNav = qsa('.dashboard-nav ul li');
+  const sections = qsa('.dashboard-section');
+  const recentSalesTable = qs('#recentSalesTable tbody');
+  const payoutHistoryTable = qs('#payoutHistoryTable tbody');
+  const totalSoldEl = qs('#totalSold');
+  const availableBalanceEl = qs('#availableBalance');
+  const pendingPayoutsEl = qs('#pendingPayouts');
+  const walletAvailableEl = qs('#walletAvailable');
+
+  // Demo data (frontend-only). Replace with real data from your backend.
+  const demo = {
+    totalSold: 254000,
+    available: 42000,
+    pending: 12000,
+    recentSales: [
+      { id: 'ORD-1001', date: '2025-12-20', amount: 12000, status: 'Delivered' },
+      { id: 'ORD-1002', date: '2025-12-18', amount: 8000, status: 'Shipped' },
+      { id: 'ORD-1003', date: '2025-12-10', amount: 3000, status: 'Cancelled' }
+    ],
+    payouts: [
+      { id: 'P-9001', date: '2025-11-20', amount: 20000, status: 'Paid' },
+      { id: 'P-9002', date: '2025-10-05', amount: 15000, status: 'Paid' }
+    ]
+  };
+
+  function formatCurrency(n) {
+    try { return '₦' + Number(n).toLocaleString(); } catch (e) { return '₦' + n; }
+  }
+
+  function renderOverview() {
+    if (totalSoldEl) totalSoldEl.textContent = formatCurrency(demo.totalSold);
+    if (availableBalanceEl) availableBalanceEl.textContent = formatCurrency(demo.available);
+    if (pendingPayoutsEl) pendingPayoutsEl.textContent = formatCurrency(demo.pending);
+    if (walletAvailableEl) walletAvailableEl.textContent = formatCurrency(demo.available);
+
+    if (recentSalesTable) {
+      recentSalesTable.innerHTML = '';
+      demo.recentSales.forEach(s => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${s.id}</td><td>${s.date}</td><td>${formatCurrency(s.amount)}</td><td>${s.status}</td>`;
+        recentSalesTable.appendChild(tr);
+      });
+    }
+
+    if (payoutHistoryTable) {
+      payoutHistoryTable.innerHTML = '';
+      demo.payouts.forEach(p => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${p.id}</td><td>${p.date}</td><td>${formatCurrency(p.amount)}</td><td>${p.status}</td>`;
+        payoutHistoryTable.appendChild(tr);
+      });
+    }
+  }
+
+  function showSection(name) {
+    sections.forEach(sec => {
+      if (sec.id === 'section-' + name) {
+        sec.style.display = '';
+        sec.classList.add('active');
+      } else {
+        sec.style.display = 'none';
+        sec.classList.remove('active');
+      }
+    });
+    dashboardNav.forEach(li => li.classList.toggle('active', li.dataset.section === name));
+  }
+
+  // Wire nav clicks
+  dashboardNav.forEach(li => {
+    li.addEventListener('click', function (e) {
+      e.preventDefault();
+      const s = this.dataset.section || 'overview';
+      if (s === 'wallet') {
+        // show wallet section id is 'wallet'
+        showSection('wallet');
+      } else {
+        showSection(s);
+      }
+    });
+  });
+
+  // Modal behavior for withdrawal
+  const withdrawModal = qs('#withdrawModal');
+  const withdrawForm = qs('#withdrawForm');
+  const withdrawBtn = qs('#withdrawBtn');
+  const requestWithdrawBtn = qs('#requestWithdrawBtn');
+  const withdrawMessage = qs('#withdrawMessage');
+
+  function openModal() {
+    if (!withdrawModal) return;
+    withdrawModal.style.display = 'flex';
+    withdrawModal.setAttribute('aria-hidden', 'false');
+  }
+  function closeModal() {
+    if (!withdrawModal) return;
+    withdrawModal.style.display = 'none';
+    withdrawModal.setAttribute('aria-hidden', 'true');
+    if (withdrawMessage) withdrawMessage.textContent = '';
+    if (withdrawForm) withdrawForm.reset();
+  }
+
+  // attach to quick action buttons
+  if (withdrawBtn) withdrawBtn.addEventListener('click', openModal);
+  if (requestWithdrawBtn) requestWithdrawBtn.addEventListener('click', openModal);
+
+  // modal close controls
+  qsa('.modal-close').forEach(btn => btn.addEventListener('click', closeModal));
+  if (withdrawModal) withdrawModal.addEventListener('click', function (e) {
+    if (e.target === withdrawModal) closeModal();
+  });
+
+  // dynamic payout details UI in modal
+  const payoutDetails = qs('#payoutDetails');
+  if (withdrawForm) {
+    withdrawForm.method.value = withdrawForm.method.value || 'bank';
+    function renderPayoutFields(method) {
+      if (!payoutDetails) return;
+      payoutDetails.innerHTML = '';
+      if (method === 'bank') {
+        payoutDetails.innerHTML = `\n              <label>Bank Name\n                <input name="bank" required />\n              </label>\n              <label>Account Number\n                <input name="account" required />\n              </label>\n            `;
+      } else {
+        payoutDetails.innerHTML = `\n              <label>Mobile Money Number\n                <input name="mobile" required />\n              </label>\n              <label>Network\n                <select name="network">\n                  <option>MTN</option>\n                  <option>Glo</option>\n                  <option>Airtel</option>\n                </select>\n              </label>\n            `;
+      }
+    }
+
+    renderPayoutFields(withdrawForm.method.value);
+    withdrawForm.method.addEventListener('change', function () { renderPayoutFields(this.value); });
+
+    withdrawForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const fd = new FormData(withdrawForm);
+      const amount = Number(fd.get('amount') || 0);
+      const min = 1000; // minimum withdrawal threshold (frontend only)
+      if (amount < min) {
+        if (withdrawMessage) {
+          withdrawMessage.style.color = 'crimson';
+          withdrawMessage.textContent = `Minimum withdrawal is ₦${min.toLocaleString()}`;
+        }
+        return;
+      }
+
+      // Demo: pretend to submit to server and update UI
+      if (withdrawMessage) {
+        withdrawMessage.style.color = 'var(--green)';
+        withdrawMessage.textContent = 'Withdrawal request sent. Processing...';
+      }
+
+      // Update demo balances locally
+      demo.available = Math.max(0, demo.available - amount);
+      demo.payouts.unshift({ id: 'P-' + Math.floor(Math.random() * 9000 + 1000), date: new Date().toISOString().slice(0,10), amount: amount, status: 'Pending' });
+      renderOverview();
+
+      setTimeout(() => {
+        if (withdrawMessage) withdrawMessage.textContent = 'Request received. You will be notified when payout is complete.';
+        // close modal after a short delay
+        setTimeout(closeModal, 1600);
+      }, 700);
+
+      // TODO: send to your server via fetch POST, handle validation and errors
+    });
+  }
+
+  // initialize
+  renderOverview();
+  showSection('overview');
+})();
