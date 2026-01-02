@@ -12,7 +12,8 @@
     body { margin:0; font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background:var(--dash-bg); color:#111827; }
     header.header{background:var(--accent);padding:1rem 1.25rem;border-bottom:1px solid rgba(0,0,0,0.04);color:#fff}
     header.header .brand-name, header.header .header-icons, header.header .nav a{color:#fff}
-    header.header .logo{background:#fff;padding:6px;border-radius:8px}
+    /* remove white frame so header appears as a plain green bar */
+    header.header .logo{background:transparent;padding:0;border-radius:8px}
     .menu-btn{background:transparent;border:0;color:#fff;font-size:20px;padding:6px 8px;border-radius:6px}
     .nav a{color:inherit}
     .logo-area{display:flex;align-items:center;gap:.6rem}
