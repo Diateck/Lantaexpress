@@ -583,11 +583,19 @@ function initAccountPage() {
       const a = document.createElement('a'); a.href = '#'+it.id; a.textContent = it.label; a.dataset.id = it.id; a.className = 'ax-side-link';
       li.appendChild(a);
       if (it.children) {
+        // mark link as having children (for arrow) and set aria
+        a.classList.add('has-children');
+        a.setAttribute('aria-expanded', 'false');
         const sub = document.createElement('ul'); sub.className = 'ax-side-sub';
         it.children.forEach(c => { const cli = document.createElement('li'); const ca = document.createElement('a'); ca.href = '#'+c.id; ca.textContent = c.label; ca.dataset.id = c.id; ca.className='ax-side-link-sub'; cli.appendChild(ca); sub.appendChild(cli); });
         li.appendChild(sub);
-        // toggler
-        a.addEventListener('click', (e) => { e.preventDefault(); li.classList.toggle('open'); });
+        // toggler - show/hide submenu and update aria-expanded
+        a.addEventListener('click', (e) => {
+          e.preventDefault();
+          const opening = !li.classList.contains('open');
+          li.classList.toggle('open');
+          a.setAttribute('aria-expanded', opening ? 'true' : 'false');
+        });
       } else {
         a.addEventListener('click', (e) => { e.preventDefault(); activateSection(it.id); });
       }

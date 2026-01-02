@@ -54,8 +54,22 @@
     /* Sidebar nav styles */
     .ax-side-nav ul{list-style:none;padding:0;margin:0}
     .ax-side-nav li{margin:0}
-    .ax-side-nav a{display:flex;align-items:center;gap:.6rem;padding:.6rem;border-radius:10px;color:#0f172a;text-decoration:none}
+    .ax-side-nav a{display:flex;align-items:center;gap:.6rem;padding:.6rem;border-radius:10px;color:#0f172a;text-decoration:none;position:relative}
     .ax-side-nav a:hover{background:rgba(0,136,106,0.04)}
+    /* submenu hidden by default, shown when parent has .open */
+    .ax-side-sub{display:none;padding-left:.6rem;margin-top:.25rem}
+    .ax-side-item.open > .ax-side-sub{display:block}
+    /* small arrow indicator on links that have children */
+    .ax-side-link.has-children::after{
+      content: '▾';
+      position: absolute;
+      right: 0.6rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+      transform-origin: center;
+      transition: transform .18s ease;
+    }
+    .ax-side-item.open > .ax-side-link.has-children::after{ transform: rotate(180deg); color: var(--accent); }
     .ax-side-nav a.active{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff}
     .ax-side-sub{padding-left:.6rem;margin-top:.25rem}
 
