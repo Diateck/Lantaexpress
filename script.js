@@ -227,6 +227,11 @@ if (menuBtn) {
     const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
     menuBtn.setAttribute('aria-expanded', !expanded);
     if (navMenu) navMenu.classList.toggle('show');
+    // toggle backdrop for compact mobile header menu
+    try {
+      const backdrop = document.getElementById('menu-backdrop');
+      if (backdrop) backdrop.classList.toggle('visible');
+    } catch (e) { /* ignore */ }
     // If on account page, toggle the sidebar visibility for mobile
     try {
       const accountRoot = document.getElementById('account-dashboard');
@@ -234,6 +239,30 @@ if (menuBtn) {
     } catch (e) { /* ignore */ }
   });
 }
+
+// Wire the header compact menu close button and backdrop to hide the menu
+try {
+  const navCloseBtn = document.querySelector('.nav .nav-close');
+  const backdrop = document.getElementById('menu-backdrop');
+  if (navCloseBtn) {
+    navCloseBtn.addEventListener('click', function (e) {
+      e.preventDefault(); e.stopPropagation();
+      try { if (navMenu) navMenu.classList.remove('show'); } catch (e) {}
+      try { if (backdrop) backdrop.classList.remove('visible'); } catch (e) {}
+      try { if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false'); } catch (e) {}
+      try { const accountRoot = document.getElementById('account-dashboard'); if (accountRoot) accountRoot.classList.remove('ax-sidebar-open'); } catch (e) {}
+      try { if (menuBtn && typeof menuBtn.focus === 'function') menuBtn.focus(); } catch (e) {}
+    });
+  }
+  if (backdrop) {
+    backdrop.addEventListener('click', function () {
+      try { if (navMenu) navMenu.classList.remove('show'); } catch (e) {}
+      try { backdrop.classList.remove('visible'); } catch (e) {}
+      try { if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false'); } catch (e) {}
+      try { const accountRoot = document.getElementById('account-dashboard'); if (accountRoot) accountRoot.classList.remove('ax-sidebar-open'); } catch (e) {}
+    });
+  }
+} catch (e) { /* ignore */ }
 
 // Optional: Pause marquee on hover (for accessibility)
 const marquee = document.querySelector('.marquee-track');
@@ -724,23 +753,6 @@ function initAccountPage() {
   buildSidebar(); buildMain(); wireSidebarToggle();
   // show initial overview
   activateSection('overview');
-
-  // Wire mobile header close button (the X) to hide the compact header menu
-  try {
-    const navClose = document.querySelector('.nav-close');
-    if (navClose) {
-      navClose.addEventListener('click', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        try {
-          if (navMenu) navMenu.classList.remove('show');
-          if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');
-          if (root) root.classList.remove('ax-sidebar-open');
-          if (menuBtn && typeof menuBtn.focus === 'function') menuBtn.focus();
-        } catch (err) { /* ignore */ }
-      });
-    }
-  } catch (err) { /* ignore */ }
 }
 
 // Run account init when page is ready
