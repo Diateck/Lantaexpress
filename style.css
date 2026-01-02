@@ -1062,3 +1062,51 @@ html, body { overflow-x: hidden; }
   .kpis { grid-template-columns: repeat(1,1fr); }
   .dashboard-header { flex-direction:column; align-items:flex-start; }
 }
+
+/* Improved mobile responsiveness to match site theme and behavior */
+@media (max-width: 700px) {
+  /* Make dashboard container use the same safe horizontal padding as other pages */
+  .dashboard-container { padding-left: 0.75rem; padding-right: 0.75rem; }
+
+  /* Convert sidebar into a horizontal scrolling tab bar for quick access (like other pages) */
+  .dashboard-nav {
+    position: sticky;
+    top: 60px; /* below site header */
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    overflow-x: auto;
+    width: 100%;
+    padding: 0.4rem 0.4rem;
+    border-radius: 10px;
+    box-shadow: none;
+    background: #fff;
+    margin-bottom: 0.6rem;
+  }
+
+  .dashboard-nav ul { display:flex; flex-direction:row; gap:0.5rem; }
+  .dashboard-nav ul li { flex: 0 0 auto; padding:0.6rem 0.9rem; border-radius:999px; white-space:nowrap; }
+
+  /* Make KPI cards stack and match site spacing */
+  .kpis { grid-template-columns: repeat(2,1fr); gap:0.6rem; }
+  .kpi { padding:0.8rem; }
+
+  /* Panels stack vertically; keep quick panel below main content */
+  .dashboard-panels { grid-template-columns: 1fr; }
+  .panel-left { order: 1; }
+  .panel-right { order: 2; }
+
+  /* Slightly smaller chart on mobile to conserve space */
+  .chart-placeholder { height:160px; }
+
+  /* Increase touch targets for quick links and see-all */
+  .see-all { padding:0.3rem 0.45rem; border-radius:6px; }
+}
+
+/* Improve small-screen readability and spacing across dashboard cards */
+@media (max-width: 420px) {
+  .dashboard-container { padding-left: 0.5rem; padding-right: 0.5rem; }
+  .kpis { grid-template-columns: 1fr; }
+  .dashboard-header h1 { font-size:1.05rem; }
+  .kpi .kpi-value { font-size:1.05rem; }
+}
