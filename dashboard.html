@@ -21,93 +21,89 @@
 			</ul>
 		</nav>
 		<div class="header-icons">
-			<button class="menu-btn" aria-label="Open menu" aria-expanded="false">☰</button>
+			<button class="menu-btn" aria-label="Toggle menu" aria-expanded="false">☰</button>
 		</div>
 	</header>
 
-	<main class="container dashboard-container">
-		<aside class="dashboard-nav" aria-label="Account navigation">
-			<div class="profile-brief">
-				<img src="assets/lantalogo2.jpg" alt="Avatar" class="avatar">
+	<main class="container ax-dashboard-container">
+		<!-- Sidebar (desktop) / horizontal tabs (mobile) -->
+		<aside class="ax-sidebar" aria-label="Dashboard navigation">
+			<div class="ax-profile">
+				<img src="assets/lantalogo2.jpg" alt="avatar" class="ax-avatar">
 				<div>
-					<div class="name">Hello, <strong>Seller</strong></div>
-					<div class="role muted">Seller • LantaXpress</div>
+					<div class="ax-name">Seller</div>
+					<div class="muted">Business account</div>
 				</div>
 			</div>
-			<ul>
-				<li class="active" data-section="overview"><a href="#">Overview</a></li>
-				<li data-section="orders"><a href="#">Orders</a></li>
-				<li data-section="products"><a href="#">Products</a></li>
-				<li data-section="wallet"><a href="#">Wallet</a></li>
-				<li data-section="settings"><a href="#">Settings</a></li>
-			</ul>
+			<nav>
+				<ul>
+					<li class="active" data-section="overview"><a href="#">Overview</a></li>
+					<li data-section="orders"><a href="#">Orders</a></li>
+					<li data-section="products"><a href="#">Products</a></li>
+					<li data-section="wallet"><a href="#">Wallet</a></li>
+					<li data-section="settings"><a href="#">Settings</a></li>
+				</ul>
+			</nav>
 		</aside>
 
-		<section class="dashboard-main">
-			<div class="dashboard-header">
-				<div>
-					<h1>Welcome back</h1>
-					<div class="muted">Overview of your store performance and payouts</div>
-				</div>
-				<div class="header-actions">
-					<button id="addListingBtn" class="cta-btn">+ Add Listing</button>
+		<section class="ax-main">
+			<div class="ax-topbar">
+				<h1 class="ax-title">Dashboard</h1>
+				<div class="ax-actions">
+					<button class="cta-btn">+ New Listing</button>
 				</div>
 			</div>
 
-			<div id="section-overview" class="dashboard-section active">
-				<div class="kpis">
-					<div class="kpi card">
-						<div class="kpi-label">Active Listings</div>
-						<div class="kpi-value" id="kpiListings">0</div>
+			<!-- KPI summary row -->
+			<div class="ax-kpis">
+				<div class="ax-card ax-kpi">
+					<div class="ax-kpi-label">Total Sales</div>
+					<div class="ax-kpi-value" id="ax-total-sales">₦0</div>
+					<div class="muted">Lifetime</div>
+				</div>
+				<div class="ax-card ax-kpi">
+					<div class="ax-kpi-label">Orders</div>
+					<div class="ax-kpi-value" id="ax-orders">0</div>
+					<div class="muted">Last 30 days</div>
+				</div>
+				<div class="ax-card ax-kpi">
+					<div class="ax-kpi-label">Available Balance</div>
+					<div class="ax-kpi-value" id="ax-available">₦0</div>
+					<div class="muted">Ready to withdraw</div>
+				</div>
+				<div class="ax-card ax-kpi">
+					<div class="ax-kpi-label">Conversion</div>
+					<div class="ax-kpi-value" id="ax-conversion">0%</div>
+					<div class="muted">This month</div>
+				</div>
+			</div>
+
+			<!-- Charts and lists -->
+			<div class="ax-grid">
+				<div class="ax-graph ax-card">
+					<div class="ax-graph-header">
+						<h3>Sales (last 30 days)</h3>
+						<div class="muted">NGN</div>
 					</div>
-					<div class="kpi card">
-						<div class="kpi-label">Reservation Counts</div>
-						<div class="kpi-value" id="kpiReservations">0</div>
-					</div>
-					<div class="kpi card">
-						<div class="kpi-label">Earnings Balance</div>
-						<div class="kpi-value" id="kpiEarnings">₦0</div>
-					</div>
-					<div class="kpi card">
-						<div class="kpi-label">Orders (30d)</div>
-						<div class="kpi-value" id="kpiOrders30">0</div>
-					</div>
+					<div id="ax-sales-chart" class="ax-chart"></div>
 				</div>
 
-				<div class="dashboard-panels">
-					<div class="panel-left">
-						<div class="section-card">
-							<div class="section-card-header">
-								<h3>Sales (30 days)</h3>
-								<div class="muted">NGN</div>
-							</div>
-							<div id="salesChart" class="chart-placeholder"></div>
-						</div>
-
-						<div class="section-card" style="margin-top:1rem;">
-							<div class="section-card-header">
-								<h3>Upcoming Reservations</h3>
-								<a href="#" class="see-all">View all</a>
-							</div>
-							<div id="upcomingList" style="margin-top:.6rem;" class="muted">You don't have any upcoming reservations at this moment.</div>
-						</div>
-					</div>
-
-					<aside class="panel-right">
-						<div class="section-card">
-							<h3>Recent Messages</h3>
-							<div id="recentMessages" class="muted" style="margin-top:.6rem;">You don't have any messages at this moment.</div>
-						</div>
-						<div class="section-card" style="margin-top:1rem;">
-							<h3>Quick Links</h3>
-							<ul style="list-style:none;padding:0;margin:0;margin-top:.6rem;">
-								<li><a href="#">Profile</a></li>
-								<li><a href="#">Payout Method</a></li>
-								<li><a href="#">Wallet</a></li>
-							</ul>
-						</div>
-					</aside>
+				<div class="ax-side ax-card">
+					<h3>Recent Orders</h3>
+					<table class="ax-table" id="ax-orders-table">
+						<thead><tr><th>Order</th><th>Date</th><th>Amount</th><th>Status</th></tr></thead>
+						<tbody></tbody>
+					</table>
 				</div>
+			</div>
+
+			<!-- Products row -->
+			<div class="ax-card" style="margin-top:1rem;">
+				<div class="ax-card-header">
+					<h3>Top Products</h3>
+					<a href="#" class="see-all">See all</a>
+				</div>
+				<div class="ax-products" id="ax-products-list"></div>
 			</div>
 
 		</section>
@@ -123,3 +119,4 @@
 	<script src="script.js"></script>
 </body>
 </html>
+

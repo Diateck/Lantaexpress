@@ -1032,81 +1032,44 @@ html, body { overflow-x: hidden; }
 
 /* ===== end spinner styles ===== */
 
-/* Dashboard specific layout (mobile-first, cribzconnect-like) */
-.dashboard-container { display:flex; gap:1rem; padding:1rem 0 2rem 0; }
-.dashboard-nav { width:260px; background:#fff; border-radius:10px; padding:0.9rem; box-shadow:var(--shadow); display:flex; flex-direction:column; gap:0.6rem; }
-.dashboard-nav .profile-brief { display:flex; gap:0.6rem; align-items:center; }
-.dashboard-nav .avatar { width:48px; height:48px; border-radius:50%; object-fit:cover; }
-.dashboard-nav ul { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.4rem; }
-.dashboard-nav ul li { padding:0.6rem; border-radius:8px; cursor:pointer; font-weight:600; }
-.dashboard-nav ul li.active, .dashboard-nav ul li:hover { background:rgba(0,136,106,0.06); color:var(--green); }
-.dashboard-main { flex:1; }
-.dashboard-header { display:flex; align-items:center; justify-content:space-between; gap:1rem; margin-bottom:1rem; }
-.kpis { display:grid; grid-template-columns: repeat(4, 1fr); gap:0.8rem; }
-.kpi { background:#fff; border-radius:10px; padding:0.8rem; box-shadow:var(--shadow); }
-.kpi .kpi-label { color:#666; font-weight:700; font-size:0.9rem; }
-.kpi .kpi-value { font-size:1.2rem; font-weight:800; margin-top:0.25rem; }
-.dashboard-panels { display:grid; grid-template-columns: 2fr 320px; gap:1rem; margin-top:1rem; }
-.panel-left { display:flex; flex-direction:column; gap:1rem; }
-.panel-right { display:flex; flex-direction:column; gap:1rem; }
-.chart-placeholder { width:100%; height:220px; border-radius:8px; background:linear-gradient(180deg,#fbfbfb,#fff); border:1px solid #f2f2f2; display:flex; align-items:center; justify-content:center; }
+/* ===== Dashboard (AliExpress-like, scoped) ===== */
+.ax-dashboard-container { display:flex; gap:1rem; padding:1rem 0 2rem 0; }
+.ax-sidebar { width:260px; background:#fff; border-radius:10px; padding:0.9rem; box-shadow:var(--shadow); display:flex; flex-direction:column; gap:0.6rem; }
+.ax-profile { display:flex; gap:0.6rem; align-items:center; }
+.ax-avatar { width:48px; height:48px; border-radius:8px; object-fit:cover; }
+.ax-sidebar nav ul { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.4rem; }
+.ax-sidebar nav ul li { padding:0.6rem; border-radius:8px; cursor:pointer; font-weight:600; }
+.ax-sidebar nav ul li.active, .ax-sidebar nav ul li:hover { background:rgba(0,136,106,0.06); color:var(--green); }
+.ax-main { flex:1; }
+.ax-topbar { display:flex; align-items:center; justify-content:space-between; gap:1rem; margin-bottom:1rem; }
+.ax-kpis { display:grid; grid-template-columns: repeat(4,1fr); gap:0.9rem; }
+.ax-card { background:#fff; border-radius:10px; padding:0.9rem; box-shadow:var(--shadow); }
+.ax-kpi .ax-kpi-label { color:#666; font-weight:700; font-size:0.9rem; }
+.ax-kpi .ax-kpi-value { font-size:1.2rem; font-weight:800; margin-top:0.25rem; }
+.ax-grid { display:grid; grid-template-columns: 2fr 380px; gap:1rem; margin-top:1rem; align-items:start; }
+.ax-graph-header { display:flex; align-items:center; justify-content:space-between; }
+.ax-chart { width:100%; height:220px; border-radius:8px; background:linear-gradient(180deg,#fbfbfb,#fff); border:1px solid #f2f2f2; display:flex; align-items:center; justify-content:center; }
+.ax-side .ax-table { width:100%; border-collapse:collapse; margin-top:0.6rem; }
+.ax-side .ax-table th, .ax-side .ax-table td { padding:0.5rem 0.4rem; border-bottom:1px solid #f5f5f5; text-align:left; }
+.ax-card-header { display:flex; align-items:center; justify-content:space-between; }
+.ax-products { display:flex; gap:0.75rem; margin-top:0.6rem; flex-wrap:wrap; }
+.ax-product { width:160px; background:#fff; border-radius:8px; padding:0.6rem; box-shadow:0 4px 12px rgba(0,0,0,0.06); }
+.ax-product img { width:100%; height:100px; object-fit:cover; border-radius:6px; }
 
+/* Mobile-first adjustments to match site behavior */
 @media (max-width: 900px) {
-  .kpis { grid-template-columns: repeat(2,1fr); }
-  .dashboard-panels { grid-template-columns: 1fr; }
-  .dashboard-container { flex-direction:column; }
-  .dashboard-nav { width:100%; order:2; }
+  .ax-kpis { grid-template-columns: repeat(2,1fr); }
+  .ax-grid { grid-template-columns: 1fr; }
+  .ax-sidebar { width:100%; flex-direction:row; overflow-x:auto; padding:0.4rem; gap:0.5rem; box-shadow:none; border-radius:10px; }
+  .ax-sidebar nav ul { display:flex; flex-direction:row; gap:0.5rem; }
+  .ax-sidebar nav ul li { white-space:nowrap; padding:0.45rem 0.75rem; border-radius:999px; }
+  .ax-chart { height:160px; }
 }
 
-@media (max-width: 480px) {
-  .kpis { grid-template-columns: repeat(1,1fr); }
-  .dashboard-header { flex-direction:column; align-items:flex-start; }
-}
-
-/* Improved mobile responsiveness to match site theme and behavior */
-@media (max-width: 700px) {
-  /* Make dashboard container use the same safe horizontal padding as other pages */
-  .dashboard-container { padding-left: 0.75rem; padding-right: 0.75rem; }
-
-  /* Convert sidebar into a horizontal scrolling tab bar for quick access (like other pages) */
-  .dashboard-nav {
-    position: sticky;
-    top: 60px; /* below site header */
-    display: flex;
-    flex-direction: row;
-    gap: 0.5rem;
-    overflow-x: auto;
-    width: 100%;
-    padding: 0.4rem 0.4rem;
-    border-radius: 10px;
-    box-shadow: none;
-    background: #fff;
-    margin-bottom: 0.6rem;
-  }
-
-  .dashboard-nav ul { display:flex; flex-direction:row; gap:0.5rem; }
-  .dashboard-nav ul li { flex: 0 0 auto; padding:0.6rem 0.9rem; border-radius:999px; white-space:nowrap; }
-
-  /* Make KPI cards stack and match site spacing */
-  .kpis { grid-template-columns: repeat(2,1fr); gap:0.6rem; }
-  .kpi { padding:0.8rem; }
-
-  /* Panels stack vertically; keep quick panel below main content */
-  .dashboard-panels { grid-template-columns: 1fr; }
-  .panel-left { order: 1; }
-  .panel-right { order: 2; }
-
-  /* Slightly smaller chart on mobile to conserve space */
-  .chart-placeholder { height:160px; }
-
-  /* Increase touch targets for quick links and see-all */
-  .see-all { padding:0.3rem 0.45rem; border-radius:6px; }
-}
-
-/* Improve small-screen readability and spacing across dashboard cards */
 @media (max-width: 420px) {
-  .dashboard-container { padding-left: 0.5rem; padding-right: 0.5rem; }
-  .kpis { grid-template-columns: 1fr; }
-  .dashboard-header h1 { font-size:1.05rem; }
-  .kpi .kpi-value { font-size:1.05rem; }
+  .ax-kpis { grid-template-columns: 1fr; }
+  .ax-card { padding:0.6rem; }
+  .ax-product { width:48%; }
 }
+
+/* End dashboard styles */

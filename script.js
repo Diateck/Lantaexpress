@@ -42,163 +42,92 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (isMobile()) observeCards();
 
-  // Re-evaluate on resize if crossing mobile boundary
-  let lastMobile = isMobile();
-  window.addEventListener('resize', () => {
-    const nowMobile = isMobile();
-    if (nowMobile && !lastMobile) {
-      // became mobile: observe
-      observeCards();
+    const axTotal = document.getElementById('ax-total-sales');
+    const axOrders = document.getElementById('ax-orders');
+    const axAvailable = document.getElementById('ax-available');
+    const axConversion = document.getElementById('ax-conversion');
+    const axChart = document.getElementById('ax-sales-chart');
+    const axOrdersTable = document.querySelector('#ax-orders-table tbody');
+    const axProductsList = document.getElementById('ax-products-list');
+
+    if (!axTotal && !axChart) return; // not on dashboard
+
+    // Demo dataset (frontend-only)
+    const axDemo = {
+      totalSales: 180500,
+      orders: 128,
+      available: 42000,
+      conversion: 2.4,
+      daily: Array.from({length:30}, (_,i)=> Math.round(1500 + Math.sin(i/4)*600 + Math.random()*900)),
+      recentOrders: [
+        {id:'ORD-201', date:'2026-01-01', amount:12000, status:'Delivered'},
+        {id:'ORD-200', date:'2025-12-29', amount:8500, status:'Shipped'},
+        {id:'ORD-199', date:'2025-12-21', amount:4300, status:'Processing'}
+      ],
+      products: [
+        {name:'Portable Speaker', price:7500, img:'assets/powerbanks.jpg'},
+        {name:'Wireless Charger', price:4200, img:'assets/powerbanks.jpg'},
+        {name:'Phone Case', price:900, img:'assets/powerbanks.jpg'}
+      ]
+    };
+
+    function formatN(n){ return '₦' + Number(n).toLocaleString(); }
+
+    // fill KPI values (simple text; animation can be added later)
+    if (axTotal) axTotal.textContent = formatN(axDemo.totalSales);
+    if (axOrders) axOrders.textContent = String(axDemo.orders);
+    if (axAvailable) axAvailable.textContent = formatN(axDemo.available);
+    if (axConversion) axConversion.textContent = String(axDemo.conversion) + '%';
+
+    // populate orders table
+    if (axOrdersTable) {
+      axOrdersTable.innerHTML = '';
+      axDemo.recentOrders.forEach(o => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${o.id}</td><td>${o.date}</td><td>${formatN(o.amount)}</td><td>${o.status}</td>`;
+        axOrdersTable.appendChild(tr);
+      });
     }
-    lastMobile = nowMobile;
-  });
-});
 
-// Dashboard interactions (lightweight, mobile-first)
-(function () {
-  // only run when dashboard elements are present
-  const kpiListings = document.getElementById('kpiListings');
-  const kpiReservations = document.getElementById('kpiReservations');
-  const kpiEarnings = document.getElementById('kpiEarnings');
-  const kpiOrders30 = document.getElementById('kpiOrders30');
-  const salesChart = document.getElementById('salesChart');
-  const recentMessages = document.getElementById('recentMessages');
+    // products list
+    if (axProductsList) {
+      axProductsList.innerHTML = '';
+      axDemo.products.forEach(p => {
+        const el = document.createElement('div'); el.className = 'ax-product';
+        el.innerHTML = `<img src="${p.img}" alt="${p.name}"><div style="margin-top:.45rem;font-weight:600">${p.name}</div><div class="muted">${formatN(p.price)}</div>`;
+        axProductsList.appendChild(el);
+      });
+    }
 
-  if (!kpiListings && !salesChart) return; // nothing to do on non-dashboard pages
+    // lightweight SVG area chart renderer
+    function drawAxChart(){
+      if (!axChart) return;
+      const w = Math.max(320, axChart.clientWidth || 640);
+      const h = Math.max(120, axChart.clientHeight || 200);
+      const data = axDemo.daily;
+      const max = Math.max(...data);
+      const pad = 12; const step = (w - pad*2) / (data.length - 1);
+      let path='';
+      data.forEach((v,i)=>{ const x = pad + i*step; const y = pad + (1 - v/max) * (h - pad*2); path += (i===0?'M':' L') + x.toFixed(1) + ' ' + y.toFixed(1); });
+      const area = path + ` L ${w-pad} ${h-pad} L ${pad} ${h-pad} Z`;
+      const svg = ` <svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">`+
+        `<defs><linearGradient id="axG" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="rgba(0,136,106,0.12)"/><stop offset="100%" stop-color="rgba(0,136,106,0.02)"/></linearGradient></defs>`+
+        `<path d="${area}" fill="url(#axG)" stroke="none"/>`+
+        `<path d="${path}" fill="none" stroke="var(--green)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`+
+        `</svg>`;
+      axChart.innerHTML = svg;
+    }
 
-  // demo data
-  const demo = {
-    listings: 0,
-    reservations: 0,
-    earnings: 0,
-    orders30: 0,
-    dailySales: (function(){ const a=[]; for(let i=0;i<30;i++){ a.push(Math.round(2000 + Math.random()*6000)); } return a; })(),
-    messages: []
-  };
+    window.addEventListener('resize', drawAxChart);
+    drawAxChart();
 
-  // populate demo KPIs
-  function populateKPIs(){
-    if (kpiListings) kpiListings.textContent = String(demo.listings);
-    if (kpiReservations) kpiReservations.textContent = String(demo.reservations);
-    if (kpiEarnings) kpiEarnings.textContent = '₦' + (demo.earnings).toLocaleString();
-    if (kpiOrders30) kpiOrders30.textContent = String(demo.orders30);
-  }
-
-  // simple SVG area chart renderer
-  function drawChart(){
-    if (!salesChart) return;
-    const w = salesChart.clientWidth || 640;
-    const h = 220;
-    const data = demo.dailySales;
-    const max = Math.max.apply(null, data) || 1;
-    const pad = 14;
-    const step = (w - pad*2) / (data.length - 1);
-    let path = '';
-    data.forEach((v,i)=>{
-      const x = pad + i*step;
-      const y = pad + (1 - v / max) * (h - pad*2);
-      path += (i===0? 'M':' L') + x.toFixed(2) + ' ' + y.toFixed(2);
-    });
-    const area = path + ` L ${w-pad} ${h-pad} L ${pad} ${h-pad} Z`;
-    const svg = `<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">`+
-      `<defs><linearGradient id="gA" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="rgba(0,136,106,0.12)"/><stop offset="100%" stop-color="rgba(0,136,106,0.02)"/></linearGradient></defs>`+
-      `<path d="${area}" fill="url(#gA)" stroke="none"/>`+
-      `<path d="${path}" fill="none" stroke="var(--green)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`+
-      `</svg>`;
-    salesChart.innerHTML = svg;
-  }
-
-  // responsive redraw on resize
-  window.addEventListener('resize', function(){ drawChart(); });
-
-  // sidebar interactions (desktop->mobile behavior)
-  const navItems = Array.from(document.querySelectorAll('.dashboard-nav ul li'));
-  navItems.forEach(li => li.addEventListener('click', function(e){
-    navItems.forEach(x=>x.classList.remove('active'));
-    this.classList.add('active');
-    // for now we only have overview; in future toggle sections here
-  }));
-
-  // mobile: toggle sidebar visibility from header menu button
-  const menuBtn = document.querySelector('.menu-btn');
-  const dashNav = document.querySelector('.dashboard-nav');
-  if (menuBtn && dashNav) {
-    menuBtn.addEventListener('click', function(){
-      const isOpen = dashNav.classList.toggle('open');
-      menuBtn.setAttribute('aria-expanded', String(isOpen));
-    });
-  }
-
-  // initial render
-  populateKPIs();
-  drawChart();
-  if (recentMessages) recentMessages.textContent = "You don't have any messages at this moment.";
-})();
-
-// Mobile spinner: show a lightweight overlay on mobile when navigation or actions occur
-(function () {
-  function isSmallScreen() {
-    return window.innerWidth <= 700;
-  }
-
-  function createSpinner() {
-    if (document.getElementById('mobile-spinner-overlay')) return document.getElementById('mobile-spinner-overlay');
-    const overlay = document.createElement('div');
-    overlay.id = 'mobile-spinner-overlay';
-    overlay.className = 'mobile-spinner-overlay visible';
-
-    const wrapper = document.createElement('div');
-    wrapper.style.display = 'flex';
-    wrapper.style.flexDirection = 'column';
-    wrapper.style.alignItems = 'center';
-    wrapper.style.justifyContent = 'center';
-
-    const spinner = document.createElement('div');
-    spinner.className = 'mobile-spinner';
-
-    const label = document.createElement('div');
-    label.className = 'mobile-spinner-label';
-    label.textContent = 'Loading...';
-
-    wrapper.appendChild(spinner);
-    wrapper.appendChild(label);
-    overlay.appendChild(wrapper);
-    document.body.appendChild(overlay);
-    return overlay;
-  }
-
-  function removeSpinner() {
-    const el = document.getElementById('mobile-spinner-overlay');
-    if (!el) return;
-    try { document.body.removeChild(el); } catch (e) {}
-  }
-
-  // Intercept mobile nav clicks and show spinner briefly before navigation
-  document.addEventListener('click', function (ev) {
-    const link = ev.target.closest && ev.target.closest('a');
-    if (!link) return;
-    // only for small screens
-    if (!isSmallScreen()) return;
-
-    const href = link.getAttribute('href');
-    if (!href) return;
-    // ignore same-page anchors, mailto, javascript, and external blank targets
-    if (href.startsWith('#') || href.startsWith('mailto:') || link.target === '_blank' || href.startsWith('javascript:')) return;
-
-    // show spinner then navigate
-    try {
-      ev.preventDefault();
-      const overlay = createSpinner();
-      // small delay so spinner appears visibly (for very fast navigations)
-      const delay = 220;
-      setTimeout(() => {
-        // navigate
-        window.location.assign(href);
-        // remove spinner in case navigation is slow or prevented
-        setTimeout(removeSpinner, 2000);
-      }, delay);
-    } catch (err) {
-      // fallback: allow navigation
+    // sidebar mobile behavior: convert to horizontal tabs on small screens (CSS handles most)
+    const sidebarItems = Array.from(document.querySelectorAll('.ax-sidebar nav ul li'));
+    sidebarItems.forEach(li => li.addEventListener('click', () => {
+      sidebarItems.forEach(x => x.classList.remove('active'));
+      li.classList.add('active');
+      // future: toggle sections by data-section
+    }));
       console.error(err);
       window.location.assign(href);
     }
