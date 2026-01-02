@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // remove after a timeout in case form is handled via JS
     setTimeout(removeSpinner, 4000);
   }, true);
-})();
+});
 // Mobile menu toggle for responsive nav
 const menuBtn = document.querySelector('.menu-btn');
 const navMenu = document.getElementById('main-menu');
