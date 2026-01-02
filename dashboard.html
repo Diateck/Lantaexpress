@@ -51,54 +51,83 @@
 
     <section class="dashboard-main">
       <header class="dashboard-header">
-        <h1>Seller Dashboard</h1>
+        <div>
+          <h1>Seller Dashboard</h1>
+          <div class="muted">Overview of your sales, payouts and store performance</div>
+        </div>
         <div class="header-actions">
           <button id="switchViewBtn" class="cta-btn">Switch to Buyer View</button>
         </div>
       </header>
 
       <div id="section-overview" class="dashboard-section active">
-        <div class="cards-grid">
-          <div class="card">
-            <h4>Total Sold</h4>
-            <div class="card-value" id="totalSold">₦0</div>
-            <div class="muted">Lifetime sales</div>
+        <!-- KPI row -->
+        <div class="cards-grid kpi-row">
+          <div class="card kpi">
+            <div class="kpi-label">Total Sales</div>
+            <div class="kpi-value" id="totalSold">₦0</div>
+            <div class="kpi-meta">Lifetime</div>
           </div>
-          <div class="card">
-            <h4>Available Balance</h4>
-            <div class="card-value highlight" id="availableBalance">₦0</div>
-            <div class="muted">Ready for withdrawal</div>
+          <div class="card kpi">
+            <div class="kpi-label">Available Balance</div>
+            <div class="kpi-value highlight" id="availableBalance">₦0</div>
+            <div class="kpi-meta">Ready to withdraw</div>
           </div>
-          <div class="card">
-            <h4>Pending Payouts</h4>
-            <div class="card-value" id="pendingPayouts">₦0</div>
-            <div class="muted">Processing</div>
+          <div class="card kpi">
+            <div class="kpi-label">Pending Payouts</div>
+            <div class="kpi-value" id="pendingPayouts">₦0</div>
+            <div class="kpi-meta">Processing</div>
+          </div>
+          <div class="card kpi">
+            <div class="kpi-label">Orders (30d)</div>
+            <div class="kpi-value" id="orders30">0</div>
+            <div class="kpi-meta">Recent month</div>
           </div>
         </div>
 
-        <div style="margin-top:1.2rem;display:flex;gap:1rem;flex-wrap:wrap;align-items:flex-start;">
-          <div style="flex:1;min-width:320px;">
-            <div class="section-card">
-              <div class="section-card-header">
-                <h3>Recent Sales</h3>
-                <a href="#" class="see-all">See all</a>
-              </div>
-              <table class="table" id="recentSalesTable">
-                <thead><tr><th>Order</th><th>Date</th><th>Amount</th><th>Status</th></tr></thead>
-                <tbody>
-                </tbody>
-              </table>
+        <!-- Chart + Recent activity -->
+        <div class="dashboard-panels" style="margin-top:1rem;display:grid;grid-template-columns:2fr 1fr;gap:1rem;">
+          <div class="section-card">
+            <div class="section-card-header">
+              <h3>Sales (last 30 days)</h3>
+              <div class="muted">Values shown in NGN</div>
+            </div>
+            <div style="margin-top:0.8rem;">
+              <!-- simple svg chart placeholder filled by script -->
+              <div id="salesChart" class="chart-placeholder" aria-hidden="true"></div>
             </div>
           </div>
 
-          <div style="width:320px;">
-            <div class="section-card">
-              <h3>Quick Actions</h3>
-              <div style="display:flex;flex-direction:column;gap:.6rem;margin-top:.6rem;">
-                <button id="addProductBtn" class="cta-btn">Add Product</button>
-                <button id="requestWithdrawBtn" class="cta-btn" style="background:var(--accent)">Request Withdrawal</button>
-                <a href="#" class="cta-btn" style="background:#fff;border:1px solid #e6e6e6;color:var(--dark);text-align:center;">View Analytics</a>
-              </div>
+          <div class="section-card">
+            <div class="section-card-header">
+              <h3>Recent Activity</h3>
+              <a href="#" class="see-all">See all</a>
+            </div>
+            <ul id="recentActivity" style="margin-top:.6rem;list-style:none;padding:0;">
+            </ul>
+          </div>
+        </div>
+
+        <!-- Transactions and Products -->
+        <div style="margin-top:1rem;display:grid;grid-template-columns:1fr 380px;gap:1rem;align-items:start;">
+          <div class="section-card">
+            <div class="section-card-header">
+              <h3>Recent Transactions</h3>
+              <a href="#" class="see-all">Export</a>
+            </div>
+            <table class="table" id="recentSalesTable">
+              <thead><tr><th>Order</th><th>Date</th><th>Amount</th><th>Status</th></tr></thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="section-card">
+            <h3>Quick Actions</h3>
+            <div style="display:flex;flex-direction:column;gap:.6rem;margin-top:.6rem;">
+              <button id="addProductBtn" class="cta-btn">Add Product</button>
+              <button id="requestWithdrawBtn" class="cta-btn" style="background:var(--accent)">Request Withdrawal</button>
+              <a href="#" class="cta-btn" style="background:#fff;border:1px solid #e6e6e6;color:var(--dark);text-align:center;">View Analytics</a>
             </div>
           </div>
         </div>

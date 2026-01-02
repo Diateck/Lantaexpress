@@ -459,6 +459,21 @@ html, body { overflow-x: hidden; }
   .dashboard-header { flex-direction: column; align-items: flex-start; gap: 0.6rem; }
 }
 
+/* Chart placeholder */
+.chart-placeholder { width:100%; height:220px; display:flex; align-items:center; justify-content:center; background: linear-gradient(180deg, #fbfbfb, #fff); border-radius:8px; border:1px solid #f3f3f3; }
+.chart-placeholder svg { width:100%; height:100%; }
+
+/* KPI tweaks */
+.kpi-row { grid-template-columns: repeat(4, 1fr); }
+.kpi { display:flex; flex-direction:column; gap:0.3rem; }
+.kpi-label { color:#666; font-weight:600; }
+.kpi-value { font-size:1.25rem; font-weight:800; }
+.kpi-meta { color:#888; font-size:0.9rem; }
+
+/* Recent activity list */
+#recentActivity li { padding:0.6rem 0; border-bottom:1px dashed #eee; display:flex; justify-content:space-between; align-items:center; }
+
+
   display: flex;
   gap: 2rem;
   justify-content: center;

@@ -428,6 +428,22 @@ document.addEventListener('DOMContentLoaded', function () {
       { id: 'P-9001', date: '2025-11-20', amount: 20000, status: 'Paid' },
       { id: 'P-9002', date: '2025-10-05', amount: 15000, status: 'Paid' }
     ]
+    ,
+    // simple daily sales data for last 30 days (demo): generate small variation around average
+    dailySales: (function(){
+      const arr = [];
+      const base = 4000;
+      for (let i=0;i<30;i++) {
+        const val = Math.max(0, Math.round(base + (Math.sin(i/3)*800) + (Math.random()*1200-600)));
+        arr.push(val);
+      }
+      return arr;
+    })(),
+    activity: [
+      { text: 'Order ORD-1001 was delivered', time: '2h ago' },
+      { text: 'Withdrawal P-9001 completed', time: '3d ago' },
+      { text: 'New product added: Wireless Charger', time: '5d ago' }
+    ]
   };
 
   function formatCurrency(n) {
@@ -457,6 +473,63 @@ document.addEventListener('DOMContentLoaded', function () {
         payoutHistoryTable.appendChild(tr);
       });
     }
+  }
+
+  // Animated counters for KPIs (smooth counting)
+  function animateCount(el, target, duration) {
+    if (!el) return;
+    const start = 0;
+    const range = Number(target) - start;
+    const startTime = performance.now();
+    function step(now) {
+      const elapsed = Math.min((now - startTime) / duration, 1);
+      const val = Math.round(start + range * elapsed);
+      el.textContent = formatCurrency(val);
+      if (elapsed < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  // Render a simple SVG area chart into #salesChart using demo.dailySales
+  function renderChart() {
+    const container = document.getElementById('salesChart');
+    if (!container || !demo.dailySales) return;
+    const w = container.clientWidth || 640;
+    const h = Math.max(160, Math.min(280, container.clientHeight || 220));
+    const data = demo.dailySales.slice();
+    const max = Math.max.apply(null, data) || 1;
+    const min = Math.min.apply(null, data);
+    const pad = 12;
+    const stepX = (w - pad*2) / (data.length - 1);
+    let points = '';
+    data.forEach((d,i) => {
+      const x = pad + i*stepX;
+      const y = pad + (1 - (d - min) / (max - min || 1)) * (h - pad*2);
+      points += `${i===0? 'M': ' L'} ${x.toFixed(2)} ${y.toFixed(2)}`;
+    });
+    // build svg
+    const svg = ` <svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">\n` +
+      `<defs>\n` +
+      `<linearGradient id="g1" x1="0" x2="0" y1="0" y2="1">\n` +
+      `<stop offset="0%" stop-color="rgba(0,136,106,0.14)"/>\n` +
+      `<stop offset="100%" stop-color="rgba(0,136,106,0.02)"/>\n` +
+      `</linearGradient>\n` +
+      `</defs>\n` +
+      `<path d="${points} L ${w-pad} ${h-pad} L ${pad} ${h-pad} Z" fill="url(#g1)" stroke="none"/>\n` +
+      `<path d="${points}" fill="none" stroke="var(--green)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>\n` +
+      `</svg>`;
+    container.innerHTML = svg;
+  }
+
+  function renderRecentActivity() {
+    const ul = document.getElementById('recentActivity');
+    if (!ul) return;
+    ul.innerHTML = '';
+    demo.activity.forEach(a => {
+      const li = document.createElement('li');
+      li.innerHTML = `<div>${a.text}</div><div class="muted" style="font-size:0.85rem">${a.time}</div>`;
+      ul.appendChild(li);
+    });
   }
 
   function showSection(name) {
@@ -569,5 +642,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // initialize
   renderOverview();
+  // animate counters for KPI values (totalSold and available)
+  const totalEl = document.getElementById('totalSold');
+  const availEl = document.getElementById('availableBalance');
+  const pendingEl = document.getElementById('pendingPayouts');
+  const orders30El = document.getElementById('orders30');
+  if (totalEl) animateCount(totalEl, demo.totalSold, 900);
+  if (availEl) animateCount(availEl, demo.available, 800);
+  if (pendingEl) animateCount(pendingEl, demo.pending, 800);
+  if (orders30El) { orders30El.textContent = String(Math.floor(Math.random()*120 + 20)); }
+  renderChart();
+  renderRecentActivity();
   showSection('overview');
 })();
