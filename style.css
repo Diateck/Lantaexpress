@@ -398,6 +398,41 @@ html, body { overflow-x: hidden; }
   color: var(--dark);
 }
 .features-list {
+
+/* Hybrid dashboard styles (scoped with hyb- prefix) */
+.hyb-container { display: flex; gap: 1rem; margin-top: 1rem; }
+.hyb-sidebar { width: 260px; background: #fff; border-radius: 12px; padding: 1rem; box-shadow: var(--shadow); }
+.hyb-profile { display:flex; gap:0.75rem; align-items:center; margin-bottom:1rem; }
+.hyb-avatar { width:48px; height:48px; border-radius:8px; }
+.hyb-name { font-weight:700; }
+.hyb-main { flex:1; }
+.hyb-topbar { display:flex; justify-content:space-between; align-items:center; gap:1rem; margin-bottom:1rem; }
+.hyb-title { margin:0; font-size:1.3rem; }
+.hyb-kpis { display:grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap:0.75rem; margin-bottom:1rem; }
+.hyb-kpi { background:#fff; border-radius:10px; padding:0.8rem; box-shadow: 0 6px 18px rgba(11,11,11,0.05); }
+.hyb-kpi-title { color:#666; font-size:0.9rem; }
+.hyb-kpi-value { font-weight:800; font-size:1.15rem; margin-top:0.35rem; }
+.hyb-grid { display:grid; grid-template-columns: 1fr 320px; gap:1rem; }
+.hyb-left .hyb-card, .hyb-right .hyb-card { background:#fff; border-radius:10px; padding:0.8rem; box-shadow: var(--shadow); }
+.hyb-card { margin-bottom:1rem; }
+.hyb-table-wrap { overflow:auto; }
+.hyb-table { width:100%; border-collapse:collapse; }
+.hyb-table th, .hyb-table td { text-align:left; padding:0.6rem 0.5rem; border-bottom:1px solid #f0f0f0; }
+.hyb-products-list { display:flex; flex-direction:column; gap:0.6rem; }
+.hyb-product-item { display:flex; gap:0.6rem; align-items:center; }
+.hyb-product-item img { width:64px; height:64px; object-fit:cover; border-radius:8px; }
+.hyb-actions { display:flex; gap:0.5rem; flex-direction:column; }
+.hyb-actions .cta-btn { padding:0.5rem 0.8rem; font-size:0.95rem; }
+.hyb-chart { min-height:120px; display:flex; align-items:center; justify-content:center; }
+
+/* Mobile adjustments: collapse sidebar to top tabs and single column layout */
+@media (max-width: 900px) {
+  .hyb-container { flex-direction: column; }
+  .hyb-sidebar { width:100%; display:flex; overflow:auto; }
+  .hyb-grid { grid-template-columns: 1fr; }
+  .hyb-right { order: 2; }
+}
+
   display: flex;
   gap: 2rem;
   justify-content: center;
@@ -1031,45 +1066,3 @@ html, body { overflow-x: hidden; }
 }
 
 /* ===== end spinner styles ===== */
-
-/* ===== Dashboard (AliExpress-like, scoped) ===== */
-.ax-dashboard-container { display:flex; gap:1rem; padding:1rem 0 2rem 0; }
-.ax-sidebar { width:260px; background:#fff; border-radius:10px; padding:0.9rem; box-shadow:var(--shadow); display:flex; flex-direction:column; gap:0.6rem; }
-.ax-profile { display:flex; gap:0.6rem; align-items:center; }
-.ax-avatar { width:48px; height:48px; border-radius:8px; object-fit:cover; }
-.ax-sidebar nav ul { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.4rem; }
-.ax-sidebar nav ul li { padding:0.6rem; border-radius:8px; cursor:pointer; font-weight:600; }
-.ax-sidebar nav ul li.active, .ax-sidebar nav ul li:hover { background:rgba(0,136,106,0.06); color:var(--green); }
-.ax-main { flex:1; }
-.ax-topbar { display:flex; align-items:center; justify-content:space-between; gap:1rem; margin-bottom:1rem; }
-.ax-kpis { display:grid; grid-template-columns: repeat(4,1fr); gap:0.9rem; }
-.ax-card { background:#fff; border-radius:10px; padding:0.9rem; box-shadow:var(--shadow); }
-.ax-kpi .ax-kpi-label { color:#666; font-weight:700; font-size:0.9rem; }
-.ax-kpi .ax-kpi-value { font-size:1.2rem; font-weight:800; margin-top:0.25rem; }
-.ax-grid { display:grid; grid-template-columns: 2fr 380px; gap:1rem; margin-top:1rem; align-items:start; }
-.ax-graph-header { display:flex; align-items:center; justify-content:space-between; }
-.ax-chart { width:100%; height:220px; border-radius:8px; background:linear-gradient(180deg,#fbfbfb,#fff); border:1px solid #f2f2f2; display:flex; align-items:center; justify-content:center; }
-.ax-side .ax-table { width:100%; border-collapse:collapse; margin-top:0.6rem; }
-.ax-side .ax-table th, .ax-side .ax-table td { padding:0.5rem 0.4rem; border-bottom:1px solid #f5f5f5; text-align:left; }
-.ax-card-header { display:flex; align-items:center; justify-content:space-between; }
-.ax-products { display:flex; gap:0.75rem; margin-top:0.6rem; flex-wrap:wrap; }
-.ax-product { width:160px; background:#fff; border-radius:8px; padding:0.6rem; box-shadow:0 4px 12px rgba(0,0,0,0.06); }
-.ax-product img { width:100%; height:100px; object-fit:cover; border-radius:6px; }
-
-/* Mobile-first adjustments to match site behavior */
-@media (max-width: 900px) {
-  .ax-kpis { grid-template-columns: repeat(2,1fr); }
-  .ax-grid { grid-template-columns: 1fr; }
-  .ax-sidebar { width:100%; flex-direction:row; overflow-x:auto; padding:0.4rem; gap:0.5rem; box-shadow:none; border-radius:10px; }
-  .ax-sidebar nav ul { display:flex; flex-direction:row; gap:0.5rem; }
-  .ax-sidebar nav ul li { white-space:nowrap; padding:0.45rem 0.75rem; border-radius:999px; }
-  .ax-chart { height:160px; }
-}
-
-@media (max-width: 420px) {
-  .ax-kpis { grid-template-columns: 1fr; }
-  .ax-card { padding:0.6rem; }
-  .ax-product { width:48%; }
-}
-
-/* End dashboard styles */

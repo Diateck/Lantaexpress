@@ -128,11 +128,6 @@ document.addEventListener('DOMContentLoaded', function () {
       li.classList.add('active');
       // future: toggle sections by data-section
     }));
-      console.error(err);
-      window.location.assign(href);
-    }
-  }, { passive: false });
-
   // Show spinner on logistics booking form submit on mobile
   document.addEventListener('submit', function (ev) {
     if (!isSmallScreen()) return;
@@ -409,3 +404,128 @@ document.addEventListener('DOMContentLoaded', function () {
     setTimeout(() => visual.classList.add('visible'), 260);
   }
 });
+
+/* Dashboard module: role-driven rendering (buyer / seller) and demo data
+  Appends UI only when the dashboard page is loaded. Non-invasive and checks DOM.
+*/
+(function (){
+  function ready(fn){ if (document.readyState !== 'loading') fn(); else document.addEventListener('DOMContentLoaded', fn); }
+  ready(function(){
+    const root = document.querySelector('.hyb-container');
+    if (!root) return; // not on hybrid dashboard page
+
+    // Demo user context — replace with real auth data from backend when available
+    const user = window.__HYB_USER__ || { name: 'Adebayo', role: 'seller' }; // role: 'buyer' | 'seller'
+    const usernameEl = document.getElementById('hyb-username');
+    const roleLabel = document.getElementById('hyb-role-label');
+    if (usernameEl) usernameEl.textContent = user.name;
+    if (roleLabel) roleLabel.textContent = (user.role || 'buyer').toUpperCase();
+
+    // Navigation structure — will be filtered by role
+    const navSpec = [
+      { id:'overview', label:'Overview', icon:'📊', roles:['buyer','seller'] },
+      { id:'orders', label:'Orders', icon:'🧾', roles:['buyer','seller'] },
+      { id:'products', label:'Products', icon:'📦', roles:['seller'] },
+      { id:'wallet', label:'Wallet', icon:'💰', roles:['seller'] },
+      { id:'messages', label:'Messages', icon:'✉️', roles:['buyer','seller'] },
+      { id:'settings', label:'Settings', icon:'⚙️', roles:['buyer','seller'] }
+    ];
+
+    const navRoot = document.getElementById('hyb-nav');
+    if (navRoot) {
+      navRoot.innerHTML = '';
+      navSpec.forEach(item => {
+        if (!item.roles.includes(user.role)) return;
+        const li = document.createElement('li'); li.className = 'hyb-nav-item';
+        li.dataset.section = item.id;
+        li.innerHTML = `<button class="hyb-nav-btn"><span class="nav-ico">${item.icon}</span><span>${item.label}</span></button>`;
+        li.addEventListener('click', () => {
+          // Basic section switching — highlight active
+          document.querySelectorAll('.hyb-nav-item').forEach(x => x.classList.remove('active'));
+          li.classList.add('active');
+          // show/hide sections (simple demo behavior)
+          document.querySelectorAll('.hyb-card').forEach(c=>c.style.display='block');
+          if (item.id === 'wallet') {
+            // ensure wallet card visible (if present) — not implementing a full SPA
+          }
+        });
+        navRoot.appendChild(li);
+      });
+      // mark first nav as active
+      const first = navRoot.querySelector('.hyb-nav-item'); if (first) first.classList.add('active');
+    }
+
+    // Demo KPI data
+    const kpiRoot = document.getElementById('hyb-kpis');
+    const demo = {
+      totalSales: 123450,
+      balance: 42000,
+      orders: 84,
+      pending: 5,
+      ordersList: [
+        {id:'LX-9001', product:'Portable Speaker', status:'Delivered'},
+        {id:'LX-9000', product:'Phone Case', status:'Processing'},
+        {id:'LX-8999', product:'Powerbank', status:'Shipped'}
+      ],
+      products: [
+        {name:'Portable Speaker', price:7500, img:'assets/powerbanks.jpg'},
+        {name:'Wireless Charger', price:4200, img:'assets/powerbanks.jpg'}
+      ],
+      salesSpark: [120,150,180,140,220,200,260,230,280,300]
+    };
+
+    function fmt(n){ return '₦' + Number(n).toLocaleString(); }
+
+    if (kpiRoot) {
+      kpiRoot.innerHTML = '';
+      const cards = [
+        {title:'Total Sales', value:fmt(demo.totalSales)},
+        {title:'Available', value:fmt(demo.balance)},
+        {title:'Orders', value:demo.orders},
+        {title:'Pending', value:demo.pending}
+      ];
+      cards.forEach(c => {
+        const el = document.createElement('div'); el.className='hyb-kpi';
+        el.innerHTML = `<div class="hyb-kpi-title">${c.title}</div><div class="hyb-kpi-value">${c.value}</div>`;
+        kpiRoot.appendChild(el);
+      });
+    }
+
+    // Fill orders table
+    const ordersTable = document.querySelector('#hyb-orders-table tbody');
+    if (ordersTable) {
+      ordersTable.innerHTML = '';
+      demo.ordersList.forEach(o=>{
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${o.id}</td><td>${o.product}</td><td>${o.status}</td><td><button class="tiny">View</button></td>`;
+        ordersTable.appendChild(tr);
+      });
+      const loader = document.getElementById('hyb-orders-loading'); if (loader) loader.style.display='none';
+    }
+
+    // Products list
+    const pRoot = document.getElementById('hyb-products-list');
+    if (pRoot) {
+      pRoot.innerHTML = '';
+      demo.products.forEach(p=>{
+        const d = document.createElement('div'); d.className='hyb-product-item';
+        d.innerHTML = `<img src="${p.img}" alt="${p.name}"><div><div class='muted'>${p.name}</div><div class='muted'>${fmt(p.price)}</div></div>`;
+        pRoot.appendChild(d);
+      });
+    }
+
+    // tiny sparkline renderer for the analytics card
+    function drawSpark(el, data){
+      if (!el) return;
+      const w = 200, h = 60; const max = Math.max(...data); const min = Math.min(...data);
+      const step = w / (data.length - 1);
+      let path=''; data.forEach((v,i)=>{ const x = i*step; const y = h - ((v - min)/(max-min||1))*h; path += (i===0? 'M':' L') + x.toFixed(1) + ' ' + y.toFixed(1); });
+      el.innerHTML = `<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg"><path d="${path}" fill="none" stroke="var(--accent)" stroke-width="2"/></svg>`;
+    }
+    drawSpark(document.querySelector('#hyb-chart'), demo.salesSpark);
+
+    // expose a simple API for testing in console
+    window.__HYB_DASHBOARD__ = { user, demo };
+  });
+})();
+

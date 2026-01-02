@@ -1,122 +1,147 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width,initial-scale=1" />
-	<title>Dashboard — LantaXpress</title>
-	<link rel="stylesheet" href="style.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Account Dashboard — LantaXpress</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<header class="header">
-		<div class="logo-area">
-			<img src="assets/lantalogo2.jpg" alt="Lanta Xpress Logo" class="logo">
-			<span class="brand-name">LantaXpress</span>
-		</div>
-		<nav class="nav">
-			<ul id="main-menu">
-				<li><a href="index.html">Home</a></li>
-				<li><a href="items.html">Items</a></li>
-				<li><a href="logistics.html">Logistics</a></li>
-				<li><a href="dashboard.html" aria-current="page">Account</a></li>
-			</ul>
-		</nav>
-		<div class="header-icons">
-			<button class="menu-btn" aria-label="Toggle menu" aria-expanded="false">☰</button>
-		</div>
-	</header>
+  <!-- header (reuse existing site header style) -->
+  <header class="header">
+    <div class="logo-area">
+      <img src="assets/lantalogo2.jpg" alt="Lanta Xpress" class="logo">
+      <span class="brand-name">LantaXpress</span>
+    </div>
+    <nav class="nav">
+      <ul id="main-menu">
+        <li>
+          <button class="cart-btn" aria-label="View cart">
+            <svg class="cart-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="9" cy="21" r="1"/>
+              <circle cx="20" cy="21" r="1"/>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+            </svg>
+          </button>
+        </li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="logistics.html">Logistics</a></li>
+        <li><a href="items.html">Items</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="header-icons">
+      <div style="display:flex;align-items:center;gap:0.5rem;">
+        <button class="cart-btn mobile-cart-btn" aria-label="View cart">
+          <svg class="cart-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"/>
+            <circle cx="20" cy="21" r="1"/>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+          </svg>
+        </button>
+        <button class="menu-btn" aria-label="Toggle menu" aria-expanded="false" aria-controls="main-menu">☰</button>
+      </div>
+    </div>
+  </header>
 
-	<main class="container ax-dashboard-container">
-		<!-- Sidebar (desktop) / horizontal tabs (mobile) -->
-		<aside class="ax-sidebar" aria-label="Dashboard navigation">
-			<div class="ax-profile">
-				<img src="assets/lantalogo2.jpg" alt="avatar" class="ax-avatar">
-				<div>
-					<div class="ax-name">Seller</div>
-					<div class="muted">Business account</div>
-				</div>
-			</div>
-			<nav>
-				<ul>
-					<li class="active" data-section="overview"><a href="#">Overview</a></li>
-					<li data-section="orders"><a href="#">Orders</a></li>
-					<li data-section="products"><a href="#">Products</a></li>
-					<li data-section="wallet"><a href="#">Wallet</a></li>
-					<li data-section="settings"><a href="#">Settings</a></li>
-				</ul>
-			</nav>
-		</aside>
+  <main class="container hyb-container">
+    <aside class="hyb-sidebar" aria-label="Dashboard navigation">
+      <div class="hyb-profile">
+        <img src="assets/lantalogo2.jpg" alt="avatar" class="hyb-avatar">
+        <div>
+          <div class="hyb-name">Hello, <strong id="hyb-username">User</strong></div>
+          <div class="muted" id="hyb-role-label">Role</div>
+        </div>
+      </div>
 
-		<section class="ax-main">
-			<div class="ax-topbar">
-				<h1 class="ax-title">Dashboard</h1>
-				<div class="ax-actions">
-					<button class="cta-btn">+ New Listing</button>
-				</div>
-			</div>
+      <nav>
+        <ul id="hyb-nav">
+          <!-- nav rendered by JS -->
+        </ul>
+      </nav>
+    </aside>
 
-			<!-- KPI summary row -->
-			<div class="ax-kpis">
-				<div class="ax-card ax-kpi">
-					<div class="ax-kpi-label">Total Sales</div>
-					<div class="ax-kpi-value" id="ax-total-sales">₦0</div>
-					<div class="muted">Lifetime</div>
-				</div>
-				<div class="ax-card ax-kpi">
-					<div class="ax-kpi-label">Orders</div>
-					<div class="ax-kpi-value" id="ax-orders">0</div>
-					<div class="muted">Last 30 days</div>
-				</div>
-				<div class="ax-card ax-kpi">
-					<div class="ax-kpi-label">Available Balance</div>
-					<div class="ax-kpi-value" id="ax-available">₦0</div>
-					<div class="muted">Ready to withdraw</div>
-				</div>
-				<div class="ax-card ax-kpi">
-					<div class="ax-kpi-label">Conversion</div>
-					<div class="ax-kpi-value" id="ax-conversion">0%</div>
-					<div class="muted">This month</div>
-				</div>
-			</div>
+    <section class="hyb-main">
+      <div class="hyb-topbar">
+        <div>
+          <h1 class="hyb-title">Dashboard</h1>
+          <div class="muted">Quick overview of your account</div>
+        </div>
+        <div class="hyb-top-actions">
+          <input class="hyb-search" placeholder="Search orders, products..." aria-label="Search">
+          <button class="cta-btn" id="hyb-add">+ Add</button>
+        </div>
+      </div>
 
-			<!-- Charts and lists -->
-			<div class="ax-grid">
-				<div class="ax-graph ax-card">
-					<div class="ax-graph-header">
-						<h3>Sales (last 30 days)</h3>
-						<div class="muted">NGN</div>
-					</div>
-					<div id="ax-sales-chart" class="ax-chart"></div>
-				</div>
+      <div id="hyb-loading" class="hyb-loading" hidden>Loading dashboard…</div>
 
-				<div class="ax-side ax-card">
-					<h3>Recent Orders</h3>
-					<table class="ax-table" id="ax-orders-table">
-						<thead><tr><th>Order</th><th>Date</th><th>Amount</th><th>Status</th></tr></thead>
-						<tbody></tbody>
-					</table>
-				</div>
-			</div>
+      <div id="hyb-content" class="hyb-content">
+        <!-- KPI row -->
+        <div class="hyb-kpis" id="hyb-kpis">
+          <!-- cards populated by JS -->
+        </div>
 
-			<!-- Products row -->
-			<div class="ax-card" style="margin-top:1rem;">
-				<div class="ax-card-header">
-					<h3>Top Products</h3>
-					<a href="#" class="see-all">See all</a>
-				</div>
-				<div class="ax-products" id="ax-products-list"></div>
-			</div>
+        <!-- Main grid: left panels and right panels -->
+        <div class="hyb-grid">
+          <div class="hyb-left">
+            <div class="hyb-card">
+              <div class="hyb-card-header"><h3>Orders</h3><div class="muted">Recent</div></div>
+              <div class="hyb-table-wrap">
+                <table class="hyb-table" id="hyb-orders-table">
+                  <thead>
+                    <tr><th>OrderID</th><th>Product</th><th>Status</th><th>Action</th></tr>
+                  </thead>
+                  <tbody>
+                    <!-- rows appended by JS -->
+                  </tbody>
+                </table>
+                <div class="hyb-table-loading" id="hyb-orders-loading">Loading orders…</div>
+              </div>
+            </div>
 
-		</section>
-	</main>
+            <div class="hyb-card" id="hyb-analytics-card">
+              <div class="hyb-card-header"><h3>Analytics</h3><div class="muted">Sales trends</div></div>
+              <div id="hyb-chart" class="hyb-chart">Chart placeholder</div>
+            </div>
+          </div>
 
-	<footer class="footer">
-		<div class="footer-content">
-			<img src="assets/footer-image.jpg" alt="Lanta Xpress" class="footer-img">
-			<p>© LantaXpress</p>
-		</div>
-	</footer>
+          <aside class="hyb-right">
+            <div class="hyb-card">
+              <h3>Quick Actions</h3>
+              <div class="hyb-actions">
+                <button class="cta-btn">Add Product</button>
+                <button class="cta-btn">Request Withdrawal</button>
+                <button class="cta-btn">Export CSV</button>
+              </div>
+            </div>
 
-	<script src="script.js"></script>
+            <div class="hyb-card" id="hyb-products-card">
+              <h3>Products</h3>
+              <div id="hyb-products-list" class="hyb-products-list">
+                <!-- product items by JS -->
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- mobile bottom nav consistent with other pages -->
+  <nav class="mobile-bottom-nav hyb-bottom-nav">
+    <a href="index.html" class="nav-item"><span class="nav-icon">🏠</span><span class="nav-label">Home</span></a>
+    <a href="items.html" class="nav-item"><span class="nav-icon">🛒</span><span class="nav-label">Items</span></a>
+    <a href="logistics.html" class="nav-item"><span class="nav-icon">🚚</span><span class="nav-label">Logistics</span></a>
+    <a href="dashboard.html" class="nav-item active"><span class="nav-icon">👤</span><span class="nav-label">Account</span></a>
+  </nav>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <img src="assets/footer-image.jpg" alt="Lanta Xpress" class="footer-img">
+      <p>© LantaXpress</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
-
