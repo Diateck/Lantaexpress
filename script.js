@@ -222,11 +222,16 @@ document.addEventListener('DOMContentLoaded', function () {
 // Mobile menu toggle for responsive nav
 const menuBtn = document.querySelector('.menu-btn');
 const navMenu = document.getElementById('main-menu');
-if (menuBtn && navMenu) {
+if (menuBtn) {
   menuBtn.addEventListener('click', () => {
     const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
     menuBtn.setAttribute('aria-expanded', !expanded);
-    navMenu.classList.toggle('show');
+    if (navMenu) navMenu.classList.toggle('show');
+    // If on account page, toggle the sidebar visibility for mobile
+    try {
+      const accountRoot = document.getElementById('account-dashboard');
+      if (accountRoot) accountRoot.classList.toggle('ax-sidebar-open');
+    } catch (e) { /* ignore */ }
   });
 }
 

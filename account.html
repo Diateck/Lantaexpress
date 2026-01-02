@@ -50,6 +50,13 @@
     /* Responsive: tablet and below stack sidebar on top */
     @media (max-width:1024px){ .container{max-width:960px} .ax-sidebar{width:240px;height:auto;position:relative;top:auto} }
     @media (max-width:800px){ .ax-layout{flex-direction:column} .ax-sidebar{width:100%;height:auto;position:relative} .ax-welcome{font-size:22px} .ax-cards{flex-direction:row;flex-wrap:wrap} .ax-card{flex:1 1 48%} }
+      /* On small screens hide the sidebar by default and let the header hamburger toggle it */
+      @media (max-width:800px) {
+        .ax-sidebar { display: none; }
+        .ax-layout.ax-sidebar-open .ax-sidebar { display: block; }
+        /* when sidebar opens, push main content below for clarity */
+        .ax-layout.ax-sidebar-open .ax-main { margin-top: 0.75rem; }
+      }
     @media (max-width:480px){ .ax-card{flex:1 1 100%} .ax-welcome{font-size:18px} .ax-actions input{min-width:120px} }
   </style>
 </head>
