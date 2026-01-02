@@ -228,7 +228,7 @@ if (marquee) {
 }
 
 // Category switching within items page (hash + JS-driven)
-document.addEventListener('DOMContentLoaded', function () {
+function initCategorySwitching() {
   const sidebarLinks = Array.from(document.querySelectorAll('.sidebar a[data-category]'));
   const sections = Array.from(document.querySelectorAll('.category-section'));
   console.debug('items: category init', { sidebarLinks: sidebarLinks.length, sections: sections.length });
@@ -397,7 +397,11 @@ document.addEventListener('DOMContentLoaded', function () {
       window.location.href = 'index.html';
     });
   }
-});
+}
+
+// Run category init ASAP: if DOM already parsed run now, otherwise wait for DOMContentLoaded
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initCategorySwitching);
+else initCategorySwitching();
 
 // Logistics page: tabs + simple booking form handler
 document.addEventListener('DOMContentLoaded', function () {
