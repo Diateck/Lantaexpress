@@ -121,8 +121,23 @@
 <body>
   <header class="header">
     <div class="logo-area"><img src="assets/lantalogo2.jpg" alt="Lanta" class="logo"><span class="brand-name">LantaXpress</span></div>
-    <nav class="nav"><ul id="main-menu"><li><a href="index.html">Home</a></li><li><a href="items.html">Items</a></li></ul><button type="button" class="nav-close" aria-label="Close menu">✕</button></nav>
-    <div class="header-icons"><button class="menu-btn" aria-label="Toggle menu">☰</button></div>
+    <nav class="nav">
+      <ul id="main-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="items.html">Items</a></li>
+        <li><a href="logistics.html">Logistics</a></li>
+        <li>
+          <a href="account.html" aria-label="Account" title="Account">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="7" r="4" />
+              <path d="M5.5 21a8.38 8.38 0 0 1 13 0" />
+            </svg>
+          </a>
+        </li>
+      </ul>
+      <button type="button" class="nav-close" aria-label="Close menu">✕</button>
+    </nav>
+    <div class="header-icons"><button class="menu-btn" aria-label="Toggle menu" aria-expanded="false" aria-controls="main-menu">☰</button></div>
   </header>
   <div id="menu-backdrop" class="menu-backdrop" aria-hidden="true"></div>
 
