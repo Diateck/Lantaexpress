@@ -608,28 +608,28 @@ function initAccountPage() {
     main.innerHTML = `
       <div class="ax-topbar-row"><div class="ax-welcome">Welcome, ${currentUser.name}</div><div class="ax-actions"><input id="ax-search" placeholder="Search orders, products..."/></div></div>
       <div class="ax-cards">
-        <div class="ax-card" data-widget="kpi1">
-          <div class="ax-icon">🏠</div>
+        <div class="ax-card" data-widget="kpi-products">
+          <div class="ax-icon">🛒</div>
           <div>
-            <div class="ax-card-value" id="kpi-pending">0</div>
-            <div class="ax-card-title">Active Listings</div>
-            <div class="ax-card-action"><a href="#" class="ax-link">+ Add new</a></div>
+            <div class="ax-card-value" id="kpi-products">0</div>
+            <div class="ax-card-title">Products Listed</div>
+            <div class="ax-card-action"><a href="#" class="ax-link">Manage Products</a></div>
           </div>
         </div>
-        <div class="ax-card" data-widget="kpi2">
-          <div class="ax-icon">📅</div>
+        <div class="ax-card" data-widget="kpi-orders">
+          <div class="ax-icon">📦</div>
           <div>
-            <div class="ax-card-value" id="kpi-wish">0</div>
-            <div class="ax-card-title">Reservation Counts</div>
-            <div class="ax-card-action"><a href="#" class="ax-link">Manage</a></div>
+            <div class="ax-card-value" id="kpi-orders">0</div>
+            <div class="ax-card-title">Orders Received</div>
+            <div class="ax-card-action"><a href="#" class="ax-link">View Orders</a></div>
           </div>
         </div>
-        <div class="ax-card" data-widget="kpi3">
-          <div class="ax-icon">💰</div>
+        <div class="ax-card" data-widget="kpi-wallet">
+          <div class="ax-icon">💳</div>
           <div>
-            <div class="ax-card-value" id="kpi-recent">0</div>
-            <div class="ax-card-title">Available Balance</div>
-            <div class="ax-card-action"><a href="#" class="ax-link">Withdraw</a></div>
+            <div class="ax-card-value" id="kpi-wallet">₦0</div>
+            <div class="ax-card-title">Wallet Balance</div>
+            <div class="ax-card-action"><a href="#" class="ax-link">Withdraw Funds</a></div>
           </div>
         </div>
       </div>
@@ -653,9 +653,9 @@ function initAccountPage() {
     // Fill demo KPIs and tables after small delay to show loading state
     setTimeout(() => {
       const demo = {
-        pending: 4,
-        wishlist: 12,
-        recent: 7,
+        productsCount: 4,
+        ordersCount: 12,
+        wallet: 7000,
         orders: [
           {id:'ORD-300', product:'Portable Speaker', status:'Pending'},
           {id:'ORD-299', product:'Phone Case', status:'Shipped'}
@@ -665,9 +665,11 @@ function initAccountPage() {
           {name:'Wireless Charger', stock:3, price:4200}
         ]
       };
-      const kp = document.getElementById('kpi-pending'); if (kp) kp.textContent = String(demo.pending);
-      const kw = document.getElementById('kpi-wish'); if (kw) kw.textContent = String(demo.wishlist);
-      const kr = document.getElementById('kpi-recent'); if (kr) kr.textContent = String(demo.recent);
+      const formatN = (n) => '₦' + Number(n).toLocaleString();
+
+      const kp = document.getElementById('kpi-products'); if (kp) kp.textContent = String(demo.productsCount);
+      const ko = document.getElementById('kpi-orders'); if (ko) ko.textContent = String(demo.ordersCount);
+      const kw = document.getElementById('kpi-wallet'); if (kw) kw.textContent = formatN(demo.wallet);
 
       const ot = document.getElementById('ax-orders-table'); if (ot) {
         const t = document.createElement('table'); t.className='ax-table'; t.innerHTML = '<thead><tr><th>OrderID</th><th>Product</th><th>Status</th><th>Action</th></tr></thead>';
@@ -676,12 +678,12 @@ function initAccountPage() {
 
       const pt = document.getElementById('ax-products-table'); if (pt) {
         const t = document.createElement('table'); t.className='ax-table'; t.innerHTML = '<thead><tr><th>Product</th><th>Stock</th><th>Price</th><th>Actions</th></tr></thead>';
-        const tb = document.createElement('tbody'); demo.products.forEach(p => { const tr=document.createElement('tr'); tr.innerHTML=`<td>${p.name}</td><td>${p.stock}</td><td>${p.price}</td><td><button class='ax-btn'>Edit</button></td>`; tb.appendChild(tr); }); t.appendChild(tb); pt.innerHTML=''; pt.appendChild(t);
+        const tb = document.createElement('tbody'); demo.products.forEach(p => { const tr=document.createElement('tr'); tr.innerHTML=`<td>${p.name}</td><td>${p.stock}</td><td>${formatN(p.price)}</td><td><button class='ax-btn'>Manage</button></td>`; tb.appendChild(tr); }); t.appendChild(tb); pt.innerHTML=''; pt.appendChild(t);
       }
 
       // draw a tiny sparkline chart
       const ch = document.getElementById('ax-overview-chart'); if (ch) {
-        const w = Math.max(320, ch.clientWidth || 480); const h = 120; const data = Array.from({length:20}, ()=>Math.round(400+Math.random()*800)); const max=Math.max(...data); const pad=6; const step=(w-pad*2)/(data.length-1); let path=''; data.forEach((v,i)=>{ const x=pad+i*step; const y=pad+(1-(v/max))*(h-pad*2); path += (i===0? 'M':' L')+x.toFixed(1)+' '+y.toFixed(1); }); const area = path+` L ${w-pad} ${h-pad} L ${pad} ${h-pad} Z`; ch.innerHTML = `<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="axG2" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="rgba(0,136,106,0.14)"/><stop offset="100%" stop-color="rgba(0,136,106,0.02)"/></linearGradient></defs><path d="${area}" fill="url(#axG2)" stroke="none"/><path d="${path}" fill="none" stroke="var(--green)" stroke-width="2"/></svg>`;
+        const w = Math.max(320, ch.clientWidth || 480); const h = 120; const data = Array.from({length:20}, ()=>Math.round(400+Math.random()*800)); const max=Math.max(...data); const pad=6; const step=(w-pad*2)/(data.length-1); let path=''; data.forEach((v,i)=>{ const x=pad+i*step; const y=pad+(1-(v/max))*(h-pad*2); path += (i===0? 'M':' L')+x.toFixed(1)+' '+y.toFixed(1); }); const area = path+` L ${w-pad} ${h-pad} L ${pad} ${h-pad} Z`; ch.innerHTML = `<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="axG2" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="rgba(0,136,106,0.14)"/><stop offset="100%" stop-color="rgba(0,136,106,0.02)"/></linearGradient></defs><path d="${area}" fill="url(#axG2)" stroke="none"/><path d="${path}" fill="none" stroke="var(--accent)" stroke-width="2"/></svg>`;
       }
 
     }, 350);
