@@ -84,23 +84,12 @@
         .ax-layout.ax-sidebar-open .ax-main { margin-top: 0.75rem; }
       }
     @media (max-width:480px){ .ax-card{flex:1 1 100%} .ax-welcome{font-size:18px} .ax-actions input{min-width:120px} }
-    /* Mobile header compact panel: narrow, sticky and professional */
-    .menu-backdrop{display:none}
+    /* On account page we prefer the header menu hidden on small screens (use the sidebar) */
+    .menu-backdrop{display:none !important}
     @media (max-width:600px) {
-      .nav { position: relative; }
-      /* backdrop behind the compact menu */
-      .menu-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.28); z-index: 1040; opacity: 0; transition: opacity .18s ease; pointer-events: none; }
-      .menu-backdrop.visible { display:block; opacity: 1; pointer-events: auto; }
-
-      /* compact menu panel anchored to header, narrow width and subtle shadow */
-      .nav ul { flex-direction: column; gap: 0.4rem; position: fixed; top: 56px; right: 12px; background: var(--accent); border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.16); padding: 0.45rem 0.55rem; display: flex; opacity: 0; transform: translateY(-6px) scale(.998); pointer-events: none; z-index: 1060; min-width: 140px; max-width: 220px; width: auto; transition: opacity .18s ease, transform .18s ease; }
-      .nav ul.show { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
-      .nav ul li a { color: #fff; padding: 0.45rem 0.6rem; display: block; border-radius: 8px; font-weight:600 }
-      .nav ul li a:hover { background: rgba(255,255,255,0.06); }
-
-      /* place close button after the list and only show when menu is visible */
-      .nav .nav-close { display: none; }
-      .nav ul.show + .nav-close { display: block; position: fixed; top: 54px; right: 8px; background: transparent; border: 0; color: #fff; font-size: 1.05rem; padding: 6px; z-index: 1070; }
+      .nav ul { display: none !important; }
+      .nav .nav-close { display: none !important; }
+      #menu-backdrop { display: none !important; }
     }
   </style>
 </head>
