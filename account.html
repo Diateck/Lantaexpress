@@ -62,6 +62,10 @@
         .ax-layout.ax-sidebar-open .ax-main { margin-top: 0.75rem; }
       }
     @media (max-width:480px){ .ax-card{flex:1 1 100%} .ax-welcome{font-size:18px} .ax-actions input{min-width:120px} }
+    /* On account page we don't want the header dropdown menu to appear as a green board on mobile */
+    @media (max-width:600px) {
+      .nav ul { display: none !important; }
+    }
   </style>
 </head>
 <body>
