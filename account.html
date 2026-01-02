@@ -10,7 +10,11 @@
     :root { --dash-bg: #f6f8fa; --card-bg: #fff; --accent: #00886a; --accent-2: #3dbb8d; --muted:#6b7280; --shadow: 0 6px 18px rgba(0,136,106,0.08); }
     html,body{height:100%;}
     body { margin:0; font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background:var(--dash-bg); color:#111827; }
-    header.header{background:transparent;padding:1rem 1.25rem;border-bottom:1px solid rgba(0,0,0,0.04);}
+    header.header{background:var(--accent);padding:1rem 1.25rem;border-bottom:1px solid rgba(0,0,0,0.04);color:#fff}
+    header.header .brand-name, header.header .header-icons, header.header .nav a{color:#fff}
+    header.header .logo{background:#fff;padding:6px;border-radius:8px}
+    .menu-btn{background:transparent;border:0;color:#fff;font-size:20px;padding:6px 8px;border-radius:6px}
+    .nav a{color:inherit}
     .logo-area{display:flex;align-items:center;gap:.6rem}
     .logo{width:48px;height:48px;border-radius:8px;object-fit:cover}
     .brand-name{font-weight:700;color:var(--muted)}
