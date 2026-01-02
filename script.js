@@ -224,21 +224,14 @@ const menuBtn = document.querySelector('.menu-btn');
 const navMenu = document.getElementById('main-menu');
 if (menuBtn) {
   menuBtn.addEventListener('click', () => {
-    const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
-    const next = !expanded;
-    menuBtn.setAttribute('aria-expanded', String(next));
-    if (navMenu) navMenu.classList.toggle('show', next);
-    // toggle backdrop for compact mobile header menu
-    try {
-      const backdrop = document.getElementById('menu-backdrop');
-      if (backdrop) backdrop.classList.toggle('visible', next);
-    } catch (e) { /* ignore */ }
-    // change hamburger to X when open (and revert when closed)
-    try { menuBtn.textContent = next ? '✕' : '☰'; } catch (e) {}
-    // If on account page, toggle the sidebar visibility for mobile
     try {
       const accountRoot = document.getElementById('account-dashboard');
-      if (accountRoot) accountRoot.classList.toggle('ax-sidebar-open', next);
+      if (accountRoot) {
+        const opened = accountRoot.classList.toggle('ax-sidebar-open');
+        // update aria-expanded but keep the visible icon as hamburger
+        try { menuBtn.setAttribute('aria-expanded', String(opened)); } catch (e) {}
+        try { menuBtn.textContent = '☰'; } catch (e) {}
+      }
     } catch (e) { /* ignore */ }
   });
 }
