@@ -6,25 +6,51 @@
   <title>Account Dashboard - Lanta Xpress</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    /* Minimal local styles for dashboard layout */
-    .ax-layout { display:flex; gap:1rem; max-width:1200px; margin:1rem auto; }
-    .ax-sidebar { width:220px; background:#fff;padding:1rem;border-radius:10px;box-shadow:var(--shadow); }
-    .ax-main { flex:1; }
-    .ax-topbar-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; }
-    .ax-cards { display:flex; gap:1rem; margin-bottom:1rem; }
-    .ax-card { background:#fff;padding:0.8rem;border-radius:8px;flex:1;box-shadow:var(--shadow);} 
-    .ax-card-title { font-size:0.9rem; color:#666 }
-    .ax-card-value { font-size:1.25rem; font-weight:700 }
-    .ax-sections { background:transparent }
-    .ax-table { width:100%; border-collapse:collapse }
-    .ax-table th, .ax-table td { padding:0.6rem; border-bottom:1px solid #eee; text-align:left }
-    .ax-side-nav ul { list-style:none; padding:0; margin:0 }
-    .ax-side-nav li { margin-bottom:0.25rem }
-    .ax-side-nav a { color:var(--green); text-decoration:none; display:block; padding:0.45rem; border-radius:6px }
-    .ax-side-item.open > .ax-side-sub { display:block }
-    .ax-side-sub { display:none; list-style:none; padding-left:0.6rem }
-    .ax-sidebar-toggle { display:none; }
-    @media (max-width:800px) { .ax-layout { flex-direction:column } .ax-sidebar{ width:100% } .ax-sidebar-toggle{ display:inline-block } }
+    /* Dashboard responsive layout and styles inspired by the provided screenshot */
+    :root { --dash-bg: #f6f8fa; --card-bg: #fff; --accent: #0b74e8; --muted:#6b7280; --shadow: 0 6px 18px rgba(11,116,232,0.08); }
+    html,body{height:100%;}
+    body { margin:0; font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background:var(--dash-bg); color:#111827; }
+    header.header{background:transparent;padding:1rem 1.25rem;border-bottom:1px solid rgba(0,0,0,0.04);}
+    .logo-area{display:flex;align-items:center;gap:.6rem}
+    .logo{width:48px;height:48px;border-radius:8px;object-fit:cover}
+    .brand-name{font-weight:700;color:var(--muted)}
+    .container{max-width:1200px;margin:1.25rem auto;padding:0 1rem}
+
+    /* Two-column layout: left sidebar, right content */
+    .ax-layout{display:flex;gap:1.25rem;align-items:flex-start}
+    .ax-sidebar{width:260px;background:var(--card-bg);padding:1rem;border-radius:14px;box-shadow:var(--shadow);height:calc(100vh - 120px);overflow:auto;position:sticky;top:20px}
+    .ax-main{flex:1}
+
+    /* Top welcome header inside main area */
+    .ax-topbar-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem}
+    .ax-welcome{font-size:28px;font-weight:800;color:#0f172a}
+    .ax-actions input{padding:.6rem .8rem;border-radius:10px;border:1px solid #e6eef6;min-width:220px}
+
+    /* Big vertical cards matching screenshot */
+    .ax-cards{display:flex;flex-direction:column;gap:1rem;margin-bottom:1rem}
+    .ax-card{display:flex;align-items:center;gap:1rem;background:var(--card-bg);padding:1.2rem;border-radius:14px;border-top:6px solid var(--accent);box-shadow:var(--shadow)}
+    .ax-card .ax-icon{width:56px;height:56px;background:rgba(11,116,232,0.08);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:22px}
+    .ax-card-title{font-size:0.95rem;color:var(--muted)}
+    .ax-card-value{font-size:22px;font-weight:800}
+
+    /* Sections and tables */
+    .ax-sections{margin-top:0}
+    .ax-section{background:transparent;padding:0}
+    .ax-table{width:100%;border-collapse:collapse;background:var(--card-bg);border-radius:10px;overflow:hidden}
+    .ax-table th,.ax-table td{padding:.85rem;border-bottom:1px solid #f3f4f6}
+
+    /* Sidebar nav styles */
+    .ax-side-nav ul{list-style:none;padding:0;margin:0}
+    .ax-side-nav li{margin:0}
+    .ax-side-nav a{display:flex;align-items:center;gap:.6rem;padding:.6rem;border-radius:10px;color:#0f172a;text-decoration:none}
+    .ax-side-nav a:hover{background:#f1f7ff}
+    .ax-side-nav a.active{background:linear-gradient(90deg,var(--accent),#37a5ff);color:#fff}
+    .ax-side-sub{padding-left:.6rem;margin-top:.25rem}
+
+    /* Responsive: tablet and below stack sidebar on top */
+    @media (max-width:1024px){ .container{max-width:960px} .ax-sidebar{width:240px;height:auto;position:relative;top:auto} }
+    @media (max-width:800px){ .ax-layout{flex-direction:column} .ax-sidebar{width:100%;height:auto;position:relative} .ax-welcome{font-size:22px} .ax-cards{flex-direction:row;flex-wrap:wrap} .ax-card{flex:1 1 48%} }
+    @media (max-width:480px){ .ax-card{flex:1 1 100%} .ax-welcome{font-size:18px} .ax-actions input{min-width:120px} }
   </style>
 </head>
 <body>

@@ -603,9 +603,30 @@ function initAccountPage() {
     main.innerHTML = `
       <div class="ax-topbar-row"><div class="ax-welcome">Welcome, ${currentUser.name}</div><div class="ax-actions"><input id="ax-search" placeholder="Search orders, products..."/></div></div>
       <div class="ax-cards">
-        <div class="ax-card" data-widget="kpi1"><div class="ax-card-title">Pending Orders</div><div class="ax-card-value" id="kpi-pending">0</div></div>
-        <div class="ax-card" data-widget="kpi2"><div class="ax-card-title">Wishlist</div><div class="ax-card-value" id="kpi-wish">0</div></div>
-        <div class="ax-card" data-widget="kpi3"><div class="ax-card-title">Recent Viewed</div><div class="ax-card-value" id="kpi-recent">0</div></div>
+        <div class="ax-card" data-widget="kpi1">
+          <div class="ax-icon">🏠</div>
+          <div>
+            <div class="ax-card-value" id="kpi-pending">0</div>
+            <div class="ax-card-title">Active Listings</div>
+            <div class="ax-card-action"><a href="#" class="ax-link">+ Add new</a></div>
+          </div>
+        </div>
+        <div class="ax-card" data-widget="kpi2">
+          <div class="ax-icon">📅</div>
+          <div>
+            <div class="ax-card-value" id="kpi-wish">0</div>
+            <div class="ax-card-title">Reservation Counts</div>
+            <div class="ax-card-action"><a href="#" class="ax-link">Manage</a></div>
+          </div>
+        </div>
+        <div class="ax-card" data-widget="kpi3">
+          <div class="ax-icon">💰</div>
+          <div>
+            <div class="ax-card-value" id="kpi-recent">0</div>
+            <div class="ax-card-title">Available Balance</div>
+            <div class="ax-card-action"><a href="#" class="ax-link">Withdraw</a></div>
+          </div>
+        </div>
       </div>
 
       <div class="ax-sections">
