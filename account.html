@@ -9,7 +9,8 @@
     /* Dashboard responsive layout and styles inspired by the provided screenshot */
     :root { --dash-bg: #f6f8fa; --card-bg: #fff; --accent: #00886a; --accent-2: #3dbb8d; --muted:#6b7280; --shadow: 0 6px 18px rgba(0,136,106,0.08); }
     html,body{height:100%;}
-    body { margin:0; font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background:var(--dash-bg); color:#111827; }
+    body { margin:0; display:flex; flex-direction:column; min-height:100vh; font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background:var(--dash-bg); color:#111827; }
+    main.container{flex:1 0 auto}
     header.header{background:var(--accent);padding:1rem 1.25rem;border-bottom:1px solid rgba(0,0,0,0.04);color:#fff}
     header.header .brand-name, header.header .header-icons, header.header .nav a{color:#fff}
     /* remove white frame so header appears as a plain green bar */
@@ -98,6 +99,16 @@
       /* remove the X icon on larger screens */
       .nav .nav-close { display: none !important; }
     }
+    /* Footer styling: green background, green top border, white text */
+    .site-footer {
+      background: var(--accent);
+      color: #fff;
+      border-top: 4px solid #006b54;
+      flex-shrink: 0;
+    }
+    .site-footer .container { color: inherit; }
+    .site-footer a { color: rgba(255,255,255,0.95); text-decoration: none; }
+    .site-footer a:hover { text-decoration: underline; opacity: 1; }
   </style>
 </head>
 <body>
