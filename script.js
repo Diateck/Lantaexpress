@@ -225,17 +225,20 @@ const navMenu = document.getElementById('main-menu');
 if (menuBtn) {
   menuBtn.addEventListener('click', () => {
     const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
-    menuBtn.setAttribute('aria-expanded', !expanded);
-    if (navMenu) navMenu.classList.toggle('show');
+    const next = !expanded;
+    menuBtn.setAttribute('aria-expanded', String(next));
+    if (navMenu) navMenu.classList.toggle('show', next);
     // toggle backdrop for compact mobile header menu
     try {
       const backdrop = document.getElementById('menu-backdrop');
-      if (backdrop) backdrop.classList.toggle('visible');
+      if (backdrop) backdrop.classList.toggle('visible', next);
     } catch (e) { /* ignore */ }
+    // change hamburger to X when open (and revert when closed)
+    try { menuBtn.textContent = next ? '✕' : '☰'; } catch (e) {}
     // If on account page, toggle the sidebar visibility for mobile
     try {
       const accountRoot = document.getElementById('account-dashboard');
-      if (accountRoot) accountRoot.classList.toggle('ax-sidebar-open');
+      if (accountRoot) accountRoot.classList.toggle('ax-sidebar-open', next);
     } catch (e) { /* ignore */ }
   });
 }
@@ -252,6 +255,7 @@ try {
       try { if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false'); } catch (e) {}
       try { const accountRoot = document.getElementById('account-dashboard'); if (accountRoot) accountRoot.classList.remove('ax-sidebar-open'); } catch (e) {}
       try { if (menuBtn && typeof menuBtn.focus === 'function') menuBtn.focus(); } catch (e) {}
+      try { if (menuBtn) menuBtn.textContent = '☰'; } catch (e) {}
     });
   }
   if (backdrop) {
@@ -260,9 +264,13 @@ try {
       try { backdrop.classList.remove('visible'); } catch (e) {}
       try { if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false'); } catch (e) {}
       try { const accountRoot = document.getElementById('account-dashboard'); if (accountRoot) accountRoot.classList.remove('ax-sidebar-open'); } catch (e) {}
+      try { if (menuBtn) menuBtn.textContent = '☰'; } catch (e) {}
     });
   }
 } catch (e) { /* ignore */ }
+
+// Ensure menuBtn icon matches aria-expanded state on load
+try { if (menuBtn) menuBtn.textContent = (menuBtn.getAttribute('aria-expanded') === 'true') ? '✕' : '☰'; } catch (e) {}
 
 // Optional: Pause marquee on hover (for accessibility)
 const marquee = document.querySelector('.marquee-track');
