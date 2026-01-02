@@ -724,6 +724,23 @@ function initAccountPage() {
   buildSidebar(); buildMain(); wireSidebarToggle();
   // show initial overview
   activateSection('overview');
+
+  // Wire mobile header close button (the X) to hide the compact header menu
+  try {
+    const navClose = document.querySelector('.nav-close');
+    if (navClose) {
+      navClose.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        try {
+          if (navMenu) navMenu.classList.remove('show');
+          if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');
+          if (root) root.classList.remove('ax-sidebar-open');
+          if (menuBtn && typeof menuBtn.focus === 'function') menuBtn.focus();
+        } catch (err) { /* ignore */ }
+      });
+    }
+  } catch (err) { /* ignore */ }
 }
 
 // Run account init when page is ready

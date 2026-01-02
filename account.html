@@ -86,14 +86,38 @@
     @media (max-width:480px){ .ax-card{flex:1 1 100%} .ax-welcome{font-size:18px} .ax-actions input{min-width:120px} }
     /* On account page we don't want the header dropdown menu to appear as a green board on mobile */
     @media (max-width:600px) {
-      .nav ul { display: none !important; }
+      /* Make the header dropdown a compact panel aligned to top-right of header */
+      .nav { position: relative; }
+      .nav .nav-close { display: none; }
+      .nav ul {
+        flex-direction: column;
+        gap: 0.5rem;
+        position: absolute;
+        top: 56px;
+        right: 12px;
+        background: var(--accent);
+        border-radius: 10px;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+        padding: 0.6rem 0.8rem;
+        display: none;
+        z-index: 1100;
+        min-width: 160px;
+        max-width: 320px;
+        width: auto;
+      }
+      .nav ul.show { display: flex; }
+      .nav .nav-close { display: block; position: absolute; top: 6px; right: 8px; background: transparent; border: 0; color: #fff; font-size: 1.1rem; padding: 6px; z-index: 1110; }
+      .nav ul li a { color: #fff; padding: 0.6rem 0.9rem; }
     }
   </style>
 </head>
 <body>
   <header class="header">
     <div class="logo-area"><img src="assets/lantalogo2.jpg" alt="Lanta" class="logo"><span class="brand-name">LantaXpress</span></div>
-    <nav class="nav"><ul id="main-menu"><li><a href="index.html">Home</a></li><li><a href="items.html">Items</a></li></ul></nav>
+    <nav class="nav">
+      <button class="nav-close" aria-label="Close menu">✕</button>
+      <ul id="main-menu"><li><a href="index.html">Home</a></li><li><a href="items.html">Items</a></li></ul>
+    </nav>
     <div class="header-icons"><button class="menu-btn" aria-label="Toggle menu">☰</button></div>
   </header>
 
