@@ -697,3 +697,23 @@ function initAccountPage() {
 
 // Run account init when page is ready
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initAccountPage); else initAccountPage();
+
+// Ensure mobile bottom nav highlights the current page when present
+document.addEventListener('DOMContentLoaded', function () {
+  try {
+    const nav = document.querySelector('.mobile-bottom-nav');
+    if (!nav) return;
+    const anchors = Array.from(nav.querySelectorAll('.nav-item'));
+    anchors.forEach(a => a.classList.remove('active'));
+    const href = location.pathname.split('/').pop() || 'index.html';
+    // prefer exact filename match
+    const match = anchors.find(a => (a.getAttribute('href')||'').split('/').pop() === href);
+    if (match) match.classList.add('active');
+    else {
+      // fallback: if on account.html but hashed, still mark account
+      if (location.pathname.endsWith('account.html') || location.hash.includes('account')) {
+        const acc = nav.querySelector('a[href*="account"]'); if (acc) acc.classList.add('active');
+      }
+    }
+  } catch (e) { /* ignore */ }
+});
