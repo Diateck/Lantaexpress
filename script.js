@@ -1,4 +1,4 @@
-// Small-screen + spinner helpers (global) — ensure available even if inner scopes change
+// Global small-screen + spinner helpers
 function isSmallScreen() { return window.innerWidth <= 600; }
 
 function createSpinner() {
@@ -30,6 +30,37 @@ function removeSpinner() {
   const el = document.getElementById('global-spinner');
   if (el) el.parentNode.removeChild(el);
 }
+
+// Show spinner for navigation clicks on small screens (captures early)
+document.addEventListener('click', function (ev) {
+  try {
+    if (!isSmallScreen()) return;
+    const el = ev.target && ev.target.closest ? ev.target.closest('a,button') : null;
+    if (!el) return;
+    if (el.hasAttribute && el.hasAttribute('data-no-spinner')) return;
+    if (el.tagName === 'A') {
+      const href = el.getAttribute('href') || '';
+      const lower = href.toLowerCase();
+      if (!href) return;
+      if (lower.startsWith('#') || lower.startsWith('mailto:') || lower.startsWith('tel:')) return;
+      if (el.target === '_blank' || el.hasAttribute('download')) return;
+      try {
+        const url = new URL(href, location.href);
+        if (url.origin !== location.origin) return;
+      } catch (e) { return; }
+      createSpinner();
+      setTimeout(removeSpinner, 4000);
+    }
+    if (el.tagName === 'BUTTON') {
+      const type = (el.getAttribute('type') || '').toLowerCase();
+      if (type === 'submit' || type === '') return;
+      if (el.hasAttribute('formaction') || el.dataset.href) {
+        createSpinner();
+        setTimeout(removeSpinner, 4000);
+      }
+    }
+  } catch (err) { console.warn('spinner click handler error', err); }
+}, true);
 
 // Slide-in animation for featured items on mobile using IntersectionObserver
 document.addEventListener('DOMContentLoaded', function () {
