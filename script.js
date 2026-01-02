@@ -1,3 +1,36 @@
+// Small-screen + spinner helpers (global) — ensure available even if inner scopes change
+function isSmallScreen() { return window.innerWidth <= 600; }
+
+function createSpinner() {
+  if (document.getElementById('global-spinner')) return;
+  const s = document.createElement('div');
+  s.id = 'global-spinner';
+  s.setAttribute('aria-hidden', 'true');
+  s.style.position = 'fixed';
+  s.style.left = '0';
+  s.style.top = '0';
+  s.style.right = '0';
+  s.style.bottom = '0';
+  s.style.display = 'flex';
+  s.style.alignItems = 'center';
+  s.style.justifyContent = 'center';
+  s.style.background = 'rgba(0,0,0,0.35)';
+  s.style.zIndex = '99999';
+  s.innerHTML = '<div style="width:56px;height:56px;border-radius:50%;border:6px solid rgba(255,255,255,0.65);border-top-color:var(--green,#00886a);box-shadow:0 2px 8px rgba(0,0,0,0.12);animation:gx-spin 1s linear infinite"></div>';
+  if (!document.getElementById('global-spinner-style')) {
+    const style = document.createElement('style');
+    style.id = 'global-spinner-style';
+    style.textContent = '@keyframes gx-spin{to{transform:rotate(360deg)}}';
+    document.head.appendChild(style);
+  }
+  document.body.appendChild(s);
+}
+
+function removeSpinner() {
+  const el = document.getElementById('global-spinner');
+  if (el) el.parentNode.removeChild(el);
+}
+
 // Slide-in animation for featured items on mobile using IntersectionObserver
 document.addEventListener('DOMContentLoaded', function () {
   function isMobile() {
@@ -128,48 +161,15 @@ document.addEventListener('DOMContentLoaded', function () {
       li.classList.add('active');
       // future: toggle sections by data-section
     }));
-    // Small-screen helpers and spinner (used by logistics form submit handler)
-    function isSmallScreen() { return window.innerWidth <= 600; }
-
-    function createSpinner() {
-      if (document.getElementById('global-spinner')) return;
-      const s = document.createElement('div');
-      s.id = 'global-spinner';
-      s.setAttribute('aria-hidden', 'true');
-      s.style.position = 'fixed';
-      s.style.left = '0';
-      s.style.top = '0';
-      s.style.right = '0';
-      s.style.bottom = '0';
-      s.style.display = 'flex';
-      s.style.alignItems = 'center';
-      s.style.justifyContent = 'center';
-      s.style.background = 'rgba(0,0,0,0.35)';
-      s.style.zIndex = '99999';
-      s.innerHTML = '<div style="width:56px;height:56px;border-radius:50%;border:6px solid rgba(255,255,255,0.65);border-top-color:var(--green,#00886a);box-shadow:0 2px 8px rgba(0,0,0,0.12);animation:gx-spin 1s linear infinite"></div>';
-      if (!document.getElementById('global-spinner-style')) {
-        const style = document.createElement('style');
-        style.id = 'global-spinner-style';
-        style.textContent = '@keyframes gx-spin{to{transform:rotate(360deg)}}';
-        document.head.appendChild(style);
-      }
-      document.body.appendChild(s);
-    }
-
-    function removeSpinner() {
-      const el = document.getElementById('global-spinner');
-      if (el) el.parentNode.removeChild(el);
-    }
-
-    // Show spinner on logistics booking form submit on mobile
-    document.addEventListener('submit', function (ev) {
+  // Show spinner on logistics booking form submit on mobile
+  document.addEventListener('submit', function (ev) {
     if (!isSmallScreen()) return;
     const form = ev.target;
     if (!form) return;
     // if form has attribute data-no-spinner, skip
     if (form.dataset && form.dataset.noSpinner) return;
     // show spinner — allow form's submit handler to run
-      createSpinner();
+    createSpinner();
     // remove after a timeout in case form is handled via JS
     setTimeout(removeSpinner, 4000);
   }, true);
