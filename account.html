@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Account Dashboard - Lanta Xpress</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Minimal local styles for dashboard layout */
+    .ax-layout { display:flex; gap:1rem; max-width:1200px; margin:1rem auto; }
+    .ax-sidebar { width:220px; background:#fff;padding:1rem;border-radius:10px;box-shadow:var(--shadow); }
+    .ax-main { flex:1; }
+    .ax-topbar-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; }
+    .ax-cards { display:flex; gap:1rem; margin-bottom:1rem; }
+    .ax-card { background:#fff;padding:0.8rem;border-radius:8px;flex:1;box-shadow:var(--shadow);} 
+    .ax-card-title { font-size:0.9rem; color:#666 }
+    .ax-card-value { font-size:1.25rem; font-weight:700 }
+    .ax-sections { background:transparent }
+    .ax-table { width:100%; border-collapse:collapse }
+    .ax-table th, .ax-table td { padding:0.6rem; border-bottom:1px solid #eee; text-align:left }
+    .ax-side-nav ul { list-style:none; padding:0; margin:0 }
+    .ax-side-nav li { margin-bottom:0.25rem }
+    .ax-side-nav a { color:var(--green); text-decoration:none; display:block; padding:0.45rem; border-radius:6px }
+    .ax-side-item.open > .ax-side-sub { display:block }
+    .ax-side-sub { display:none; list-style:none; padding-left:0.6rem }
+    .ax-sidebar-toggle { display:none; }
+    @media (max-width:800px) { .ax-layout { flex-direction:column } .ax-sidebar{ width:100% } .ax-sidebar-toggle{ display:inline-block } }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="logo-area"><img src="assets/lantalogo2.jpg" alt="Lanta" class="logo"><span class="brand-name">LantaXpress</span></div>
+    <nav class="nav"><ul id="main-menu"><li><a href="index.html">Home</a></li><li><a href="items.html">Items</a></li></ul></nav>
+    <div class="header-icons"><button class="menu-btn" aria-label="Toggle menu">☰</button></div>
+  </header>
+
+  <main class="container">
+    <div id="account-dashboard" class="ax-layout">
+      <aside class="ax-sidebar">
+        <button class="ax-sidebar-toggle">Toggle</button>
+        <!-- Sidebar items inserted by script -->
+      </aside>
+      <section class="ax-main">
+        <!-- Main content injected by script -->
+      </section>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
