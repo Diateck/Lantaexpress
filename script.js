@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', function () {
   function isMobile() {
     return window.innerWidth <= 600;
   }
+  // alias used elsewhere — keep name clear and consistent
+  function isSmallScreen() { return isMobile(); }
 
   const cards = Array.from(document.querySelectorAll('.item-cards .item-card'));
   if (!cards.length) return;
@@ -140,6 +142,34 @@ document.addEventListener('DOMContentLoaded', function () {
     // remove after a timeout in case form is handled via JS
     setTimeout(removeSpinner, 4000);
   }, true);
+
+  // Minimal spinner helpers (safe no-op if already provided elsewhere)
+  function createSpinner() {
+    if (document.getElementById('global-spinner')) return;
+    const s = document.createElement('div');
+    s.id = 'global-spinner';
+    s.setAttribute('aria-hidden', 'true');
+    s.style.position = 'fixed';
+    s.style.left = '0';
+    s.style.top = '0';
+    s.style.right = '0';
+    s.style.bottom = '0';
+    s.style.display = 'flex';
+    s.style.alignItems = 'center';
+    s.style.justifyContent = 'center';
+    s.style.background = 'rgba(0,0,0,0.25)';
+    s.style.zIndex = '9999';
+    s.innerHTML = '<div style="width:48px;height:48px;border-radius:50%;border:5px solid rgba(255,255,255,0.6);border-top-color:var(--green,#00886a);animation:spin 1s linear infinite"></div>';
+    const style = document.createElement('style');
+    style.textContent = '@keyframes spin{to{transform:rotate(360deg)}}';
+    document.head.appendChild(style);
+    document.body.appendChild(s);
+  }
+
+  function removeSpinner() {
+    const el = document.getElementById('global-spinner');
+    if (el) el.parentNode.removeChild(el);
+  }
 })();
 // Mobile menu toggle for responsive nav
 const menuBtn = document.querySelector('.menu-btn');
