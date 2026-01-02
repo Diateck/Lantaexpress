@@ -609,7 +609,13 @@ function initAccountPage() {
       <div class="ax-topbar-row"><div class="ax-welcome">Welcome, ${currentUser.name}</div><div class="ax-actions"><input id="ax-search" placeholder="Search orders, products..."/></div></div>
       <div class="ax-cards">
         <div class="ax-card" data-widget="kpi-products">
-          <div class="ax-icon">🛒</div>
+          <div class="ax-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M3 3h2l1.5 9h11l2-6H8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <circle cx="10" cy="20" r="1" fill="currentColor"/>
+              <circle cx="18" cy="20" r="1" fill="currentColor"/>
+            </svg>
+          </div>
           <div>
             <div class="ax-card-value" id="kpi-products">0</div>
             <div class="ax-card-title">Products Listed</div>
@@ -617,7 +623,12 @@ function initAccountPage() {
           </div>
         </div>
         <div class="ax-card" data-widget="kpi-orders">
-          <div class="ax-icon">📦</div>
+          <div class="ax-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M21 16V8l-9-4-9 4v8l9 4 9-4z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <path d="M3.5 7.5l8.5 4 8.5-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </svg>
+          </div>
           <div>
             <div class="ax-card-value" id="kpi-orders">0</div>
             <div class="ax-card-title">Orders Received</div>
@@ -625,7 +636,12 @@ function initAccountPage() {
           </div>
         </div>
         <div class="ax-card" data-widget="kpi-wallet">
-          <div class="ax-icon">💳</div>
+          <div class="ax-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="2" y="6" width="20" height="12" rx="2" stroke="currentColor" stroke-width="1.6" fill="none"/>
+              <rect x="6" y="10" width="6" height="4" rx="1" stroke="currentColor" stroke-width="1.2" fill="none"/>
+            </svg>
+          </div>
           <div>
             <div class="ax-card-value" id="kpi-wallet">₦0</div>
             <div class="ax-card-title">Wallet Balance</div>
