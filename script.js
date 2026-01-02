@@ -54,6 +54,87 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
+// Dashboard interactions (lightweight, mobile-first)
+(function () {
+  // only run when dashboard elements are present
+  const kpiListings = document.getElementById('kpiListings');
+  const kpiReservations = document.getElementById('kpiReservations');
+  const kpiEarnings = document.getElementById('kpiEarnings');
+  const kpiOrders30 = document.getElementById('kpiOrders30');
+  const salesChart = document.getElementById('salesChart');
+  const recentMessages = document.getElementById('recentMessages');
+
+  if (!kpiListings && !salesChart) return; // nothing to do on non-dashboard pages
+
+  // demo data
+  const demo = {
+    listings: 0,
+    reservations: 0,
+    earnings: 0,
+    orders30: 0,
+    dailySales: (function(){ const a=[]; for(let i=0;i<30;i++){ a.push(Math.round(2000 + Math.random()*6000)); } return a; })(),
+    messages: []
+  };
+
+  // populate demo KPIs
+  function populateKPIs(){
+    if (kpiListings) kpiListings.textContent = String(demo.listings);
+    if (kpiReservations) kpiReservations.textContent = String(demo.reservations);
+    if (kpiEarnings) kpiEarnings.textContent = '₦' + (demo.earnings).toLocaleString();
+    if (kpiOrders30) kpiOrders30.textContent = String(demo.orders30);
+  }
+
+  // simple SVG area chart renderer
+  function drawChart(){
+    if (!salesChart) return;
+    const w = salesChart.clientWidth || 640;
+    const h = 220;
+    const data = demo.dailySales;
+    const max = Math.max.apply(null, data) || 1;
+    const pad = 14;
+    const step = (w - pad*2) / (data.length - 1);
+    let path = '';
+    data.forEach((v,i)=>{
+      const x = pad + i*step;
+      const y = pad + (1 - v / max) * (h - pad*2);
+      path += (i===0? 'M':' L') + x.toFixed(2) + ' ' + y.toFixed(2);
+    });
+    const area = path + ` L ${w-pad} ${h-pad} L ${pad} ${h-pad} Z`;
+    const svg = `<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">`+
+      `<defs><linearGradient id="gA" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="rgba(0,136,106,0.12)"/><stop offset="100%" stop-color="rgba(0,136,106,0.02)"/></linearGradient></defs>`+
+      `<path d="${area}" fill="url(#gA)" stroke="none"/>`+
+      `<path d="${path}" fill="none" stroke="var(--green)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`+
+      `</svg>`;
+    salesChart.innerHTML = svg;
+  }
+
+  // responsive redraw on resize
+  window.addEventListener('resize', function(){ drawChart(); });
+
+  // sidebar interactions (desktop->mobile behavior)
+  const navItems = Array.from(document.querySelectorAll('.dashboard-nav ul li'));
+  navItems.forEach(li => li.addEventListener('click', function(e){
+    navItems.forEach(x=>x.classList.remove('active'));
+    this.classList.add('active');
+    // for now we only have overview; in future toggle sections here
+  }));
+
+  // mobile: toggle sidebar visibility from header menu button
+  const menuBtn = document.querySelector('.menu-btn');
+  const dashNav = document.querySelector('.dashboard-nav');
+  if (menuBtn && dashNav) {
+    menuBtn.addEventListener('click', function(){
+      const isOpen = dashNav.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', String(isOpen));
+    });
+  }
+
+  // initial render
+  populateKPIs();
+  drawChart();
+  if (recentMessages) recentMessages.textContent = "You don't have any messages at this moment.";
+})();
+
 // Mobile spinner: show a lightweight overlay on mobile when navigation or actions occur
 (function () {
   function isSmallScreen() {
@@ -399,259 +480,3 @@ document.addEventListener('DOMContentLoaded', function () {
     setTimeout(() => visual.classList.add('visible'), 260);
   }
 });
-
-// Dashboard interactions: simple client-side scaffolding for demo data, section routing, and withdraw modal
-(function () {
-  function qs(sel, ctx) { return (ctx || document).querySelector(sel); }
-  function qsa(sel, ctx) { return Array.from((ctx || document).querySelectorAll(sel)); }
-
-  const dashboardNav = qsa('.dashboard-nav ul li');
-  const sections = qsa('.dashboard-section');
-  const recentSalesTable = qs('#recentSalesTable tbody');
-  const payoutHistoryTable = qs('#payoutHistoryTable tbody');
-  const totalSoldEl = qs('#totalSold');
-  const availableBalanceEl = qs('#availableBalance');
-  const pendingPayoutsEl = qs('#pendingPayouts');
-  const walletAvailableEl = qs('#walletAvailable');
-
-  // Demo data (frontend-only). Replace with real data from your backend.
-  const demo = {
-    totalSold: 254000,
-    available: 42000,
-    pending: 12000,
-    recentSales: [
-      { id: 'ORD-1001', date: '2025-12-20', amount: 12000, status: 'Delivered' },
-      { id: 'ORD-1002', date: '2025-12-18', amount: 8000, status: 'Shipped' },
-      { id: 'ORD-1003', date: '2025-12-10', amount: 3000, status: 'Cancelled' }
-    ],
-    payouts: [
-      { id: 'P-9001', date: '2025-11-20', amount: 20000, status: 'Paid' },
-      { id: 'P-9002', date: '2025-10-05', amount: 15000, status: 'Paid' }
-    ]
-    ,
-    // simple daily sales data for last 30 days (demo): generate small variation around average
-    dailySales: (function(){
-      const arr = [];
-      const base = 4000;
-      for (let i=0;i<30;i++) {
-        const val = Math.max(0, Math.round(base + (Math.sin(i/3)*800) + (Math.random()*1200-600)));
-        arr.push(val);
-      }
-      return arr;
-    })(),
-    activity: [
-      { text: 'Order ORD-1001 was delivered', time: '2h ago' },
-      { text: 'Withdrawal P-9001 completed', time: '3d ago' },
-      { text: 'New product added: Wireless Charger', time: '5d ago' }
-    ]
-  };
-
-  function formatCurrency(n) {
-    try { return '₦' + Number(n).toLocaleString(); } catch (e) { return '₦' + n; }
-  }
-
-  function renderOverview() {
-    if (totalSoldEl) totalSoldEl.textContent = formatCurrency(demo.totalSold);
-    if (availableBalanceEl) availableBalanceEl.textContent = formatCurrency(demo.available);
-    if (pendingPayoutsEl) pendingPayoutsEl.textContent = formatCurrency(demo.pending);
-    if (walletAvailableEl) walletAvailableEl.textContent = formatCurrency(demo.available);
-
-    if (recentSalesTable) {
-      recentSalesTable.innerHTML = '';
-      demo.recentSales.forEach(s => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${s.id}</td><td>${s.date}</td><td>${formatCurrency(s.amount)}</td><td>${s.status}</td>`;
-        recentSalesTable.appendChild(tr);
-      });
-    }
-
-    if (payoutHistoryTable) {
-      payoutHistoryTable.innerHTML = '';
-      demo.payouts.forEach(p => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${p.id}</td><td>${p.date}</td><td>${formatCurrency(p.amount)}</td><td>${p.status}</td>`;
-        payoutHistoryTable.appendChild(tr);
-      });
-    }
-  }
-
-  // Animated counters for KPIs (smooth counting)
-  function animateCount(el, target, duration) {
-    if (!el) return;
-    const start = 0;
-    const range = Number(target) - start;
-    const startTime = performance.now();
-    function step(now) {
-      const elapsed = Math.min((now - startTime) / duration, 1);
-      const val = Math.round(start + range * elapsed);
-      el.textContent = formatCurrency(val);
-      if (elapsed < 1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
-  }
-
-  // Render a simple SVG area chart into #salesChart using demo.dailySales
-  function renderChart() {
-    const container = document.getElementById('salesChart');
-    if (!container || !demo.dailySales) return;
-    const w = container.clientWidth || 640;
-    const h = Math.max(160, Math.min(280, container.clientHeight || 220));
-    const data = demo.dailySales.slice();
-    const max = Math.max.apply(null, data) || 1;
-    const min = Math.min.apply(null, data);
-    const pad = 12;
-    const stepX = (w - pad*2) / (data.length - 1);
-    let points = '';
-    data.forEach((d,i) => {
-      const x = pad + i*stepX;
-      const y = pad + (1 - (d - min) / (max - min || 1)) * (h - pad*2);
-      points += `${i===0? 'M': ' L'} ${x.toFixed(2)} ${y.toFixed(2)}`;
-    });
-    // build svg
-    const svg = ` <svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">\n` +
-      `<defs>\n` +
-      `<linearGradient id="g1" x1="0" x2="0" y1="0" y2="1">\n` +
-      `<stop offset="0%" stop-color="rgba(0,136,106,0.14)"/>\n` +
-      `<stop offset="100%" stop-color="rgba(0,136,106,0.02)"/>\n` +
-      `</linearGradient>\n` +
-      `</defs>\n` +
-      `<path d="${points} L ${w-pad} ${h-pad} L ${pad} ${h-pad} Z" fill="url(#g1)" stroke="none"/>\n` +
-      `<path d="${points}" fill="none" stroke="var(--green)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>\n` +
-      `</svg>`;
-    container.innerHTML = svg;
-  }
-
-  function renderRecentActivity() {
-    const ul = document.getElementById('recentActivity');
-    if (!ul) return;
-    ul.innerHTML = '';
-    demo.activity.forEach(a => {
-      const li = document.createElement('li');
-      li.innerHTML = `<div>${a.text}</div><div class="muted" style="font-size:0.85rem">${a.time}</div>`;
-      ul.appendChild(li);
-    });
-  }
-
-  function showSection(name) {
-    sections.forEach(sec => {
-      if (sec.id === 'section-' + name) {
-        sec.style.display = '';
-        sec.classList.add('active');
-      } else {
-        sec.style.display = 'none';
-        sec.classList.remove('active');
-      }
-    });
-    dashboardNav.forEach(li => li.classList.toggle('active', li.dataset.section === name));
-  }
-
-  // Wire nav clicks
-  dashboardNav.forEach(li => {
-    li.addEventListener('click', function (e) {
-      e.preventDefault();
-      const s = this.dataset.section || 'overview';
-      if (s === 'wallet') {
-        // show wallet section id is 'wallet'
-        showSection('wallet');
-      } else {
-        showSection(s);
-      }
-    });
-  });
-
-  // Modal behavior for withdrawal
-  const withdrawModal = qs('#withdrawModal');
-  const withdrawForm = qs('#withdrawForm');
-  const withdrawBtn = qs('#withdrawBtn');
-  const requestWithdrawBtn = qs('#requestWithdrawBtn');
-  const withdrawMessage = qs('#withdrawMessage');
-
-  function openModal() {
-    if (!withdrawModal) return;
-    withdrawModal.style.display = 'flex';
-    withdrawModal.setAttribute('aria-hidden', 'false');
-  }
-  function closeModal() {
-    if (!withdrawModal) return;
-    withdrawModal.style.display = 'none';
-    withdrawModal.setAttribute('aria-hidden', 'true');
-    if (withdrawMessage) withdrawMessage.textContent = '';
-    if (withdrawForm) withdrawForm.reset();
-  }
-
-  // attach to quick action buttons
-  if (withdrawBtn) withdrawBtn.addEventListener('click', openModal);
-  if (requestWithdrawBtn) requestWithdrawBtn.addEventListener('click', openModal);
-
-  // modal close controls
-  qsa('.modal-close').forEach(btn => btn.addEventListener('click', closeModal));
-  if (withdrawModal) withdrawModal.addEventListener('click', function (e) {
-    if (e.target === withdrawModal) closeModal();
-  });
-
-  // dynamic payout details UI in modal
-  const payoutDetails = qs('#payoutDetails');
-  if (withdrawForm) {
-    withdrawForm.method.value = withdrawForm.method.value || 'bank';
-    function renderPayoutFields(method) {
-      if (!payoutDetails) return;
-      payoutDetails.innerHTML = '';
-      if (method === 'bank') {
-        payoutDetails.innerHTML = `\n              <label>Bank Name\n                <input name="bank" required />\n              </label>\n              <label>Account Number\n                <input name="account" required />\n              </label>\n            `;
-      } else {
-        payoutDetails.innerHTML = `\n              <label>Mobile Money Number\n                <input name="mobile" required />\n              </label>\n              <label>Network\n                <select name="network">\n                  <option>MTN</option>\n                  <option>Glo</option>\n                  <option>Airtel</option>\n                </select>\n              </label>\n            `;
-      }
-    }
-
-    renderPayoutFields(withdrawForm.method.value);
-    withdrawForm.method.addEventListener('change', function () { renderPayoutFields(this.value); });
-
-    withdrawForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      const fd = new FormData(withdrawForm);
-      const amount = Number(fd.get('amount') || 0);
-      const min = 1000; // minimum withdrawal threshold (frontend only)
-      if (amount < min) {
-        if (withdrawMessage) {
-          withdrawMessage.style.color = 'crimson';
-          withdrawMessage.textContent = `Minimum withdrawal is ₦${min.toLocaleString()}`;
-        }
-        return;
-      }
-
-      // Demo: pretend to submit to server and update UI
-      if (withdrawMessage) {
-        withdrawMessage.style.color = 'var(--green)';
-        withdrawMessage.textContent = 'Withdrawal request sent. Processing...';
-      }
-
-      // Update demo balances locally
-      demo.available = Math.max(0, demo.available - amount);
-      demo.payouts.unshift({ id: 'P-' + Math.floor(Math.random() * 9000 + 1000), date: new Date().toISOString().slice(0,10), amount: amount, status: 'Pending' });
-      renderOverview();
-
-      setTimeout(() => {
-        if (withdrawMessage) withdrawMessage.textContent = 'Request received. You will be notified when payout is complete.';
-        // close modal after a short delay
-        setTimeout(closeModal, 1600);
-      }, 700);
-
-      // TODO: send to your server via fetch POST, handle validation and errors
-    });
-  }
-
-  // initialize
-  renderOverview();
-  // animate counters for KPI values (totalSold and available)
-  const totalEl = document.getElementById('totalSold');
-  const availEl = document.getElementById('availableBalance');
-  const pendingEl = document.getElementById('pendingPayouts');
-  const orders30El = document.getElementById('orders30');
-  if (totalEl) animateCount(totalEl, demo.totalSold, 900);
-  if (availEl) animateCount(availEl, demo.available, 800);
-  if (pendingEl) animateCount(pendingEl, demo.pending, 800);
-  if (orders30El) { orders30El.textContent = String(Math.floor(Math.random()*120 + 20)); }
-  renderChart();
-  renderRecentActivity();
-  showSection('overview');
-})();
