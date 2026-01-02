@@ -112,6 +112,10 @@
     .site-footer .container { color: #fff !important; }
     .site-footer a { color: #fff !important; text-decoration: none; }
     .site-footer a:hover { text-decoration: underline; opacity: 1; }
+    /* Hide the desktop footer on mobile devices since mobile bottom nav exists */
+    @media (max-width:799px) {
+      .site-footer { display: none !important; }
+    }
   </style>
 </head>
 <body>
