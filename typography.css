@@ -46,6 +46,14 @@ h6{font-size:0.875rem;font-weight:var(--fw-medium)}
 .category-label, .sidebar li, .ax-side-nav a{font-weight:var(--fw-medium)}
 .badge{font-weight:var(--fw-medium);font-size:0.85rem}
 
+/* Ensure header text (brand, nav links, icons) is white for readability on colored header backgrounds
+	This rule is intentionally specific and placed later so it overrides previous color declarations. */
+.header{color:#fff}
+.header a, .header .brand-name, .header .nav-label, .header .menu-btn, .header .header-icons, .header .nav button{color:#fff}
+.header .brand-name{font-weight:var(--fw-semibold)}
+.header .nav a{color:inherit}
+
+
 /* Long-form readable text must use Roboto. Use the utility class `.longform` on pages/components that are long prose. */
 .longform, .product-description, .about-page, .faq-page, .policy-page, .terms-page{font-family:var(--font-body);font-weight:var(--fw-regular);line-height:1.6}
 .longform h1,.longform h2,.longform h3{font-family:var(--font-body);font-weight:var(--fw-medium)}
