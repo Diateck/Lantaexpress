@@ -250,7 +250,7 @@ html, body { overflow-x: hidden; }
   position: absolute;
   top: -6px;
   right: -6px;
-  background: #ff2d55;
+  background: var(--green);
   color: #fff;
   font-size: 11px;
   padding: 3px 6px;
