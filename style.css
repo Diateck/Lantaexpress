@@ -279,6 +279,23 @@ html, body { overflow-x: hidden; }
 .header.homepage .top-categories .cat.active { color: var(--green); border-bottom: 3px solid var(--green); padding-bottom: 0.25rem; }
 
 
+/* Simplified account header: professional, green background, hamburger + bell + cart */
+.header.account {
+  background: var(--green);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 1rem;
+}
+.header.account .logo-area { display:flex; align-items:center; gap:0.6rem; }
+.header.account .menu-btn { display: block; background: transparent; border: none; color: #fff; font-size: 1.25rem; padding: 6px 8px; border-radius: 8px; cursor: pointer; }
+.header.account .brand-name { color: #fff; font-weight: 700; }
+.header.account .header-actions { display:flex; align-items:center; gap:0.5rem; }
+.header.account .notif-badge { background: #fff; color: var(--green); font-weight:700; padding: 2px 6px; border-radius: 999px; font-size: 11px; margin-left: 6px; }
+.header.account .cart-icon, .header.account .notif-icon { stroke: #fff; }
+
+
 /* Slide-out menu (desktop / tablet) */
 .menu-backdrop {
   position: fixed;
