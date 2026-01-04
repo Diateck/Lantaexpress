@@ -26,8 +26,11 @@
 html{font-size:var(--base-font-size);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 body{font-family:var(--font-ui);font-weight:var(--fw-regular);font-size:1rem;line-height:var(--line-height);color:var(--color-body);margin:0}
 
-/* Headings and UI text should use Inter (UI font) */
-h1,h2,h3,h4,h5,h6,.brand-name,.nav,.nav a,button,input,select,textarea,.cta-btn,.add-to-cart-btn,.item-price,.category-label,.badge{font-family:var(--font-ui);color:var(--color-body);margin:0}
+/* Headings and UI text should use Inter (UI font).
+	NOTE: keep color declarations out of this broad selector so components
+	that have their own color (e.g. buttons, header) are not accidentally overridden. */
+h1,h2,h3,h4,h5,h6{font-family:var(--font-ui);margin:0}
+button,input,select,textarea{font-family:var(--font-ui)}
 
 h1{font-size:2.25rem;font-weight:var(--fw-semibold);line-height:var(--heading-line-height)}
 h2{font-size:1.75rem;font-weight:var(--fw-semibold);line-height:var(--heading-line-height)}
@@ -52,6 +55,14 @@ h6{font-size:0.875rem;font-weight:var(--fw-medium)}
 .header a, .header .brand-name, .header .nav-label, .header .menu-btn, .header .header-icons, .header .nav button{color:#fff}
 .header .brand-name{font-weight:var(--fw-semibold)}
 .header .nav a{color:inherit}
+
+/* Make sure any common site components that use the green background have white text */
+.cta-btn, .add-to-cart-btn, .footer, .nav ul, .nav ul.show, .tab.active, .mobile-bottom-nav .nav-item.active, .mobile-bottom-nav .nav-item .nav-label {
+	color: #fff !important;
+}
+
+/* Keep product prices and other inline UI text using the UI font but allow their colors to be set in `style.css` */
+.item-price, .category-label, .badge{font-family:var(--font-ui)}
 
 
 /* Long-form readable text must use Roboto. Use the utility class `.longform` on pages/components that are long prose. */
