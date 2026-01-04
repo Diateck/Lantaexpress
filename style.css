@@ -279,23 +279,6 @@ html, body { overflow-x: hidden; }
 .header.homepage .top-categories .cat.active { color: var(--green); border-bottom: 3px solid var(--green); padding-bottom: 0.25rem; }
 
 
-/* Simplified account header: professional, green background, hamburger + bell + cart */
-.header.account {
-  background: var(--green);
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.6rem 1rem;
-}
-.header.account .logo-area { display:flex; align-items:center; gap:0.6rem; }
-.header.account .menu-btn { display: block; background: transparent; border: none; color: #fff; font-size: 1.25rem; padding: 6px 8px; border-radius: 8px; cursor: pointer; }
-.header.account .brand-name { color: #fff; font-weight: 700; }
-.header.account .header-actions { display:flex; align-items:center; gap:0.5rem; }
-.header.account .notif-badge { background: #fff; color: var(--green); font-weight:700; padding: 2px 6px; border-radius: 999px; font-size: 11px; margin-left: 6px; }
-.header.account .cart-icon, .header.account .notif-icon { stroke: #fff; }
-
-
 /* Slide-out menu (desktop / tablet) */
 .menu-backdrop {
   position: fixed;
@@ -344,6 +327,20 @@ html, body { overflow-x: hidden; }
 @media (min-width: 601px) {
   .header.homepage .logo-area { cursor: pointer; }
 }
+
+/* Account header: white background, second logo, black menu + bell icons */
+.header.account {
+  background: #fff;
+  color: var(--dark);
+  border-bottom: 1px solid #eef2f4;
+}
+.header.account .logo { height: 48px; }
+.header.account .brand-name { color: var(--dark); font-weight:700; }
+.header.account .menu-btn { color: var(--dark); background: transparent; border: none; font-size: 1.15rem; }
+.header.account .notif-btn, .header.account .notif-icon { color: var(--dark); }
+.header.account .notif-icon { stroke: var(--dark); }
+.header.account .notif-badge { background: var(--green); color: #fff; font-weight:700; }
+
 
 
 /* Header icons spacing and icon styles */
