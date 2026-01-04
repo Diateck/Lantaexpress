@@ -219,6 +219,11 @@ html, body { overflow-x: hidden; }
   z-index: 10;
 }
 
+/* Header icons spacing and icon styles */
+.header .header-icons { display:flex; align-items:center; margin-left: 0.5rem; }
+.header .header-icons .cart-btn { margin-right: 0.4rem; }
+.notif-icon { width:22px; height:22px; display:block; stroke:currentColor; }
+
 @media (min-width: 601px) {
   .header {
     display: flex;
