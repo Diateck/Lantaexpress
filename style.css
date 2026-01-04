@@ -224,6 +224,16 @@ html, body { overflow-x: hidden; }
 .header .header-icons .cart-btn { margin-right: 0.4rem; }
 .notif-icon { width:22px; height:22px; display:block; stroke:currentColor; }
 
+/* Ensure notification button on header uses transparent background and white icon */
+.header .notif-btn, .header .notif-btn svg {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: #fff !important;
+}
+.header .notif-btn { padding: 6px 8px; border-radius: 6px; display:flex; align-items:center; justify-content:center; }
+.header .notif-btn .notif-icon { stroke: #fff !important; }
+
 @media (min-width: 601px) {
   .header {
     display: flex;
