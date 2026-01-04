@@ -271,6 +271,46 @@ try {
 // Ensure menuBtn icon matches aria-expanded state on load
 try { updateMenuIcon(menuBtn && menuBtn.getAttribute && menuBtn.getAttribute('aria-expanded') === 'true'); } catch (e) {}
 
+// Slide-out menu for desktop/tablet invoked by clicking the homepage logo
+(function (){
+  try {
+    const slideMenu = document.getElementById('slide-menu');
+    const backdrop = document.getElementById('menu-backdrop');
+    const logoArea = document.querySelector('.header.homepage .logo-area');
+    const slideClose = document.querySelector('.slide-close');
+
+    function openSlide() {
+      if (!slideMenu) return;
+      slideMenu.classList.add('open');
+      slideMenu.setAttribute('aria-hidden', 'false');
+      if (backdrop) backdrop.classList.add('visible');
+    }
+    function closeSlide() {
+      if (!slideMenu) return;
+      slideMenu.classList.remove('open');
+      slideMenu.setAttribute('aria-hidden', 'true');
+      if (backdrop) backdrop.classList.remove('visible');
+    }
+
+    if (logoArea) {
+      logoArea.addEventListener('click', function (e) {
+        // only on larger screens (tablet/desktop)
+        if (window.innerWidth < 601) return;
+        // If user clicked on a link inside the logo-area (unlikely) allow it
+        openSlide();
+      });
+      // allow keyboard activation
+      logoArea.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { if (window.innerWidth >= 601) { openSlide(); e.preventDefault(); } } });
+    }
+
+    if (backdrop) backdrop.addEventListener('click', closeSlide);
+    if (slideClose) slideClose.addEventListener('click', closeSlide);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeSlide(); });
+  } catch (err) {
+    console.warn('slide menu init error', err);
+  }
+})();
+
 // Optional: Pause marquee on hover (for accessibility)
 const marquee = document.querySelector('.marquee-track');
 if (marquee) {
