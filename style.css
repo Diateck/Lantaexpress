@@ -341,6 +341,17 @@ html, body { overflow-x: hidden; }
 .header.account .notif-icon { color: var(--dark) !important; stroke: var(--dark) !important; }
 .header.account .notif-badge { background: var(--green); color: #fff; font-weight:700; }
 
+/* Strong final override: ensure account header icons are dark and visible
+   This is appended after global header rules to win against earlier !important selectors. */
+.header.account .menu-btn,
+.header.account .notif-btn,
+.header.account .notif-icon {
+  color: var(--dark) !important;
+  stroke: var(--dark) !important;
+  fill: none !important;
+}
+
+
 
 
 /* Header icons spacing and icon styles */
