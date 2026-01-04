@@ -336,25 +336,10 @@ html, body { overflow-x: hidden; }
 }
 .header.account .logo { height: 48px; }
 .header.account .brand-name { color: var(--dark); font-weight:700; }
-.header.account .menu-btn { color: var(--dark) !important; background: transparent; border: none; font-size: 1.15rem; }
-.header.account .notif-btn { color: var(--dark) !important; background: transparent !important; }
-.header.account .notif-icon { color: var(--dark) !important; stroke: var(--dark) !important; }
+.header.account .menu-btn { color: var(--dark); background: transparent; border: none; font-size: 1.15rem; }
+.header.account .notif-btn, .header.account .notif-icon { color: var(--dark); }
+.header.account .notif-icon { stroke: var(--dark); }
 .header.account .notif-badge { background: var(--green); color: #fff; font-weight:700; }
-
-/* On the account page we don't need the full nav; ensure header icons (menu, bell) are visible */
-.header.account .nav { display: none !important; }
-.header.account .header-icons { margin-left: auto; display: flex; align-items: center; gap: 0.5rem; }
-
-/* Strong final override: ensure account header icons are dark and visible
-   This is appended after global header rules to win against earlier !important selectors. */
-.header.account .menu-btn,
-.header.account .notif-btn,
-.header.account .notif-icon {
-  color: var(--dark) !important;
-  stroke: var(--dark) !important;
-  fill: none !important;
-}
-
 
 
 
