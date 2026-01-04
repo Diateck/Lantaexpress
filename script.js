@@ -222,6 +222,12 @@ document.addEventListener('DOMContentLoaded', function () {
 // Mobile menu toggle for responsive nav
 const menuBtn = document.querySelector('.menu-btn');
 const navMenu = document.getElementById('main-menu');
+function updateMenuIcon(opened){
+  if (!menuBtn) return;
+  // If the button contains an SVG (notification bell), do not replace its contents
+  try { if (menuBtn.querySelector && menuBtn.querySelector('svg')) return; } catch(e){}
+  try { menuBtn.textContent = opened ? '✕' : '☰'; } catch(e){}
+}
 if (menuBtn) {
   menuBtn.addEventListener('click', () => {
     try {
@@ -230,7 +236,7 @@ if (menuBtn) {
         const opened = accountRoot.classList.toggle('ax-sidebar-open');
         // update aria-expanded but keep the visible icon as hamburger
         try { menuBtn.setAttribute('aria-expanded', String(opened)); } catch (e) {}
-        try { menuBtn.textContent = '☰'; } catch (e) {}
+        try { updateMenuIcon(opened); } catch (e) {}
       }
     } catch (e) { /* ignore */ }
   });
@@ -248,7 +254,7 @@ try {
       try { if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false'); } catch (e) {}
       try { const accountRoot = document.getElementById('account-dashboard'); if (accountRoot) accountRoot.classList.remove('ax-sidebar-open'); } catch (e) {}
       try { if (menuBtn && typeof menuBtn.focus === 'function') menuBtn.focus(); } catch (e) {}
-      try { if (menuBtn) menuBtn.textContent = '☰'; } catch (e) {}
+      try { updateMenuIcon(false); } catch (e) {}
     });
   }
   if (backdrop) {
@@ -257,13 +263,13 @@ try {
       try { backdrop.classList.remove('visible'); } catch (e) {}
       try { if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false'); } catch (e) {}
       try { const accountRoot = document.getElementById('account-dashboard'); if (accountRoot) accountRoot.classList.remove('ax-sidebar-open'); } catch (e) {}
-      try { if (menuBtn) menuBtn.textContent = '☰'; } catch (e) {}
+      try { updateMenuIcon(false); } catch (e) {}
     });
   }
 } catch (e) { /* ignore */ }
 
 // Ensure menuBtn icon matches aria-expanded state on load
-try { if (menuBtn) menuBtn.textContent = (menuBtn.getAttribute('aria-expanded') === 'true') ? '✕' : '☰'; } catch (e) {}
+try { updateMenuIcon(menuBtn && menuBtn.getAttribute && menuBtn.getAttribute('aria-expanded') === 'true'); } catch (e) {}
 
 // Optional: Pause marquee on hover (for accessibility)
 const marquee = document.querySelector('.marquee-track');
