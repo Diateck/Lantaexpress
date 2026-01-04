@@ -842,3 +842,51 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   } catch (e) { /* ignore */ }
 });
+
+// Mobile: convert product sections into horizontally scrollable carousels and append "See more" button
+document.addEventListener('DOMContentLoaded', function () {
+  try {
+    function setupCarousel(container, targetLink) {
+      if (!container) return;
+      // Only apply on small screens
+      if (window.innerWidth > 600) return;
+      // Add a class so CSS rules target it (already using .item-cards / .products-cards)
+      container.classList.add('mobile-carousel');
+
+      // If a see-more card already exists, skip
+      if (container.querySelector('.see-more-card')) return;
+
+      const more = document.createElement('div');
+      more.className = 'see-more-card';
+      const a = document.createElement('a');
+      a.href = targetLink || 'items.html';
+      a.textContent = 'See more';
+      a.setAttribute('aria-label', 'See more items');
+      more.appendChild(a);
+      container.appendChild(more);
+      // allow keyboard users to jump to the more link with Enter when focused
+      more.tabIndex = -1;
+    }
+
+    // Featured items
+    const featured = document.querySelector('#items .item-cards');
+    setupCarousel(featured, 'items.html');
+    // Products section
+    const products = document.querySelector('#products .products-cards');
+    setupCarousel(products, 'items.html');
+
+    // Optional: add drag-to-scroll for desktop-like dragging on touch devices
+    function bindDragScroll(el) {
+      if (!el) return;
+      let isDown = false, startX, scrollLeft;
+      el.addEventListener('mousedown', (e) => { isDown = true; el.classList.add('dragging'); startX = e.pageX - el.offsetLeft; scrollLeft = el.scrollLeft; });
+      el.addEventListener('mouseleave', () => { isDown = false; el.classList.remove('dragging'); });
+      el.addEventListener('mouseup', () => { isDown = false; el.classList.remove('dragging'); });
+      el.addEventListener('mousemove', (e) => { if(!isDown) return; e.preventDefault(); const x = e.pageX - el.offsetLeft; const walk = (x - startX) * 1.5; el.scrollLeft = scrollLeft - walk; });
+    }
+
+    // Bind drag for all mobile carousels
+    const carousels = Array.from(document.querySelectorAll('.item-cards, .products-cards'));
+    carousels.forEach(c => bindDragScroll(c));
+  } catch (e) { console.warn('carousel init', e); }
+});

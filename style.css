@@ -166,6 +166,53 @@ img, picture, video, iframe { max-width: 100%; height: auto; display: block; }
   gap: 1rem;
 }
 
+/* Mobile horizontal carousel behavior for product sections */
+@media (max-width: 600px) {
+  .item-cards, .products-cards {
+    display: flex !important;
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 0.75rem;
+    padding: 0.6rem 0.5rem;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+  }
+  .item-cards::-webkit-scrollbar, .products-cards::-webkit-scrollbar { display: none; }
+  .item-card {
+    min-width: 180px;
+    max-width: 220px;
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    padding: 0.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .item-card img { height: 110px; object-fit: cover; border-radius: 8px; }
+  .item-card h4 { font-size: 0.95rem; margin: 0; }
+  .item-price-rating { display:flex; justify-content:space-between; gap:0.5rem; align-items:center; }
+
+  /* See-more card at end of carousel */
+  .see-more-card {
+    min-width: 140px;
+    max-width: 180px;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg, rgba(0,136,106,0.06), rgba(0,136,106,0.03));
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+    scroll-snap-align: start;
+  }
+  .see-more-card a {
+    display:inline-block; padding: 10px 12px; border-radius:999px; background:var(--green); color:#fff; text-decoration:none; font-weight:700;
+  }
+}
+
 /* Prevent accidental horizontal overflow while keeping accessibility preserved.
    If you see clipped content, increase container padding or adjust specific elements. */
 html, body { overflow-x: hidden; }
