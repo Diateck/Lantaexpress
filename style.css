@@ -337,9 +337,34 @@ html, body { overflow-x: hidden; }
 .header.account .logo { height: 48px; }
 .header.account .brand-name { color: var(--dark); font-weight:700; }
 .header.account .menu-btn { color: var(--dark); background: transparent; border: none; font-size: 1.15rem; }
-.header.account .notif-btn, .header.account .notif-icon { color: var(--dark); }
-.header.account .notif-icon { stroke: var(--dark); }
-.header.account .notif-badge { background: var(--green); color: #fff; font-weight:700; }
+ .header.account .notif-btn, .header.account .notif-icon { color: var(--dark); }
+ .header.account .notif-icon { stroke: var(--dark); }
+ .header.account .notif-badge { background: var(--green); color: #fff; font-weight:700; }
+
+/* Notification badge positioning for account header */
+.header.account .notif-btn { position: relative; }
+.header.account .notif-btn .notif-icon { stroke: var(--dark) !important; color: var(--dark) !important; }
+.header.account .notif-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: var(--green);
+  color: #fff;
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  font-weight: 700;
+  line-height: 1;
+  min-width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+}
+
+/* Keep the default green-header (homepage) variant with white icon */
+.header .notif-btn .notif-icon { stroke: #fff !important; }
 
 
 

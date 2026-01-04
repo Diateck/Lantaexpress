@@ -825,3 +825,19 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   } catch (e) { /* ignore */ }
 });
+
+// Notification badge helper: hide badge when count is zero or not present
+document.addEventListener('DOMContentLoaded', function () {
+  try {
+    const nb = document.querySelector('.notif-badge');
+    if (!nb) return;
+    const raw = nb.dataset.count || nb.textContent || '0';
+    const cnt = parseInt(String(raw).replace(/[^0-9]/g, ''), 10) || 0;
+    if (cnt <= 0) nb.style.display = 'none';
+    else {
+      // ensure aria-label on button reflects count for assistive tech
+      const btn = nb.closest('.notif-btn');
+      if (btn) btn.setAttribute('aria-label', `Notifications, ${cnt} unread`);
+    }
+  } catch (e) { /* ignore */ }
+});
