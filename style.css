@@ -219,6 +219,66 @@ html, body { overflow-x: hidden; }
   z-index: 10;
 }
 
+/* Homepage-specific header layout (keeps other pages unchanged) */
+.header.homepage {
+  background: #fff;
+  color: var(--dark);
+  flex-direction: column;
+  align-items: stretch;
+  padding: 0.6rem 1rem;
+}
+.header.homepage .header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.header.homepage .logo-area .brand-name { color: var(--dark); }
+.header.homepage .header-actions { display:flex; align-items:center; gap:0.5rem; }
+.header.homepage .notif-btn {
+  position: relative;
+  background: transparent;
+  border: none;
+  color: var(--dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border-radius: 8px;
+}
+.header.homepage .notif-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: #ff2d55;
+  color: #fff;
+  font-size: 11px;
+  padding: 3px 6px;
+  border-radius: 999px;
+  font-weight: 700;
+  line-height: 1;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+}
+.header.homepage .cart-icon { stroke: var(--dark); }
+.header.homepage .header-search { margin-top: 0.6rem; display: flex; flex-direction: column; gap: 0.45rem; align-items: stretch; }
+.header.homepage .search-form {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #fff;
+  border-radius: 999px;
+  padding: 6px 8px;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+.header.homepage .search-input { flex: 1; border: none; outline: none; padding: 10px 8px; font-size: 1rem; }
+.header.homepage .search-btn { background: #111; border: none; color: #fff; width: 40px; height: 40px; display:flex; align-items:center; justify-content:center; border-radius: 999px; }
+.header.homepage .camera-btn { background: transparent; border: none; padding: 6px; display:flex; align-items:center; justify-content:center; }
+.header.homepage .top-categories { display:flex; gap: 1rem; padding-top: 0.2rem; overflow-x: auto; }
+.header.homepage .top-categories .cat { color: #666; text-decoration: none; font-weight: 600; padding: 0.35rem 0; white-space: nowrap; }
+.header.homepage .top-categories .cat.active { color: var(--green); border-bottom: 3px solid var(--green); padding-bottom: 0.25rem; }
+
+
 /* Header icons spacing and icon styles */
 .header .header-icons { display:flex; align-items:center; margin-left: 0.5rem; }
 .header .header-icons .cart-btn { margin-right: 0.4rem; }
