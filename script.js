@@ -276,7 +276,8 @@ try { updateMenuIcon(menuBtn && menuBtn.getAttribute && menuBtn.getAttribute('ar
   try {
     const slideMenu = document.getElementById('slide-menu');
     const backdrop = document.getElementById('menu-backdrop');
-    const logoArea = document.querySelector('.header.homepage .logo-area');
+    // Prefer a homepage-specific logo-area when present, but fall back to any .logo-area
+    const logoArea = document.querySelector('.header.homepage .logo-area') || document.querySelector('.header.account .logo-area') || document.querySelector('.logo-area');
     const slideClose = document.querySelector('.slide-close');
 
     function openSlide() {
