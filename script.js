@@ -302,7 +302,8 @@ document.addEventListener('click', function (ev) {
 
 // Category switching within items page (hash + JS-driven)
 document.addEventListener('DOMContentLoaded', function () {
-  const sidebarLinks = Array.from(document.querySelectorAll('.sidebar a[data-category]'));
+  // include header category links so clicking the header categories behaves the same as sidebar
+  const sidebarLinks = Array.from(document.querySelectorAll('.sidebar a[data-category], .top-categories a[data-category]'));
   const sections = Array.from(document.querySelectorAll('.category-section'));
   console.debug('items: category init', { sidebarLinks: sidebarLinks.length, sections: sections.length });
 
