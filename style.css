@@ -341,11 +341,6 @@ html, body { overflow-x: hidden; }
 .header.account .notif-icon { stroke: var(--dark); }
 .header.account .notif-badge { background: var(--green); color: #fff; font-weight:700; }
 
-/* layout for right-side controls on account header */
-.header.account .header-right { display:flex; align-items:center; gap:0.6rem; margin-left: auto; }
-.header.account .header-right .menu-btn { font-size: 1.25rem; padding: 6px 8px; }
-.header.account .header-right .notif-btn { padding: 6px 8px; border-radius:8px; }
-
 
 
 /* Header icons spacing and icon styles */
