@@ -1,0 +1,70 @@
+/* Typography system for LantaXpress
+	 - Inter: UI / commerce elements (400,500,600)
+	 - Roboto: long-form readable text (400,500)
+	 - CSS variables defined in :root for easy theming
+*/
+
+:root{
+	/* font families */
+	--font-ui: 'Inter', system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+	--font-body: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+
+	/* allowed weights */
+	--fw-regular: 400;
+	--fw-medium: 500;
+	--fw-semibold: 600;
+
+	/* base scale */
+	--base-font-size: 16px;
+	--line-height: 1.45;
+	--heading-line-height: 1.15;
+
+	--color-body: #0f172a;
+}
+
+/* Base document settings */
+html{font-size:var(--base-font-size);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+body{font-family:var(--font-ui);font-weight:var(--fw-regular);font-size:1rem;line-height:var(--line-height);color:var(--color-body);margin:0}
+
+/* Headings and UI text should use Inter (UI font) */
+h1,h2,h3,h4,h5,h6,.brand-name,.nav,.nav a,button,input,select,textarea,.cta-btn,.add-to-cart-btn,.item-price,.category-label,.badge{font-family:var(--font-ui);color:var(--color-body);margin:0}
+
+h1{font-size:2.25rem;font-weight:var(--fw-semibold);line-height:var(--heading-line-height)}
+h2{font-size:1.75rem;font-weight:var(--fw-semibold);line-height:var(--heading-line-height)}
+h3{font-size:1.375rem;font-weight:var(--fw-medium)}
+h4{font-size:1.125rem;font-weight:var(--fw-medium)}
+h5{font-size:1rem;font-weight:var(--fw-medium)}
+h6{font-size:0.875rem;font-weight:var(--fw-medium)}
+
+/* UI-specific elements (explicit selectors for e-commerce components) */
+.header, .header * {font-family:var(--font-ui)}
+.nav, .nav a{font-weight:var(--fw-medium)}
+.logo-area .brand-name{font-weight:var(--fw-semibold)}
+.item-card h4, .item-card .item-price, .item-card .add-to-cart-btn{font-family:var(--font-ui)}
+.item-price{font-weight:var(--fw-semibold)}
+.add-to-cart-btn, .cta-btn, .cart-btn{font-weight:var(--fw-medium)}
+.category-label, .sidebar li, .ax-side-nav a{font-weight:var(--fw-medium)}
+.badge{font-weight:var(--fw-medium);font-size:0.85rem}
+
+/* Long-form readable text must use Roboto. Use the utility class `.longform` on pages/components that are long prose. */
+.longform, .product-description, .about-page, .faq-page, .policy-page, .terms-page{font-family:var(--font-body);font-weight:var(--fw-regular);line-height:1.6}
+.longform h1,.longform h2,.longform h3{font-family:var(--font-body);font-weight:var(--fw-medium)}
+
+/* Accessibility / readability tweaks */
+p{margin:0 0 1rem 0}
+small{font-size:.85rem}
+
+/* Responsive adjustments */
+@media (max-width:900px){
+	html{font-size:15px}
+	h1{font-size:1.9rem}
+	h2{font-size:1.4rem}
+}
+
+@media (max-width:480px){
+	html{font-size:14px}
+	h1{font-size:1.6rem}
+}
+
+/* Prevent mixing fonts inside same component: where a component should use Roboto, apply `.longform` to its container. */
+
