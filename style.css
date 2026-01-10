@@ -884,6 +884,11 @@ html, body { overflow-x: hidden; }
   img, .marquee-track img, .item-card img, .category-card img, .footer-img, .logo {
     border-radius: 0 !important;
   }
+
+  /* Additional strong overrides for hero/marquee and logistics visuals */
+  .hero, .hero-marquee, .hero .marquee-track, .hero .marquee-track img, .marquee-item, .logistics-visual, .logistics-visual img, .features-list .feature, .products-cards, .products-cards .item-card {
+    border-radius: 0 !important;
+  }
   .feature {
     max-width: 95vw;
     width: 100%;
