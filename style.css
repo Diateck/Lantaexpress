@@ -873,22 +873,6 @@ html, body { overflow-x: hidden; }
 
   /* If other components set radius via the CSS variable, this ensures zero radius globally for cards. */
   :root { --radius: 0px; }
-
-  /* Ensure any element or image with inline `border-radius` is forced to 0
-     This handles remaining inline styles inserted directly in HTML. */
-  *[style*="border-radius"] {
-    border-radius: 0 !important;
-  }
-
-  /* Force all images used as card thumbnails / containers to be sharp. */
-  img, .marquee-track img, .item-card img, .category-card img, .footer-img, .logo {
-    border-radius: 0 !important;
-  }
-
-  /* Additional strong overrides for hero/marquee and logistics visuals */
-  .hero, .hero-marquee, .hero .marquee-track, .hero .marquee-track img, .marquee-item, .logistics-visual, .logistics-visual img, .features-list .feature, .products-cards, .products-cards .item-card {
-    border-radius: 0 !important;
-  }
   .feature {
     max-width: 95vw;
     width: 100%;
