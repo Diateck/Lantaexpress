@@ -116,7 +116,7 @@
   --dark: #2b0b0b;
   --light: #e6f7f3;
   --gray: #f8f8f8;
-  --radius: 16px;
+  --radius: 0px;
   --shadow: 0 4px 16px rgba(0,0,0,0.10);
   --font-main: 'Segoe UI', Arial, sans-serif;
 }
@@ -864,6 +864,15 @@ html, body { overflow-x: hidden; }
     margin-right: auto;
     box-sizing: border-box;
   }
+  /* Override: Force sharp corners for all card-like elements (desktop/tablet/mobile)
+     This targets common card classes and images; inline styles are overridden by !important.
+     If you want to keep some rounded elements (eg. pill buttons), exclude them explicitly. */
+  .card-sharp-override, .section, .feature, .item-card, .products-cards .item-card, .items-section, .item-cards .item-card, .category-card, .sidebar, .marquee-item, .marquee-track img, .item-card img, .products-cards .item-card img, .category-card img, .footer-img, .logo {
+    border-radius: 0 !important;
+  }
+
+  /* If other components set radius via the CSS variable, this ensures zero radius globally for cards. */
+  :root { --radius: 0px; }
   .feature {
     max-width: 95vw;
     width: 100%;
